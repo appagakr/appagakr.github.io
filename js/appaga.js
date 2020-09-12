@@ -1,8 +1,8 @@
 "use strict";
 (function (apg, $, undefined) {
     //Private Property
+    const rootUrl = "https://appaga.kr/";
     let myPrivate = '변수';
-    const myConst = "상수";
 
     //Private Method
     function addItem(item) {
@@ -19,7 +19,7 @@
         nav, footer 태그를 body에 추가한다.
      */
     apg.addInclude = function () {
-        $('#apgIncludeDiv').load('include.html', function (responseText, statusText, xhr) {
+        $('#apgIncludeDiv').load('/include.html', function (responseText, statusText, xhr) {
             //console.log('apg.addNav responseText', responseText);
             console.log('apg.addNav statusText', statusText);
             //console.log('apg.addNav xhr', xhr);
