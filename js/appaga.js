@@ -15,17 +15,23 @@
     apg.ingredient = "Bacon Strips";
 
     //Public Method
-    apg.addNav = function () {
-        $('nav').load('/include.html nav', function (responseText, statusText, xhr) {
-            console.log('apg.addNav', responseText);
-            console.log('apg.addNav', statusText);
-            console.log('apg.addNav', xhr);
+    /*
+        nav, footer 태그를 body에 추가한다.
+     */
+    apg.addInclude = function () {
+        $('#apgIncludeDiv').load('include.html', function (responseText, statusText, xhr) {
+            //console.log('apg.addNav responseText', responseText);
+            console.log('apg.addNav statusText', statusText);
+            //console.log('apg.addNav xhr', xhr);
+            $(this).find('nav').prependTo('body');
+            $(this).find('footer').appendTo('body');
+            $(this).remove(); /* 사용 완료 후 삭제 */
         })
     };
 
 }(window.apg = window.apg || {}, jQuery));
 
 $(function () {
-        apg.addNav();
+        apg.addInclude();
     }
 );
