@@ -15,12 +15,17 @@
     apg.ingredient = "Bacon Strips";
 
     //Public Method
-    apg.fry = function () {
-        let oliveOil;
-
-        addItem("\t\n Butter \n\t");
-        addItem(oliveOil);
-        console.log("Frying " + apg.ingredient);
+    apg.addNav = function () {
+        $('nav').load('/include.html nav', function (responseText, statusText, xhr) {
+            console.log('apg.addNav', responseText);
+            console.log('apg.addNav', statusText);
+            console.log('apg.addNav', xhr);
+        })
     };
 
 }(window.apg = window.apg || {}, jQuery));
+
+$(function () {
+        apg.addNav();
+    }
+);
