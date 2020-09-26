@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="Appaga Homepage">
     <meta name="author" content="Appaga">
-    <title>Blog · Appaga</title>
+    <title>Springboot+MongoDB · Appaga</title>
     <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
     <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
@@ -20,32 +20,34 @@
 <!-- Page Content -->
 <div class="container">
     <!-- Page Heading/Breadcrumbs -->
-    <h1 class="mt-4 mb-3">자주 이용하는 유틸리티들
-        <small>2020.09.12</small>
+    <h1 class="mt-4 mb-3">Springboot과 MongoDB로 웹어플리케이션 개발
+        <small>2020.09.26</small>
     </h1>
 
     <ol class="breadcrumb">
         <li class="breadcrumb-item">
             <a href="/">Home</a>
         </li>
-        <li class="breadcrumb-item active">Blog</li>
+        <li class="breadcrumb-item active">Springboot</li>
     </ol>
     <!-- /Page Heading/Breadcrumbs -->
     <!-- content -->
     <div class="row">
         <div class="col">
-            <h2>Favicon 만들기</h2>
-            <p><a href="https://favicon.io/">favicon.io</a> 사이트에서 온라인으로 손쉽게 만들어 이용한다.
-                <mark>무료이다!</mark>
+            <h2>MongoDB</h2>
+            <p><a href="https://www.mongodb.com/">www.mongodb.com</a>에서 512M 용량의
+                <mark>free</mark>
+                DB를 만든다. 회원가입을 하고 cluster를 만든다. 안내에 따라 진행하면 되니 별도의 사전 지식을 필요로 하지 않는다.
             </p>
-            <hr>
-            <h2>PNG 이미지 배경을 투명하게...</h2>
-            <p><a href="https://www.remove.bg/">remove.bg</a> 사이트에서 온라인으로 PNG 이미지의 배경을 삭제하여 투명하게 만들 수 있다.
-                <mark>무료이다!</mark>
-            </p>
-            <hr>
-            <h2>Bootstrap 4</h2>
-            <p><a href="https://getbootstrap.com/">getbootstrap.com</a> 웹페이지 기본 레이아웃과 디자인은 Bootstrap 4 템플릿을 쓴다. </p>
+            <p>DB접속 계정은 패스워드 기반으로 생성한다. 인증서 기반으로 생성할 수도 있다.</p>
+            <p>접속가능 IP에 현재 사용중인 IP만 추가한다. 물론, 모든 IP 접속허용도 가능하다.</p>
+            <p>샘플 데이터(약 320M 정도)를 로드해서 테스트에 사용한다. 버튼 클릭만으로 샘플 데이터는 로드된다.</p>
+            <p><a href="https://www.mongodb.com/products/compass">MongoDB Compass</a>를 설치하여 샘플 데이터를 조회해본다.</p>
+            <p>연결문자는 <code>mongodb+srv://DB계정:계정암호@cluster0.mongodb.net/test</code> 이런 형식이다.</p>
+            <figure class="figure">
+                <img src="./mongodb001.jpg" class="img-fluid" alt="MongoDB Compass">
+                <figcaption class="figure-caption">MongoDB Compass로 접속</figcaption>
+            </figure>
         </div>
     </div>
     <!-- /content -->
