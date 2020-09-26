@@ -20,9 +20,6 @@
      */
     apg.addInclude = function () {
         $('#apgIncludeDiv').load(rootUrl+'include.html', function (responseText, statusText, xhr) {
-            //console.log('apg.addNav responseText', responseText);
-            console.log('apg.addNav statusText', statusText);
-            //console.log('apg.addNav xhr', xhr);
             $(this).find('nav').prependTo('body');
             $(this).find('footer').appendTo('body');
             $(this).remove(); /* 사용 완료 후 삭제 */
