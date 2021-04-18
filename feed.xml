@@ -6,14 +6,14 @@
     <atom:link href="https://appaga.kr/feed.xml" rel="self" type="application/rss+xml" />
     <description>APPAGA.KR DevOps</description>
     <language>ko-KR</language>
-    <pubDate>Sun, 18 Apr 2021 16:44:58 +0900</pubDate>
-    <lastBuildDate>Sun, 18 Apr 2021 16:44:58 +0900</lastBuildDate>
+    <pubDate>Sun, 18 Apr 2021 22:22:50 +0900</pubDate>
+    <lastBuildDate>Sun, 18 Apr 2021 22:22:50 +0900</lastBuildDate>
 
     <item>
       <title>code prettify</title>
-      <link>https://appaga.kr/blog/post0001.html</link>
+      <link>https://appaga.kr/blog/post/post0001.html</link>
       <pubDate>Thu, 1 Apr 2021 00:00:00 +0900</pubDate>
-      <guid isPermaLink="false">blog/post0001.html</guid>
+      <guid isPermaLink="false">blog/post/post0001.html</guid>
       <description>
 &amp;lt;p&amp;gt;code prettify&amp;lt;/p&amp;gt;
 &amp;lt;p&amp;gt;&amp;amp;lt;pre class=&amp;quot;prettyprint&amp;quot;&amp;amp;gt;를 사용한다.&amp;lt;/p&amp;gt;
@@ -51,7 +51,7 @@ public class Oven {
 &amp;lt;p&amp;gt;샘플 데이터(약 320M 정도)를 로드해서 테스트에 사용한다.&amp;lt;br /&amp;gt;
 버튼 클릭만으로 샘플 데이터는 로드된다.&amp;lt;/p&amp;gt;
 &amp;lt;p&amp;gt;&amp;lt;a href=&amp;quot;https://www.mongodb.com/products/compass&amp;quot;&amp;gt;MongoDB Compass&amp;lt;/a&amp;gt;를 설치하여 샘플 데이터를 조회해본다.&amp;lt;/p&amp;gt;
-&amp;lt;p&amp;gt;연결문자는 &amp;lt;code&amp;gt;mongodb+srv://DB계정:계정암호@cluster0.mongodb.net/test&amp;lt;/code&amp;gt; 이런 형식이다.&amp;lt;/p&amp;gt;
+&amp;lt;p&amp;gt;연결문자는 &amp;lt;code&amp;gt;mongodb+srv://DB계정:계정암호@cluster0.mongodb.net/test&amp;lt;/code&amp;gt; 형식이다.&amp;lt;/p&amp;gt;
 &amp;lt;p&amp;gt;&amp;lt;img src=&amp;quot;/img/mongodb001.jpg&amp;quot; alt=&amp;quot;img01&amp;quot; /&amp;gt;&amp;lt;/p&amp;gt;
 </description>
     </item>
