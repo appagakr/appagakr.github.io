@@ -1,0 +1,60 @@
+<?xml version="1.0"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>JBake</title>
+    <link>https://appaga.kr</link>
+    <atom:link href="https://appaga.kr/feed.xml" rel="self" type="application/rss+xml" />
+    <description>APPAGA.KR DevOps</description>
+    <language>ko-KR</language>
+    <pubDate>Sun, 18 Apr 2021 16:25:52 +0900</pubDate>
+    <lastBuildDate>Sun, 18 Apr 2021 16:25:52 +0900</lastBuildDate>
+
+    <item>
+      <title>code prettify</title>
+      <link>https://appaga.kr/blog/post0001.html</link>
+      <pubDate>Thu, 1 Apr 2021 00:00:00 +0900</pubDate>
+      <guid isPermaLink="false">blog/post0001.html</guid>
+      <description>
+&amp;lt;p&amp;gt;code prettify&amp;lt;/p&amp;gt;
+&amp;lt;p&amp;gt;&amp;amp;lt;pre class=&amp;quot;prettyprint&amp;quot;&amp;amp;gt;를 사용한다.&amp;lt;/p&amp;gt;
+
+&amp;lt;ul&amp;gt;
+&amp;lt;li&amp;gt;&amp;lt;a href=&amp;quot;https://github.com/googlearchive/code-prettify&amp;quot;&amp;gt;https://github.com/googlearchive/code-prettify&amp;lt;/a&amp;gt;&amp;lt;/li&amp;gt;
+&amp;lt;/ul&amp;gt;
+
+&amp;lt;p&amp;gt;&amp;lt;/p&amp;gt;
+
+&amp;lt;pre class=&amp;quot;prettyprint&amp;quot;&amp;gt;
+&amp;lt;code&amp;gt;
+package org.jbake;
+
+public class Oven {
+	public static void main(String[] args) {
+		System.out.print(&amp;quot;Baking!&amp;quot;);
+  }
+}
+&amp;lt;/code&amp;gt;
+&amp;lt;/pre&amp;gt;
+</description>
+    </item><item>
+      <title>MongoDB free account</title>
+      <link>https://appaga.kr/blog/mongodb/mongodb0001.html</link>
+      <pubDate>Sat, 26 Sep 2020 00:00:00 +0900</pubDate>
+      <guid isPermaLink="false">blog/mongodb/mongodb0001.html</guid>
+      <description>&amp;lt;p&amp;gt;&amp;lt;a href=&amp;quot;https://www.mongodb.com/&amp;quot;&amp;gt;www.mongodb.com&amp;lt;/a&amp;gt;에서 512M 용량의 free DB를 만든다.&amp;lt;br /&amp;gt;
+회원가입을 하고 cluster를 만든다.&amp;lt;br /&amp;gt;
+안내에 따라 진행하면 되니 별도의 사전 지식을 필요로 하지 않는다.&amp;lt;/p&amp;gt;
+&amp;lt;p&amp;gt;DB접속 계정은 패스워드 기반으로 생성한다.&amp;lt;br /&amp;gt;
+인증서 기반으로 생성할 수도 있다.&amp;lt;/p&amp;gt;
+&amp;lt;p&amp;gt;접속가능 IP에 현재 사용중인 IP만 추가한다.&amp;lt;br /&amp;gt;
+물론, 모든 IP 접속허용도 가능하다.&amp;lt;/p&amp;gt;
+&amp;lt;p&amp;gt;샘플 데이터(약 320M 정도)를 로드해서 테스트에 사용한다.&amp;lt;br /&amp;gt;
+버튼 클릭만으로 샘플 데이터는 로드된다.&amp;lt;/p&amp;gt;
+&amp;lt;p&amp;gt;&amp;lt;a href=&amp;quot;https://www.mongodb.com/products/compass&amp;quot;&amp;gt;MongoDB Compass&amp;lt;/a&amp;gt;를 설치하여 샘플 데이터를 조회해본다.&amp;lt;/p&amp;gt;
+&amp;lt;p&amp;gt;연결문자는 &amp;lt;code&amp;gt;mongodb+srv://DB계정:계정암호@cluster0.mongodb.net/test&amp;lt;/code&amp;gt; 이런 형식이다.&amp;lt;/p&amp;gt;
+&amp;lt;p&amp;gt;&amp;lt;img src=&amp;quot;/img/mongodb001.jpg&amp;quot; alt=&amp;quot;img01&amp;quot; /&amp;gt;&amp;lt;/p&amp;gt;
+</description>
+    </item>
+
+  </channel>
+</rss>
