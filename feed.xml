@@ -2,16 +2,16 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>JBake</title>
-    <link>http://localhost:8820/</link>
-    <atom:link href="http://localhost:8820//feed.xml" rel="self" type="application/rss+xml" />
+    <link>https://appaga.kr</link>
+    <atom:link href="https://appaga.kr/feed.xml" rel="self" type="application/rss+xml" />
     <description>APPAGA.KR DevOps</description>
     <language>ko-KR</language>
-    <pubDate>Sat, 29 May 2021 11:43:59 +0900</pubDate>
-    <lastBuildDate>Sat, 29 May 2021 11:43:59 +0900</lastBuildDate>
+    <pubDate>Sat, 29 May 2021 12:03:40 +0900</pubDate>
+    <lastBuildDate>Sat, 29 May 2021 12:03:40 +0900</lastBuildDate>
 
     <item>
       <title>code prettify</title>
-      <link>http://localhost:8820//blog/post/post0001.html</link>
+      <link>https://appaga.kr/blog/post/post0001.html</link>
       <pubDate>Thu, 1 Apr 2021 00:00:00 +0900</pubDate>
       <guid isPermaLink="false">blog/post/post0001.html</guid>
       <description>
@@ -38,7 +38,7 @@ public class Oven {
 </description>
     </item><item>
       <title>JavaScript Obfuscator Tool: obfuscator.io</title>
-      <link>http://localhost:8820//blog/js/obfuscator_io.html</link>
+      <link>https://appaga.kr/blog/js/obfuscator_io.html</link>
       <pubDate>Thu, 1 Oct 2020 00:00:00 +0900</pubDate>
       <guid isPermaLink="false">blog/js/obfuscator_io.html</guid>
       <description>&amp;lt;h1&amp;gt;자바스크립트 난독화&amp;lt;/h1&amp;gt;
@@ -92,7 +92,7 @@ $CMD $SRC_DIR/js/common.js --output $OUT_DIR/common.js $OUT_OPT
 </description>
     </item><item>
       <title>MongoDB free account</title>
-      <link>http://localhost:8820//blog/mongodb/mongodb0001.html</link>
+      <link>https://appaga.kr/blog/mongodb/mongodb0001.html</link>
       <pubDate>Sat, 26 Sep 2020 00:00:00 +0900</pubDate>
       <guid isPermaLink="false">blog/mongodb/mongodb0001.html</guid>
       <description>&amp;lt;p&amp;gt;&amp;lt;a href=&amp;quot;https://www.mongodb.com/&amp;quot;&amp;gt;www.mongodb.com&amp;lt;/a&amp;gt;에서 512M 용량의 free DB를 만든다.&amp;lt;br /&amp;gt;
