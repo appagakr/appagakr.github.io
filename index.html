@@ -43,8 +43,8 @@
 
 		  <div class="nav-scroller py-1 mb-2">
 		    <nav class="nav d-flex justify-content-between">
-						<a class="p-2 link-secondary" href="tags/mongodb.html">Mongodb</a>
-					<a class="p-2 link-secondary" href='archive.html'>Archive</a>
+						<!-- <a class="p-2 link-secondary" th:with="rootpath=(${content.rootpath} ?: '')" th:href="${rootpath}+'tags/mongodb.html'">Mongodb</a> -->
+						<a class="p-2 link-secondary" href='archive.html'>Archive</a>
 		    </nav>
 		  </div>
 		</div>
@@ -75,6 +75,59 @@ public class Oven {
 }
 </code>
 </pre>
+</p>
+				</article>
+				<article class="blog-post">
+					<h2 class="blog-post-title"><a href='blog/js/obfuscator_io.html'>JavaScript Obfuscator Tool: obfuscator.io</a></h2>
+					<p class="blog-post-meta">01 October 2020</p>
+					<p><h1>자바스크립트 난독화</h1>
+<p>자바스크립트 난독화가 필요하여 테스트 하다가 오픈소스 <a href="https://obfuscator.io/">obfuscator.io</a> 툴을 이용하여 실무에 적용하였다.</p>
+<p>온라인으로도 가능하고 설치하여 사용도 가능하다.</p>
+<p>간단한 옵션 설정으로 난독화가 가능하고 브라우저 디버깅 모드를 작동하지 않도록 할 수 있어 유용하게 사용 중이다.</p>
+<h2>로컬 설치</h2>
+<p>설치는  프로젝트의 <a href="https://github.com/javascript-obfuscator/javascript-obfuscator">설치안내</a> 페이지를 따라서 진행하면 간단히 가능하다.</p>
+<h2>로컬 실행</h2>
+<p>설치 후에 실행은 <code>npm</code> 가이드만 나와있는데, <code>npm</code>을 제대로 사용할 지 모르는 상태여서 <code>sh</code>로 실행하고 있다.</p>
+<ul>
+<li><code>CMD</code>: 실행파일 경로이다.</li>
+<li><code>OUT_OPT</code>: 옵션파일 경로이다.</li>
+<li><code>SRC_DIR</code>의 js 파일 <code>common.js</code>를 <code>OUT_DIR</code>에 난독화하여 저장하고 있다.</li>
+</ul>
+<pre><code class="language-shell">#!/bin/sh
+CMD=/home/appagakr/js-obfuscator/node_modules/javascript-obfuscator/bin/javascript-obfuscator
+SRC_DIR=/var/www/html/
+OUT_DIR=/home/appagakr/js-encode
+OUT_OPT=&quot;--config /home/appagakr/appagakr_conf.json&quot;
+$CMD $SRC_DIR/js/common.js --output $OUT_DIR/common.js $OUT_OPT
+</code></pre>
+<p>난독화 옵션 파일 <code>appagakr_conf.json</code>은 Low obfuscation, High performance 옵션에서 디버깅 불가, 콘솔 출력 불가만 <code>true</code>로 하여 사용중이다.</p>
+<pre><code class="language-json">{
+        &quot;compact&quot;: true,
+        &quot;controlFlowFlattening&quot;: false,
+        &quot;deadCodeInjection&quot;: true,
+        &quot;debugProtection&quot;: true,
+        &quot;debugProtectionInterval&quot;: false,
+        &quot;disableConsoleOutput&quot;: true,
+        &quot;identifierNamesGenerator&quot;: &quot;hexadecimal&quot;,
+        &quot;log&quot;: false,
+        &quot;numbersToExpressions&quot;: false,
+        &quot;renameGlobals&quot;: false,
+        &quot;rotateStringArray&quot;: true,
+        &quot;selfDefending&quot;: false,
+        &quot;shuffleStringArray&quot;: true,
+        &quot;simplify&quot;: true,
+        &quot;splitStrings&quot;: false,
+        &quot;stringArray&quot;: true,
+        &quot;stringArrayEncoding&quot;: [],
+        &quot;stringArrayIndexShift&quot;: true,
+        &quot;stringArrayWrappersCount&quot;: 1,
+        &quot;stringArrayWrappersChainedCalls&quot;: true,
+        &quot;stringArrayWrappersParametersMaxCount&quot;: 2,
+        &quot;stringArrayWrappersType&quot;: &quot;variable&quot;,
+        &quot;stringArrayThreshold&quot;: 0.75,
+        &quot;unicodeEscapeSequence&quot;: false
+}
+</code></pre>
 </p>
 				</article>
 				<article class="blog-post">

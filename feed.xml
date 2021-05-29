@@ -2,16 +2,16 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>JBake</title>
-    <link>https://appaga.kr</link>
-    <atom:link href="https://appaga.kr/feed.xml" rel="self" type="application/rss+xml" />
+    <link>http://localhost:8820/</link>
+    <atom:link href="http://localhost:8820//feed.xml" rel="self" type="application/rss+xml" />
     <description>APPAGA.KR DevOps</description>
     <language>ko-KR</language>
-    <pubDate>Sun, 18 Apr 2021 22:22:50 +0900</pubDate>
-    <lastBuildDate>Sun, 18 Apr 2021 22:22:50 +0900</lastBuildDate>
+    <pubDate>Sat, 29 May 2021 11:43:59 +0900</pubDate>
+    <lastBuildDate>Sat, 29 May 2021 11:43:59 +0900</lastBuildDate>
 
     <item>
       <title>code prettify</title>
-      <link>https://appaga.kr/blog/post/post0001.html</link>
+      <link>http://localhost:8820//blog/post/post0001.html</link>
       <pubDate>Thu, 1 Apr 2021 00:00:00 +0900</pubDate>
       <guid isPermaLink="false">blog/post/post0001.html</guid>
       <description>
@@ -37,8 +37,62 @@ public class Oven {
 &amp;lt;/pre&amp;gt;
 </description>
     </item><item>
+      <title>JavaScript Obfuscator Tool: obfuscator.io</title>
+      <link>http://localhost:8820//blog/js/obfuscator_io.html</link>
+      <pubDate>Thu, 1 Oct 2020 00:00:00 +0900</pubDate>
+      <guid isPermaLink="false">blog/js/obfuscator_io.html</guid>
+      <description>&amp;lt;h1&amp;gt;자바스크립트 난독화&amp;lt;/h1&amp;gt;
+&amp;lt;p&amp;gt;자바스크립트 난독화가 필요하여 테스트 하다가 오픈소스 &amp;lt;a href=&amp;quot;https://obfuscator.io/&amp;quot;&amp;gt;obfuscator.io&amp;lt;/a&amp;gt; 툴을 이용하여 실무에 적용하였다.&amp;lt;/p&amp;gt;
+&amp;lt;p&amp;gt;온라인으로도 가능하고 설치하여 사용도 가능하다.&amp;lt;/p&amp;gt;
+&amp;lt;p&amp;gt;간단한 옵션 설정으로 난독화가 가능하고 브라우저 디버깅 모드를 작동하지 않도록 할 수 있어 유용하게 사용 중이다.&amp;lt;/p&amp;gt;
+&amp;lt;h2&amp;gt;로컬 설치&amp;lt;/h2&amp;gt;
+&amp;lt;p&amp;gt;설치는  프로젝트의 &amp;lt;a href=&amp;quot;https://github.com/javascript-obfuscator/javascript-obfuscator&amp;quot;&amp;gt;설치안내&amp;lt;/a&amp;gt; 페이지를 따라서 진행하면 간단히 가능하다.&amp;lt;/p&amp;gt;
+&amp;lt;h2&amp;gt;로컬 실행&amp;lt;/h2&amp;gt;
+&amp;lt;p&amp;gt;설치 후에 실행은 &amp;lt;code&amp;gt;npm&amp;lt;/code&amp;gt; 가이드만 나와있는데, &amp;lt;code&amp;gt;npm&amp;lt;/code&amp;gt;을 제대로 사용할 지 모르는 상태여서 &amp;lt;code&amp;gt;sh&amp;lt;/code&amp;gt;로 실행하고 있다.&amp;lt;/p&amp;gt;
+&amp;lt;ul&amp;gt;
+&amp;lt;li&amp;gt;&amp;lt;code&amp;gt;CMD&amp;lt;/code&amp;gt;: 실행파일 경로이다.&amp;lt;/li&amp;gt;
+&amp;lt;li&amp;gt;&amp;lt;code&amp;gt;OUT_OPT&amp;lt;/code&amp;gt;: 옵션파일 경로이다.&amp;lt;/li&amp;gt;
+&amp;lt;li&amp;gt;&amp;lt;code&amp;gt;SRC_DIR&amp;lt;/code&amp;gt;의 js 파일 &amp;lt;code&amp;gt;common.js&amp;lt;/code&amp;gt;를 &amp;lt;code&amp;gt;OUT_DIR&amp;lt;/code&amp;gt;에 난독화하여 저장하고 있다.&amp;lt;/li&amp;gt;
+&amp;lt;/ul&amp;gt;
+&amp;lt;pre&amp;gt;&amp;lt;code class=&amp;quot;language-shell&amp;quot;&amp;gt;#!/bin/sh
+CMD=/home/appagakr/js-obfuscator/node_modules/javascript-obfuscator/bin/javascript-obfuscator
+SRC_DIR=/var/www/html/
+OUT_DIR=/home/appagakr/js-encode
+OUT_OPT=&amp;amp;quot;--config /home/appagakr/appagakr_conf.json&amp;amp;quot;
+$CMD $SRC_DIR/js/common.js --output $OUT_DIR/common.js $OUT_OPT
+&amp;lt;/code&amp;gt;&amp;lt;/pre&amp;gt;
+&amp;lt;p&amp;gt;난독화 옵션 파일 &amp;lt;code&amp;gt;appagakr_conf.json&amp;lt;/code&amp;gt;은 Low obfuscation, High performance 옵션에서 디버깅 불가, 콘솔 출력 불가만 &amp;lt;code&amp;gt;true&amp;lt;/code&amp;gt;로 하여 사용중이다.&amp;lt;/p&amp;gt;
+&amp;lt;pre&amp;gt;&amp;lt;code class=&amp;quot;language-json&amp;quot;&amp;gt;{
+        &amp;amp;quot;compact&amp;amp;quot;: true,
+        &amp;amp;quot;controlFlowFlattening&amp;amp;quot;: false,
+        &amp;amp;quot;deadCodeInjection&amp;amp;quot;: true,
+        &amp;amp;quot;debugProtection&amp;amp;quot;: true,
+        &amp;amp;quot;debugProtectionInterval&amp;amp;quot;: false,
+        &amp;amp;quot;disableConsoleOutput&amp;amp;quot;: true,
+        &amp;amp;quot;identifierNamesGenerator&amp;amp;quot;: &amp;amp;quot;hexadecimal&amp;amp;quot;,
+        &amp;amp;quot;log&amp;amp;quot;: false,
+        &amp;amp;quot;numbersToExpressions&amp;amp;quot;: false,
+        &amp;amp;quot;renameGlobals&amp;amp;quot;: false,
+        &amp;amp;quot;rotateStringArray&amp;amp;quot;: true,
+        &amp;amp;quot;selfDefending&amp;amp;quot;: false,
+        &amp;amp;quot;shuffleStringArray&amp;amp;quot;: true,
+        &amp;amp;quot;simplify&amp;amp;quot;: true,
+        &amp;amp;quot;splitStrings&amp;amp;quot;: false,
+        &amp;amp;quot;stringArray&amp;amp;quot;: true,
+        &amp;amp;quot;stringArrayEncoding&amp;amp;quot;: [],
+        &amp;amp;quot;stringArrayIndexShift&amp;amp;quot;: true,
+        &amp;amp;quot;stringArrayWrappersCount&amp;amp;quot;: 1,
+        &amp;amp;quot;stringArrayWrappersChainedCalls&amp;amp;quot;: true,
+        &amp;amp;quot;stringArrayWrappersParametersMaxCount&amp;amp;quot;: 2,
+        &amp;amp;quot;stringArrayWrappersType&amp;amp;quot;: &amp;amp;quot;variable&amp;amp;quot;,
+        &amp;amp;quot;stringArrayThreshold&amp;amp;quot;: 0.75,
+        &amp;amp;quot;unicodeEscapeSequence&amp;amp;quot;: false
+}
+&amp;lt;/code&amp;gt;&amp;lt;/pre&amp;gt;
+</description>
+    </item><item>
       <title>MongoDB free account</title>
-      <link>https://appaga.kr/blog/mongodb/mongodb0001.html</link>
+      <link>http://localhost:8820//blog/mongodb/mongodb0001.html</link>
       <pubDate>Sat, 26 Sep 2020 00:00:00 +0900</pubDate>
       <guid isPermaLink="false">blog/mongodb/mongodb0001.html</guid>
       <description>&amp;lt;p&amp;gt;&amp;lt;a href=&amp;quot;https://www.mongodb.com/&amp;quot;&amp;gt;www.mongodb.com&amp;lt;/a&amp;gt;에서 512M 용량의 free DB를 만든다.&amp;lt;br /&amp;gt;
