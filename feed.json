@@ -1,0 +1,43 @@
+{
+    "version": "https://jsonfeed.org/version/1",
+    "title": "Appaga",
+    "description": "",
+    "home_page_url": "https://appaga.kr",
+    "feed_url": "https://appaga.kr/feed.json",
+    "user_comment": "",
+    "icon": "https://appaga.kr/media/website/android-chrome-192x192.png",
+    "author": {
+        "name": "appaga"
+    },
+    "items": [
+        {
+            "id": "https://appaga.kr/javascript-obfuscator-tool-obfuscatorio/",
+            "url": "https://appaga.kr/javascript-obfuscator-tool-obfuscatorio/",
+            "title": "JavaScript Obfuscator Tool: obfuscator.io",
+            "summary": "자바스크립트 난독화 자바스크립트 난독화가 필요하여 테스트 하다가 오픈소스 obfuscator.io 툴을 이용하여 실무에 적용하였다. 온라인으로도 가능하고 설치하여 사용도 가능하다. 간단한 옵션 설정으로 난독화가 가능하고 브라우저 디버깅 모드를 작동하지 않도록 할 수 있어 유용하게 사용 중이다. 설치는 프로젝트의 설치안내 페이지를 따라서 진행하면 간단히 가능하다. 설치 후에 실행은&hellip;",
+            "content_html": "<h1 id=\"자바스크립트-난독화\">자바스크립트 난독화</h1>\n<p>자바스크립트 난독화가 필요하여 테스트 하다가 오픈소스 <a href=\"https://obfuscator.io/\">obfuscator.io</a> 툴을 이용하여 실무에 적용하였다.</p>\n<p>온라인으로도 가능하고 설치하여 사용도 가능하다.</p>\n<p>간단한 옵션 설정으로 난독화가 가능하고 브라우저 디버깅 모드를 작동하지 않도록 할 수 있어 유용하게 사용 중이다.</p>\n<h2 id=\"로컬-설치\">로컬 설치</h2>\n<p>설치는  프로젝트의 <a href=\"https://github.com/javascript-obfuscator/javascript-obfuscator\">설치안내</a> 페이지를 따라서 진행하면 간단히 가능하다.</p>\n<h2 id=\"로컬-실행\">로컬 실행</h2>\n<p>설치 후에 실행은 <code>npm</code> 가이드만 나와있는데, <code>npm</code>을 제대로 사용할 지 모르는 상태여서 <code>sh</code>로 실행하고 있다.</p>\n<ul>\n<li><code>CMD</code>: 실행파일 경로이다.</li>\n<li><code>OUT_OPT</code>: 옵션파일 경로이다.</li>\n<li><code>SRC_DIR</code>의 js 파일 <code>common.js</code>를 <code>OUT_DIR</code>에 난독화하여 저장하고 있다.</li>\n</ul>\n<pre><code class=\"language-shell\">#!/bin/sh\nCMD=/home/appagakr/js-obfuscator/node_modules/javascript-obfuscator/bin/javascript-obfuscator\nSRC_DIR=/var/www/html/\nOUT_DIR=/home/appagakr/js-encode\nOUT_OPT=&quot;--config /home/appagakr/appagakr_conf.json&quot;\n$CMD $SRC_DIR/js/common.js --output $OUT_DIR/common.js $OUT_OPT\n</code></pre>\n<p>난독화 옵션 파일 <code>appagakr_conf.json</code>은 Low obfuscation, High performance 옵션에서 디버깅 불가, 콘솔 출력 불가만 <code>true</code>로 하여 사용중이다.</p>\n<pre><code class=\"language-json\">{\n        &quot;compact&quot;: true,\n        &quot;controlFlowFlattening&quot;: false,\n        &quot;deadCodeInjection&quot;: true,\n        &quot;debugProtection&quot;: true,\n        &quot;debugProtectionInterval&quot;: false,\n        &quot;disableConsoleOutput&quot;: true,\n        &quot;identifierNamesGenerator&quot;: &quot;hexadecimal&quot;,\n        &quot;log&quot;: false,\n        &quot;numbersToExpressions&quot;: false,\n        &quot;renameGlobals&quot;: false,\n        &quot;rotateStringArray&quot;: true,\n        &quot;selfDefending&quot;: false,\n        &quot;shuffleStringArray&quot;: true,\n        &quot;simplify&quot;: true,\n        &quot;splitStrings&quot;: false,\n        &quot;stringArray&quot;: true,\n        &quot;stringArrayEncoding&quot;: [],\n        &quot;stringArrayIndexShift&quot;: true,\n        &quot;stringArrayWrappersCount&quot;: 1,\n        &quot;stringArrayWrappersChainedCalls&quot;: true,\n        &quot;stringArrayWrappersParametersMaxCount&quot;: 2,\n        &quot;stringArrayWrappersType&quot;: &quot;variable&quot;,\n        &quot;stringArrayThreshold&quot;: 0.75,\n        &quot;unicodeEscapeSequence&quot;: false\n}\n</code></pre>\n",
+            "author": {
+                "name": "appaga"
+            },
+            "tags": [
+            ],
+            "date_published": "2021-10-07T13:33:04+09:00",
+            "date_modified": "2021-10-07T13:33:04+09:00"
+        },
+        {
+            "id": "https://appaga.kr/mongodb-muryo-gyejeong-2/",
+            "url": "https://appaga.kr/mongodb-muryo-gyejeong-2/",
+            "title": "mongoDB 무료 계정",
+            "summary": "www.mongodb.com에서 512M 용량의 free DB를 만든다. 회원가입을 하고 cluster를 만든다. 안내에 따라 진행하면 되니 별도의 사전 지식을 필요로 하지 않는다. DB접속 계정은 패스워드 기반으로 생성한다. 인증서 기반으로 생성할 수도 있다. 접속가능 IP에 현재 사용중인 IP만 추가한다. 물론, 모든 IP 접속허용도 가능하다. 샘플 데이터(약 320M 정도)를&hellip;",
+            "content_html": "<p><a href=\"https://www.mongodb.com/\">www.mongodb.com</a>에서 512M 용량의 free DB를 만든다.\n회원가입을 하고 cluster를 만든다.\n안내에 따라 진행하면 되니 별도의 사전 지식을 필요로 하지 않는다.</p>\n<p>DB접속 계정은 패스워드 기반으로 생성한다.\n인증서 기반으로 생성할 수도 있다.</p>\n<p>접속가능 IP에 현재 사용중인 IP만 추가한다.\n물론, 모든 IP 접속허용도 가능하다.</p>\n<p>샘플 데이터(약 320M 정도)를 로드해서 테스트에 사용한다.\n버튼 클릭만으로 샘플 데이터는 로드된다.</p>\n<p><a href=\"https://www.mongodb.com/products/compass\">MongoDB Compass</a>를 설치하여 샘플 데이터를 조회해본다.</p>\n<p>연결문자는 <code>mongodb+srv://DB계정:계정암호@cluster0.mongodb.net/test</code> 형식이다.</p>\n<p><figure class=\"post__image\"><img loading=\"lazy\" src=\"https://appaga.kr/media/posts/2/mongodb001.jpg\" sizes=\"(max-width: 48em) 100vw, 768px\" srcset=\"https://appaga.kr/media/posts/2/responsive/mongodb001-xs.jpg 300w ,https://appaga.kr/media/posts/2/responsive/mongodb001-sm.jpg 480w ,https://appaga.kr/media/posts/2/responsive/mongodb001-md.jpg 768w ,https://appaga.kr/media/posts/2/responsive/mongodb001-lg.jpg 1024w ,https://appaga.kr/media/posts/2/responsive/mongodb001-xl.jpg 1360w ,https://appaga.kr/media/posts/2/responsive/mongodb001-2xl.jpg 1600w\"  alt=\"MongoDB Compass\" width=\"1010\" height=\"613\" /></figure></p>\n",
+            "image": "https://appaga.kr/media/posts/2/mongodb001-2.jpg",
+            "author": {
+                "name": "appaga"
+            },
+            "tags": [
+            ],
+            "date_published": "2021-10-07T13:16:16+09:00",
+            "date_modified": "2021-10-07T13:37:51+09:00"
+        }
+    ]
+}
