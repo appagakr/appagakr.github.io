@@ -3,12 +3,97 @@
     <title>Appaga</title>
     <link href="https://appaga.kr/feed.xml" rel="self" />
     <link href="https://appaga.kr" />
-    <updated>2021-10-07T13:37:51+09:00</updated>
+    <updated>2022-04-03T09:10:45+09:00</updated>
     <author>
         <name>appaga</name>
     </author>
     <id>https://appaga.kr</id>
 
+    <entry>
+        <title>Apache 2.x + Tomcat 설정</title>
+        <author>
+            <name>appaga</name>
+        </author>
+        <link href="https://appaga.kr/apache001/"/>
+        <id>https://appaga.kr/apache001/</id>
+
+        <updated>2022-04-03T09:10:45+09:00</updated>
+            <summary>
+                <![CDATA[
+                    apache 2.x에서 SSL 및 tomcat proxy 설정 http://로 접속을 시도하면 https://로 전환되도록 설정한다. &lt;VirtualHost *:80&gt; ServerName appaga.kr Redirect permanent / https://appaga.kr/ &lt;/VirtualHost&gt; RewriteEngine 으로 하는 방법 &lt;VirtualHost *:80&gt; ServerName appaga.kr RewriteEngine On RewriteCond %{HTTPS} off RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [R,L] &lt;/VirtualHost&gt; 443 포트 SSL 설정 발급받은&hellip;
+                ]]>
+            </summary>
+        <content type="html">
+            <![CDATA[
+                <p>apache 2.x에서 SSL 및 tomcat proxy 설정</p>
+<h2 id="80-포트를-443-포트로-리다이렉트">80 포트를 443 포트로 리다이렉트</h2>
+<p><code>http://</code>로 접속을 시도하면 <code>https://</code>로 전환되도록 설정한다.</p>
+<h3 id="redirect-속성으로-하는-방법"><code>Redirect</code> 속성으로 하는 방법</h3>
+<pre><code class="language-xml">&lt;VirtualHost *:80&gt;
+ServerName appaga.kr
+Redirect permanent / https://appaga.kr/
+&lt;/VirtualHost&gt;
+</code></pre>
+<h3 id="rewriteengine-으로-하는-방법"><code>RewriteEngine</code> 으로 하는 방법</h3>
+<pre><code class="language-xml">&lt;VirtualHost *:80&gt;
+ServerName appaga.kr
+RewriteEngine On
+RewriteCond %{HTTPS} off
+RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [R,L]
+&lt;/VirtualHost&gt;
+</code></pre>
+<h2 id="443-포트-ssl-설정">443 포트 SSL 설정</h2>
+<p>발급받은 SSL 인증서 파일들을 <code>/etc/httpd/ssl/2020/</code> 폴더에 저장하여 사용한다.</p>
+<p>tomcat은 8080 포트로 실행 중이며 proxy를 이용하여 모든 요청을 tomcat으로 전달 시킨다.</p>
+<p>만약 tomcat으로 proxy 하지 않도록 하려면 <code>ProxyPass /resources !</code> 처럼 느낌표 <code>!</code>로 proxy에서 예외처리 한다.</p>
+<pre><code class="language-xml">Listen 443 https
+SSLPassPhraseDialog exec:/usr/libexec/httpd-ssl-pass-dialog
+SSLSessionCache         shmcb:/run/httpd/sslcache(512000)
+SSLSessionCacheTimeout  300
+
+SSLRandomSeed startup file:///dev/urandom  256
+SSLRandomSeed connect builtin
+
+SSLCryptoDevice builtin
+
+&lt;VirtualHost *:443&gt;
+    ServerAdmin webmaster@localhost
+    DocumentRoot /var/www/html
+    ServerName appaga.kr
+
+    ErrorLog logs/error.log
+    CustomLog logs/access.log combined
+
+    SSLEngine on
+    SSLProtocol all -SSLv2 -SSLv3
+    SSLCipherSuite ECDHE-RSA-AES128-SHA256:AES128-GCM-SHA256:!RC4:HIGH:!MD5:!aNULL:!EDH
+
+    SSLCertificateFile      /etc/httpd/ssl/2020/appaga.kr.crt
+    SSLCertificateKeyFile   /etc/httpd/ssl/2020/appaga.kr.key
+    SSLCACertificateFile /etc/httpd/ssl/2020/appaga.kr.crt
+
+    ProxyRequests Off
+    ProxyPreserveHost On
+
+    &lt;Proxy *&gt;
+        Order deny,allow
+        Allow from all
+    &lt;/Proxy&gt;
+
+    ProxyPass /resources !
+    ProxyPass / http://127.0.0.1:8080/
+    ProxyPassReverse / http://127.0.0.1:8080/
+    &lt;Location /&gt;
+        Order allow,deny
+        Allow from all
+    &lt;/Location&gt;
+
+&lt;/VirtualHost&gt;
+</code></pre>
+
+            ]]>
+        </content>
+    </entry>
     <entry>
         <title>JavaScript Obfuscator Tool: obfuscator.io</title>
         <author>
