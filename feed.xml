@@ -3,7 +3,7 @@
     <title>Appaga</title>
     <link href="https://appaga.kr/feed.xml" rel="self" />
     <link href="https://appaga.kr" />
-    <updated>2022-04-03T09:10:45+09:00</updated>
+    <updated>2022-04-03T09:21:35+09:00</updated>
     <author>
         <name>appaga</name>
     </author>
@@ -16,16 +16,21 @@
         </author>
         <link href="https://appaga.kr/apache001/"/>
         <id>https://appaga.kr/apache001/</id>
+            <category term="tomcat"/>
+            <category term="apache"/>
 
-        <updated>2022-04-03T09:10:45+09:00</updated>
+        <updated>2022-04-03T09:21:35+09:00</updated>
             <summary>
                 <![CDATA[
-                    apache 2.x에서 SSL 및 tomcat proxy 설정 http://로 접속을 시도하면 https://로 전환되도록 설정한다. &lt;VirtualHost *:80&gt; ServerName appaga.kr Redirect permanent / https://appaga.kr/ &lt;/VirtualHost&gt; RewriteEngine 으로 하는 방법 &lt;VirtualHost *:80&gt; ServerName appaga.kr RewriteEngine On RewriteCond %{HTTPS} off RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [R,L] &lt;/VirtualHost&gt; 443 포트 SSL 설정 발급받은&hellip;
+                    apache 2.x에서 SSL 설정과 tomcat으로 proxy 하는 아파치 설정이다. 80 포트로 접속을 시도하면 443 포트로 리다이렉트 하도록 설정하여 언제나 https:// 프로토콜로 제공되도록 한다. tomcat으로 proxy하여 원하는 url을 tomcat에서 제공하도록 설정한다. 만약 tomcat으로 proxy 하지 않도록 하려면 느낌표 !로 proxy에서 예외처리 한다. http://로 접속을 시도하면 https://로&hellip;
                 ]]>
             </summary>
         <content type="html">
             <![CDATA[
-                <p>apache 2.x에서 SSL 및 tomcat proxy 설정</p>
+                <p>apache 2.x에서 SSL 설정과 tomcat으로 proxy 하는 아파치 설정이다.</p>
+<p><code>80</code> 포트로 접속을 시도하면 <code>443</code> 포트로 리다이렉트 하도록 설정하여 언제나 <code>https://</code> 프로토콜로 제공되도록 한다.</p>
+<p>tomcat으로 proxy하여 원하는 url을 tomcat에서 제공하도록 설정한다.
+만약 tomcat으로 proxy 하지 않도록 하려면 느낌표 <code>!</code>로 proxy에서 예외처리 한다.</p>
 <h2 id="80-포트를-443-포트로-리다이렉트">80 포트를 443 포트로 리다이렉트</h2>
 <p><code>http://</code>로 접속을 시도하면 <code>https://</code>로 전환되도록 설정한다.</p>
 <h3 id="redirect-속성으로-하는-방법"><code>Redirect</code> 속성으로 하는 방법</h3>

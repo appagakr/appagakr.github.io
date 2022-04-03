@@ -12,7 +12,7 @@
     {
         "path": "/apache001/index.html",
         "type": "file",
-        "md5": "2af7560f347bbebe6d046e7d36343d27"
+        "md5": "654b6c1d62ea4c6e16b7d5e89a14739c"
     },
     {
         "path": "assets",
@@ -117,22 +117,22 @@
     {
         "path": "/authors/appaga/index.html",
         "type": "file",
-        "md5": "4b234023e76525832d3cbd531f6ac376"
+        "md5": "afcbc1ab505359bb6da82bda4fc6f7f6"
     },
     {
         "path": "feed.json",
         "type": "file",
-        "md5": "84a553f1d390a5a2722704c25157cbd1"
+        "md5": "4f64bbe4f51d13d0b442d5779ee48fc9"
     },
     {
         "path": "feed.xml",
         "type": "file",
-        "md5": "b9dbd379061831d3f54baffb4bb47940"
+        "md5": "3546b6e894a8e9ddcfcd1719f885bdb3"
     },
     {
         "path": "index.html",
         "type": "file",
-        "md5": "dc9313d264759b89e32793c77c1a47d9"
+        "md5": "8271c310848fc6af2d9f4b103c82af32"
     },
     {
         "path": "javascript-obfuscator-tool-obfuscatorio",
@@ -392,7 +392,7 @@
     {
         "path": "sitemap.xml",
         "type": "file",
-        "md5": "59266b857de176351c0b258fac147cb8"
+        "md5": "050eaa77445198799e836928b7fc7201"
     },
     {
         "path": "sitemap.xsl",
@@ -405,8 +405,28 @@
         "md5": false
     },
     {
+        "path": "tags/apache",
+        "type": "directory",
+        "md5": false
+    },
+    {
+        "path": "/tags/apache/index.html",
+        "type": "file",
+        "md5": "d9f450882a37dd7c65c57b4eed3ab584"
+    },
+    {
         "path": "/tags/index.html",
         "type": "file",
-        "md5": "82eeca09fe3f68c064ee9c2b6d7612a0"
+        "md5": "3551acbaa96b89fce715e9d4ecc25978"
+    },
+    {
+        "path": "tags/tomcat",
+        "type": "directory",
+        "md5": false
+    },
+    {
+        "path": "/tags/tomcat/index.html",
+        "type": "file",
+        "md5": "e49eb058a0c7b7a30c7410714d6d7bab"
     }
 ]
