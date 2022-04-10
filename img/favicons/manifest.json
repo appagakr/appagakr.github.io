@@ -1,0 +1,21 @@
+---
+layout: compress
+
+
+---
+
+{
+ "name": "APPAGA",
+ "icons": [
+  {
+   "src": "{{ site.baseurl }}\/assets\/img\/favicons\/favicon-192x192.png",
+   "sizes": "192x192",
+   "type": "image\/png"
+  }
+  ,{
+   "src": "{{ site.baseurl }}\/assets\/img\/favicons\/favicon-512x512.png",
+   "sizes": "512x512",
+   "type": "image\/png"
+  }
+ ]
+}

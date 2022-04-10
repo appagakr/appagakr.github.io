@@ -1,23 +1,55 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<?xml-stylesheet type="text/xsl" href="https://appaga.kr/sitemap.xsl"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
-<url>
-<loc>https://appaga.kr/</loc>
-</url>
-<url>
-<loc>https://appaga.kr/apache001/</loc>
-<lastmod>2022-04-03T09:21:35+09:00</lastmod>
-</url>
-<url>
-<loc>https://appaga.kr/javascript-obfuscator-tool-obfuscatorio/</loc>
-<lastmod>2021-10-07T13:33:04+09:00</lastmod>
-</url>
-<url>
-<loc>https://appaga.kr/mongodb-muryo-gyejeong-2/</loc>
-<lastmod>2021-10-07T13:37:51+09:00</lastmod>
-<image:image>
-<image:loc>https://appaga.kr/media\posts\2/mongodb001-2.jpg</image:loc>
-<image:title><![CDATA[]]></image:title>
-</image:image>
-</url>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
+    <url>
+        <loc>https://appaga.kr/about.html</loc>
+        <lastmod>2021-01-01</lastmod>
+    </url><url>
+        <loc>https://appaga.kr/blog/was/was001.html</loc>
+        <lastmod>2022-04-01</lastmod>
+    </url><url>
+        <loc>https://appaga.kr/blog/post/post0001.html</loc>
+        <lastmod>2021-04-01</lastmod>
+    </url><url>
+        <loc>https://appaga.kr/blog/js/obfuscator_io.html</loc>
+        <lastmod>2020-10-01</lastmod>
+    </url><url>
+        <loc>https://appaga.kr/blog/mongodb/mongodb0001.html</loc>
+        <lastmod>2020-09-26</lastmod>
+    </url><url>
+        <loc>https://appaga.kr/blog/springboot/springboot002.html</loc>
+        <lastmod>2020-05-30</lastmod>
+    </url><url>
+        <loc>https://appaga.kr/blog/google/gtag002.html</loc>
+        <lastmod>2020-04-30</lastmod>
+    </url><url>
+        <loc>https://appaga.kr/blog/springboot/springboot001.html</loc>
+        <lastmod>2020-04-20</lastmod>
+    </url><url>
+        <loc>https://appaga.kr/blog/springboot/thymeleaf003.html</loc>
+        <lastmod>2020-04-17</lastmod>
+    </url><url>
+        <loc>https://appaga.kr/blog/springboot/thymeleaf002.html</loc>
+        <lastmod>2020-04-16</lastmod>
+    </url><url>
+        <loc>https://appaga.kr/blog/springboot/db001.html</loc>
+        <lastmod>2020-04-11</lastmod>
+    </url><url>
+        <loc>https://appaga.kr/blog/springboot/thymeleaf001.html</loc>
+        <lastmod>2020-03-18</lastmod>
+    </url><url>
+        <loc>https://appaga.kr/blog/eclipse/eclipse001.html</loc>
+        <lastmod>2020-03-05</lastmod>
+    </url><url>
+        <loc>https://appaga.kr/blog/google/gtag001.html</loc>
+        <lastmod>2020-02-23</lastmod>
+    </url><url>
+        <loc>https://appaga.kr/blog/linux/ubuntu_002.html</loc>
+        <lastmod>2020-02-22</lastmod>
+    </url><url>
+        <loc>https://appaga.kr/blog/linux/ubuntu_001.html</loc>
+        <lastmod>2020-02-22</lastmod>
+    </url><url>
+        <loc>https://appaga.kr/blog/linux/centos001.html</loc>
+        <lastmod>2020-02-22</lastmod>
+    </url>
 </urlset>
