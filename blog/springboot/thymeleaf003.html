@@ -169,7 +169,7 @@ public SpringTemplateEngine templateEngine() {
 <h2>화면 랜더링 결과</h2>
 <p>최종적으로 화면에 나타나는 결과물이다.<br />
 <code>정상</code> 컬럼은 데이터베이스에 값이 <code>1</code>이 저장되어 있기 때문에 <code>true</code>에 해당하여 <code>●</code>로 표시된다.</p>
-<p><img src="/assets/img/tlmd_web/tlmd_web_002.PNG" alt="tlmd:ox 적용 결과" /></p>
+<p><img src="/img/tlmd_web/tlmd_web_002.PNG" alt="tlmd:ox 적용 결과" /></p>
 <h2><code>class</code>를 변경하기</h2>
 <p>태그 본문의 문자열을 처리하는 것에 추가적으로 태그 속성 중에 <code>class</code>를 변경하도록 하자.</p>
 <p><code>w3-css</code>를 사용하고 있기 때문에 <code>w3-color</code> 클래스를 이용할 것 이다.</p>
@@ -219,7 +219,7 @@ protected void doProcess(ITemplateContext context, IProcessableElementTag tag, A
 }
 </code></pre>
 <p>화면은 이제 아래 이미지와 같이 클래스가 적용되어 표시된다.</p>
-<p><img src="/assets/img/tlmd_web/tlmd_web_003.PNG" alt="class가 적용된 화면" /></p>
+<p><img src="/img/tlmd_web/tlmd_web_003.PNG" alt="class가 적용된 화면" /></p>
 <p>생성된 html 코드를 보면 아래와 같이 경우에 따라 클래스가 추가되었고,<br />
 기존 <code>test</code> 클래스가 태그에 있었던 첫 번째 <code>td</code> 태그에는 <code>test</code> 클래스 뒤에 추가되었다.</p>
 <pre><code class="language-html"> &lt;td class=&quot;test w3-text-blue&quot;&gt;●&lt;/td&gt;
