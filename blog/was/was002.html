@@ -83,13 +83,13 @@
 ServerSignature Off
 </code></pre>
 <p>아파치 서버 재기동 한다.</p>
-<pre><code class="language-sh">]# service httpd restart
+<pre><code class="prettyprint language-sh">]# service httpd restart
 </code></pre>
 <p><img src="/img/was/was001_1.jpg" alt="img01" /></p>
 <h2>GET, POST 메소드만 허용하기</h2>
 <p>특별한 설정을 하지 않은 경우에는 아래와 같이 <code>curl</code> 명령으로 테스트 하면<br />
 <code>Allow</code>에 <code>GET</code>, <code>HEAD</code>, <code>POST</code>, <code>PUT</code>, <code>DELETE</code>, <code>TRACE</code>, <code>OPTIONS</code>, <code>PATCH</code> 모든 메소드가 허락된 것을 확인할 수 있다.</p>
-<pre><code class="language-sh">]# curl -v -X OPTIONS https://appaga.kr/
+<pre><code class="prettyprint language-sh">]# curl -v -X OPTIONS https://appaga.kr/
 * About to connect() to appaga.kr port 443 (#0)
 *   Trying 127.0.0.1...
 * Connected to appaga.kr (127.0.0.1) port 443 (#0)
@@ -109,7 +109,7 @@ ServerSignature Off
 <p>아파치의 <code>vhost.conf</code>나 <code>ssl.conf</code>에 <code>GET</code>, <code>POST</code> 메소드 외에는 제거하는 아래와 같은 설정을 추가한다.<br />
 <code>Directory</code> 지시자를 사용하여도 된다.<br />
 나의 경우에는 <code>Location</code> 지시자를 사용 중에 있어 그대로 이용했다.</p>
-<pre><code class="language-xml">&lt;Location /&gt;
+<pre><code class="prettyprint language-xml">&lt;Location /&gt;
         &lt;LimitExcept GET POST&gt;
                 Order deny,allow
                 Deny from all

@@ -86,7 +86,7 @@ $ sudo systemctl start ssh
 <blockquote>
 <p>svn:x:1001:1001::/home/svn:/usr/sbin/nologin</p>
 </blockquote>
-<pre><code class="language-console">$ sudo useradd svn
+<pre><code class="prettyprint language-console">$ sudo useradd svn
 $ cd /home
 $ sudo mkdir svn
 $ sudo chown svn.svn svn
@@ -106,7 +106,7 @@ drwxr-xr-x 2 svn svn 4096  2월 16 20:40 locks/
 <p><img src="/img/linux/ubuntu/ubuntu-002-01.png" alt="myrepos" /></p>
 <h3>서비스로 등록</h3>
 <p>서버가 재부팅 되어도 자동으로 svn이 실행되도록 <code>systemctl</code>에 서비스로 등록한다.</p>
-<pre><code class="language-console">$ cd /etc/systemd/system
+<pre><code class="prettyprint language-console">$ cd /etc/systemd/system
 $ sudo vi svnserve.service
 </code></pre>
 <p><code>svnserve.service</code> 파일의 내용은 아래와 같다.</p>
@@ -133,7 +133,7 @@ WantedBy=multi-user.target
 <p><code>root</code> 권한으로 <code>/run/svnserve</code> 디렉토리를 생성하고,<br />
 <code>svn</code> 권한으로 <code>/home/svn/log</code> 디렉토리를 생성한다.</p>
 <p>svnserve 서비스를 등록한다.</p>
-<pre><code class="language-console">$ sudo systemctl enable svnserve
+<pre><code class="prettyprint language-console">$ sudo systemctl enable svnserve
 $ sudo systemctl start svnserve
 $ sudo systemctl status svnserve
 
@@ -154,7 +154,7 @@ kyin@kyin:/home/svn$ sudo systemctl status svnserve
 <p><img src="/img/linux/ubuntu/ubuntu-002-02.png" alt="systemctl status svnserve" /></p>
 <h2>java 설치</h2>
 <p>openjdk를 설치한다.</p>
-<pre><code class="language-console">$ sudo apt-get install openjdk-8-jdk
+<pre><code class="prettyprint language-console">$ sudo apt-get install openjdk-8-jdk
 $ java -version
 openjdk version &quot;1.8.0_242&quot;
 OpenJDK Runtime Environment (build 1.8.0_242-8u242-b08-0ubuntu3~18.04-b08)

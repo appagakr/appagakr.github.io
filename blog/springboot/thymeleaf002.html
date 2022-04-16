@@ -72,7 +72,7 @@
 <p><a href="https://www.thymeleaf.org/doc/articles/sayhelloextendingthymeleaf5minutes.html">참조사이트</a></p>
 <h2>속성 처리기: 화면 표시 담당</h2>
 <p><code>AbstractAttributeTagProcessor</code> 클래스를 확장하여 화면에 태그 표시를 담당하는 처리기를 작성한다.</p>
-<pre><code class="language-java">public class SayToAttrTagProcessor extends AbstractAttributeTagProcessor {
+<pre><code class="prettyprint language-java">public class SayToAttrTagProcessor extends AbstractAttributeTagProcessor {
 
 	private static final String ATTR_NAME = &quot;sayto&quot;;
 	private static final int PRECEDENCE = 10000;
@@ -100,7 +100,7 @@
 <h2>dialect 클래스 생성</h2>
 <p>dialect 클래스를 생성하여 타임리프에서 새롭게 만든 커스텀 태그를 사용할 수 있도록 해준다.<br />
 사용할 접두사는 <code>hello</code> 이고, 속성명은 <code>sayto</code>가 되어 화면에서 호출시에는 <code>hello:sayto</code>와 같이 사용한다.</p>
-<pre><code class="language-java">public class HelloDialect extends AbstractProcessorDialect {
+<pre><code class="prettyprint language-java">public class HelloDialect extends AbstractProcessorDialect {
 	private static final String PREFIX = &quot;hello&quot;;
 	
 	public HelloDialect() {
@@ -125,7 +125,7 @@
 <p><a href="https://github.com/ttallaemideul/springboot/blob/master/tlmd_web/src/main/java/io/github/ttallaemideul/sample/thymeleaf/HelloDialect.java">HelloDialect</a></p>
 <h2>MVC 설정에 신규 dialect 추가</h2>
 <p>어플리케이션이 로드되어 타임리프 설정이 진행될 때 신규 dialect를 추가해준다.</p>
-<pre><code class="language-java">@Bean
+<pre><code class="prettyprint language-java">@Bean
 public SpringResourceTemplateResolver templateResolver() {
 	SpringResourceTemplateResolver templateResolver = new SpringResourceTemplateResolver();
 	templateResolver.setPrefix(&quot;classpath:templates/&quot;);
@@ -159,16 +159,16 @@ public ThymeleafViewResolver viewResolver() {
 <p><a href="https://github.com/ttallaemideul/springboot/blob/master/tlmd_web/src/main/java/io/github/ttallaemideul/config/WebMvcConfig.java">WebMvcConfig</a></p>
 <h2>화면에서 신규 dialect 사용</h2>
 <p><code>hello</code> 접두사가 html 편집기에서 작동되도록 추가한다.</p>
-<pre><code class="language-html">&lt;html xmlns:th=&quot;http://www.thymeleaf.org&quot;
+<pre><code class="prettyprint language-html">&lt;html xmlns:th=&quot;http://www.thymeleaf.org&quot;
       xmlns:layout=&quot;http://www.ultraq.net.nz/thymeleaf/layout&quot;
       xmlns:hello=&quot;http://hello&quot;
       layout:decorator=&quot;~{layouts/layout_base}&quot;&gt;
 </code></pre>
 <p>신규 태그는 아래와 같이 사용한다.</p>
-<pre><code class="language-html">&lt;p hello:sayto=&quot;커스텀 dialect&quot;&gt;Hi ya!&lt;/p&gt;
+<pre><code class="prettyprint language-html">&lt;p hello:sayto=&quot;커스텀 dialect&quot;&gt;Hi ya!&lt;/p&gt;
 </code></pre>
 <p>생성된 태그 결과는 다음과 같다.</p>
-<pre><code class="language-html">&lt;p&gt;Hello, 커스텀 dialect!&lt;/p&gt;
+<pre><code class="prettyprint language-html">&lt;p&gt;Hello, 커스텀 dialect!&lt;/p&gt;
 </code></pre>
 <h2>샘플 코드</h2>
 <p>아래 샘플 프로젝트에서 이 문서에서 설명한 소스를 확인할 수 있다.<br />

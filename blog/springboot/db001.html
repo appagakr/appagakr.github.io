@@ -71,7 +71,7 @@
 <p>스프링부트에 H2 디비를 연동한다.<br />
 다중 데이터베이스 연결을 지원하기 위해서 맵퍼 어노테이션을 이용한다.</p>
 <h2>의존성 추가 <code>pom.xml</code></h2>
-<pre><code class="language-xml">&lt;dependency&gt;
+<pre><code class="prettyprint language-xml">&lt;dependency&gt;
 	&lt;groupId&gt;com.h2database&lt;/groupId&gt;
 	&lt;artifactId&gt;h2&lt;/artifactId&gt;
 	&lt;scope&gt;runtime&lt;/scope&gt;
@@ -92,7 +92,7 @@ spring.datasource.hikari.connection-timeout=100000
 <h2>H2용 맵퍼 어노테이션 생성</h2>
 <p>다중 데이터베이스 소스에 연결할 수 있도록 맵퍼 어노테이션을 정의하여 맵퍼에서 이용한다.<br />
 나중에 새로운 디비 연결을 추가하기가 용이해진다.</p>
-<pre><code class="language-java">@Target({ ElementType.TYPE }) 
+<pre><code class="prettyprint language-java">@Target({ ElementType.TYPE }) 
 @Retention(RetentionPolicy.RUNTIME) 
 @Documented 
 @Component
@@ -102,7 +102,7 @@ public @interface DbH2ConnMapper {
 </code></pre>
 <p><a href="https://github.com/ttallaemideul/springboot/blob/master/tlmd_web/src/main/java/io/github/ttallaemideul/config/database/DbH2ConnMapper.java">DbH2ConnMapper.java</a></p>
 <p>H2용 맵퍼 어노테이션과 연동되는 디비 연결을 설정한다.</p>
-<pre><code class="language-java">@Configuration
+<pre><code class="prettyprint language-java">@Configuration
 @MapperScan(basePackages =  &quot;io.github.ttallaemideul.**&quot;
 	, annotationClass = DbH2ConnMapper.class
 	, sqlSessionFactoryRef = &quot;dbH2SessionFactory&quot;)
@@ -112,7 +112,7 @@ public class DbH2DatabaseConfig {
 }
 </code></pre>
 <p>스프링부트 어플리케이션이 기동될 때 테이블을 생성하고 초기 데이터를 생성하도록 초기화코드를 추가한다.</p>
-<pre><code class="language-java">@Bean(name=&quot;dbH2DataSourceInitializer&quot;)
+<pre><code class="prettyprint language-java">@Bean(name=&quot;dbH2DataSourceInitializer&quot;)
 public DataSourceInitializer dataSourceInitializer(@Qualifier(&quot;dbH2DataSource&quot;) DataSource datasource) {
 	ResourceDatabasePopulator resourceDatabasePopulator = new ResourceDatabasePopulator();
 	resourceDatabasePopulator.addScript(new ClassPathResource(&quot;config/database/h2-schema.sql&quot;));
@@ -128,7 +128,7 @@ public DataSourceInitializer dataSourceInitializer(@Qualifier(&quot;dbH2DataSour
 <h2>맵퍼 생성</h2>
 <p>H2 디비에 쿼리를 실행하는 맵퍼 인터페이스를 생성한다.<br />
 앞에서 정의한 <code>@DbH2ConnMapper</code> 어노테이션을 추가했기 때문에 H2 디비에서 쿼리가 실행된다.</p>
-<pre><code class="language-java">@DbH2ConnMapper
+<pre><code class="prettyprint language-java">@DbH2ConnMapper
 public interface H2MapperH2 {
 
 	public Date getServerNow();
@@ -139,7 +139,7 @@ public interface H2MapperH2 {
 <h2>thymeleaf th:each로 목록 표시</h2>
 <p>배열 형태의 객체는 타임리프의 <code>th:each</code>로 표시할 수 있다.</p>
 <p>컨트롤러에서 <code>List</code>로 뷰에 <code>users</code> 객체를 전달한다. 이 객체는 사용자 목록을 가지고 있다.</p>
-<pre><code class="language-java">@GetMapping
+<pre><code class="prettyprint language-java">@GetMapping
 public String main(Model model) {
 	List&lt;Map&lt;String, Object&gt;&gt; users = h2Service.getUsers();
 	if(log.isDebugEnabled()) {
@@ -152,7 +152,7 @@ public String main(Model model) {
 </code></pre>
 <p><a href="https://github.com/ttallaemideul/springboot/blob/master/tlmd_web/src/main/java/io/github/ttallaemideul/sample/h2/H2Controller.java">H2Controller.java</a></p>
 <p>타임리프 <code>th:each=&quot;user : ${users}&quot;</code> 태그는 <code>${users}</code> 목록의 객체 하나씩을  <code>user</code> 객체로 세팅하여 루프에서 사용하도록 한다.</p>
-<pre><code class="language-html">&lt;tr th:each=&quot;user : ${users}&quot;&gt;
+<pre><code class="prettyprint language-html">&lt;tr th:each=&quot;user : ${users}&quot;&gt;
   &lt;td th:text=&quot;${user.USERID}&quot;&gt;USERID&lt;/td&gt;
   &lt;td th:text=&quot;${user.FIRST_NAME}&quot;&gt;first_name&lt;/td&gt;
   &lt;td th:text=&quot;${user.LAST_NAME}&quot;&gt;last_name&lt;/td&gt;

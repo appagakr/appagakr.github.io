@@ -72,15 +72,15 @@
 <p><code>tlmd</code> dialect를 만들고 <code>ox</code> 속성을 추가한다.</p>
 <p>속성에 입력한 값이 <code>true</code>에 해당하는 값(<code>0</code>이 아닌 숫자, <code>false</code>가 아닌 문자열 등) 이면 <code>●</code>을 출력하고,<br />
 <code>false</code>에 해당하는 값(숫자 <code>0</code>, <code>false</code>, <code>null</code> 등) 이면 <code>○</code>을 출력한다.</p>
-<pre><code class="language-html">&lt;td tlmd:ox=&quot;${item.user.active_yn}&quot;&gt;active_yn&lt;/td&gt;
+<pre><code class="prettyprint language-html">&lt;td tlmd:ox=&quot;${item.user.active_yn}&quot;&gt;active_yn&lt;/td&gt;
 </code></pre>
 <p>위와 같이 코딩을 하면 <code>${item.user.active_yn}</code>이 <code>1</code> 문자열을 가지고 있기 때문에 아래와 같이 화면에 출력된다.</p>
-<pre><code class="language-html">&lt;td&gt;●&lt;/td&gt;
+<pre><code class="prettyprint language-html">&lt;td&gt;●&lt;/td&gt;
 </code></pre>
 <p><a href="https://www.thymeleaf.org/doc/articles/sayhelloagainextendingthymeleafevenmore5minutes.html">타임리프 참조사이트</a></p>
 <h2>custom dialect 클래스</h2>
 <p><code>AbstractProcessorDialect</code>을 확장하여 <code>TlmdDialect</code> 클래스를 생성한다.</p>
-<pre><code class="language-java">public class TlmdDialect extends AbstractProcessorDialect {
+<pre><code class="prettyprint language-java">public class TlmdDialect extends AbstractProcessorDialect {
 	private static final String PREFIX = &quot;tlmd&quot;;
 	
 	public TlmdDialect() {
@@ -107,7 +107,7 @@
 <p><code>AbstractAttributeTagProcessor</code>을 확장하여 <code>OxAttrTagProcessor</code> 클래스를 생성한다.</p>
 <p>오버라이드한 <code>doProcess</code> 함수에서 속성값(<code>attributeValue</code>)을 파싱 처리하여 값을 <code>attrVal</code> 획득한다.</p>
 <p><code>attrVal</code> 값이 <code>true</code>에 해당하면 <code>●</code>을 태그의 바디에 설정하고 아니면 <code>○</code>을 설정한다.</p>
-<pre><code class="language-java">@Override
+<pre><code class="prettyprint language-java">@Override
 protected void doProcess(ITemplateContext context, IProcessableElementTag tag, AttributeName attributeName,
 		String attributeValue, IElementTagStructureHandler structureHandler) {
 	// 속성값을 타임리프 표준 표현식으로 파싱한 후 표현식을 처리한다.
@@ -128,7 +128,7 @@ protected void doProcess(ITemplateContext context, IProcessableElementTag tag, A
 <p><a href="https://github.com/ttallaemideul/springboot/blob/master/tlmd_web/src/main/java/io/github/ttallaemideul/thymeleaf/OxAttrTagProcessor.java">OxAttrTagProcessor.java</a></p>
 <h2>dialect 등록</h2>
 <p>MVC 설정시에 등록한 템플릿 엔진에 생성한 dialect 클래스 <code>TlmdDialect</code>를 등록한다.</p>
-<pre><code class="language-java">@Bean
+<pre><code class="prettyprint language-java">@Bean
 public SpringTemplateEngine templateEngine() {
 	SpringTemplateEngine templateEngine = new SpringTemplateEngine();
 	templateEngine.setEnableSpringELCompiler(true); // Compiled SpringEL should speed up executions
@@ -142,14 +142,14 @@ public SpringTemplateEngine templateEngine() {
 <p><a href="https://github.com/ttallaemideul/springboot/blob/master/tlmd_web/src/main/java/io/github/ttallaemideul/config/WebMvcConfig.java">WebMvcConfig.java</a></p>
 <h2>dialect 사용</h2>
 <p>웹페이지에 <code>tlmd</code> dialect를 사용함을 명시한다.</p>
-<pre><code class="language-xml">&lt;!DOCTYPE html&gt;
+<pre><code class="prettyprint language-xml">&lt;!DOCTYPE html&gt;
 &lt;html xmlns:th=&quot;http://www.thymeleaf.org&quot;
       xmlns:layout=&quot;http://www.ultraq.net.nz/thymeleaf/layout&quot;
       xmlns:tlmd=&quot;https://ttallaemideul.github.io&quot;
       layout:decorator=&quot;~{layouts/layout_base}&quot;&gt;
 </code></pre>
 <p><code>tlmd:ox</code> 태그를 적용한다.</p>
-<pre><code class="language-html">&lt;tr th:each=&quot;item : ${userList}&quot;&gt;
+<pre><code class="prettyprint language-html">&lt;tr th:each=&quot;item : ${userList}&quot;&gt;
   &lt;td th:text=&quot;${item.user.login_id}&quot;&gt;login_id&lt;/td&gt;
   &lt;td th:text=&quot;${item.user.user_name}&quot;&gt;user_name&lt;/td&gt;
   &lt;td tlmd:ox=&quot;${item.user.active_yn}&quot;&gt;active_yn&lt;/td&gt;
@@ -177,7 +177,7 @@ public SpringTemplateEngine templateEngine() {
 <p><code>●</code>를 표시할 때는 <code>w3-text-blue</code> 클래스를 이용하고 <code>○</code>를 표시할 때는 <code>w3-text-gray</code> 클래스를 이용한다.</p>
 <p><code>OxAttrTagProcessor</code> 클래스의 <code>doProcess()</code> 함수에서 <code>tag</code> 객체로 부터 <code>class</code> 속성을 얻어 그 값을 가져온다.<br />
 이 값에 html 태그의 기존 class 값이 들어있다.</p>
-<pre><code class="language-java">final IAttribute cls = tag.getAttribute(CLS);
+<pre><code class="prettyprint language-java">final IAttribute cls = tag.getAttribute(CLS);
 String oldCls = null;
 if (cls != null) {
 	oldCls = cls.getValue();
@@ -186,7 +186,7 @@ if (cls != null) {
 <p>태그의 바디를 설정할 때 <code>structureHandler.setAttribute()</code> 함수로 <code>class</code>를 설정하도록 한다.<br />
 이 때, 기존 클래스 <code>oldCls</code>가 존재하면 뒤에 추가하도록 한다.</p>
 <p>최종적으로 완료된 <code>OxAttrTagProcessor.doProcess()</code> 함수이다.</p>
-<pre><code class="language-java">@Override
+<pre><code class="prettyprint language-java">@Override
 protected void doProcess(ITemplateContext context, IProcessableElementTag tag, AttributeName attributeName,
 		String attributeValue, IElementTagStructureHandler structureHandler) {
 	// 속성값을 타임리프 표준 표현식으로 파싱한 후 표현식을 처리한다.
@@ -222,7 +222,7 @@ protected void doProcess(ITemplateContext context, IProcessableElementTag tag, A
 <p><img src="/img/tlmd_web/tlmd_web_003.PNG" alt="class가 적용된 화면" /></p>
 <p>생성된 html 코드를 보면 아래와 같이 경우에 따라 클래스가 추가되었고,<br />
 기존 <code>test</code> 클래스가 태그에 있었던 첫 번째 <code>td</code> 태그에는 <code>test</code> 클래스 뒤에 추가되었다.</p>
-<pre><code class="language-html"> &lt;td class=&quot;test w3-text-blue&quot;&gt;●&lt;/td&gt;
+<pre><code class="prettyprint language-html"> &lt;td class=&quot;test w3-text-blue&quot;&gt;●&lt;/td&gt;
   &lt;td class=&quot;w3-text-gray&quot;&gt;○&lt;/td&gt;
   &lt;td class=&quot;w3-text-gray&quot;&gt;○&lt;/td&gt;
   &lt;td class=&quot;w3-text-gray&quot;&gt;○&lt;/td&gt;

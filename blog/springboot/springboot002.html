@@ -76,7 +76,7 @@
 백그라운드를 제거하고자 하는 이미지 파일을 드래그앤드롭하여 온라인으로 바로 투명한 백그라운드 갖는 PNG 파일을 얻을 수 있어 유용하다.</p>
 <p>폰트는 네이버에서 제공하는 <a href="https://hangeul.naver.com/2017/nanum" title="네이버 한글한글아름답게">나눔스퀘어라운드</a>를 사용한다.<br />
 TTF 폰트를 다운받아서 <a href="https://www.font-converter.net" title="Online Font Converter / Web Font Generator">Online Font Convenverter</a>에서 <code>EOT</code>, <code>WOFF</code>, <code>WOFF2</code> 등으로 변환하여 사용하였다.</p>
-<pre><code class="language-css">@font-face {
+<pre><code class="prettyprint language-css">@font-face {
   font-family: &quot;NanumSquareRoundR&quot;;
   src: url(&quot;./fonts/NanumSquareRoundR.eot&quot;); /* IE9 Compat Modes */
   src: url(&quot;./fonts/NanumSquareRoundR.eot?#iefix&quot;) format(&quot;embedded-opentype&quot;), /* IE6-IE8 */
@@ -94,13 +94,13 @@ body {font-family: &quot;NanumSquareRoundR&quot;, sans-serif}
 <p><a href="https://docs.spring.io/spring-boot/docs/2.2.6.RELEASE/reference/htmlsingle/#boot-features-spring-mvc-template-engines" title="Thymeleaf">Thymeleaf</a>를 템플릿엔진으로 사용한다.</p>
 <p><a href="https://github.com/ultraq/thymeleaf-layout-dialect" title="Thymeleaf Layout Dialect">Thymeleaf Layout Dialect</a>에서 제공하는 <code>nz.net.ultraq.thymeleaf</code> 라이브러리를 추가하여 레이아웃 설정을 추가하였다.<br />
 다음 디펜던시가 추가되야 한다.</p>
-<pre><code class="language-xml">&lt;dependency&gt;
+<pre><code class="prettyprint language-xml">&lt;dependency&gt;
   &lt;groupId&gt;nz.net.ultraq.thymeleaf&lt;/groupId&gt;
   &lt;artifactId&gt;thymeleaf-layout-dialect&lt;/artifactId&gt;
 &lt;/dependency&gt;
 </code></pre>
 <p>MVC 설정에 타임리프 템플릿엔진 설정하는 부분에 <code>templateEngine.addDialect(new LayoutDialect());</code>로 layout-dialect를 추가해줘야 한다.</p>
-<pre><code class="language-java">@Configuration
+<pre><code class="prettyprint language-java">@Configuration
 public class WebMvcConfig implements WebMvcConfigurer {
 
 	/**
@@ -147,14 +147,14 @@ public class WebMvcConfig implements WebMvcConfigurer {
 <h3>GET/POST 파라미터에 XSS 공격 방어 필터 적용</h3>
 <p>많이 사용되는 <a href="https://github.com/naver/lucy-xss-servlet-filter" title="lucy-xss-servlet-filter">네이버 lucy-xss-servlet-filter</a> 라이브러리를 사용한다.<br />
 아래 디펜던시가 추가한다.</p>
-<pre><code class="language-xml">&lt;dependency&gt;
+<pre><code class="prettyprint language-xml">&lt;dependency&gt;
 	&lt;groupId&gt;com.navercorp.lucy&lt;/groupId&gt;
 	&lt;artifactId&gt;lucy-xss-servlet&lt;/artifactId&gt;
 	&lt;version&gt;2.0.0&lt;/version&gt;
 &lt;/dependency&gt;
 </code></pre>
 <p>MVC 설정에 필터를 등록한다.</p>
-<pre><code class="language-java">@Configuration
+<pre><code class="prettyprint language-java">@Configuration
 public class WebMvcConfig implements WebMvcConfigurer {
 
 	/**
@@ -175,7 +175,7 @@ public class WebMvcConfig implements WebMvcConfigurer {
 <p>Ajax나 restful api 시에 사용되는 request body에는 lucy 필터가 적용되지 않는다고 한다.<br />
 request body에 XSS 공격 방어 필터도 같이 적용한다.<br />
 필터링을 담당하는 클래스 <code>HTMLCharacterEscapes</code>를 생성하고:</p>
-<pre><code class="language-java">public class HTMLCharacterEscapes extends CharacterEscapes {
+<pre><code class="prettyprint language-java">public class HTMLCharacterEscapes extends CharacterEscapes {
 	private final int[] asciiEscapes;
 
 	private final CharSequenceTranslator translator;
@@ -213,7 +213,7 @@ request body에 XSS 공격 방어 필터도 같이 적용한다.<br />
 }
 </code></pre>
 <p>MVC 설정에 <code>Jackson</code> 컨버터에 등록해준다.</p>
-<pre><code class="language-java">@Configuration
+<pre><code class="prettyprint language-java">@Configuration
 public class WebMvcConfig implements WebMvcConfigurer {
 
 	@Override

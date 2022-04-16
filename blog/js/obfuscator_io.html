@@ -80,7 +80,7 @@
 <li><code>OUT_OPT</code>: 옵션파일 경로이다.</li>
 <li><code>SRC_DIR</code>의 js 파일 <code>common.js</code>를 <code>OUT_DIR</code>에 난독화하여 저장하고 있다.</li>
 </ul>
-<pre><code class="language-shell">#!/bin/sh
+<pre><code class="prettyprint language-shell">#!/bin/sh
 CMD=/home/appagakr/js-obfuscator/node_modules/javascript-obfuscator/bin/javascript-obfuscator
 SRC_DIR=/var/www/html/
 OUT_DIR=/home/appagakr/js-encode
@@ -88,7 +88,7 @@ OUT_OPT=&quot;--config /home/appagakr/appagakr_conf.json&quot;
 $CMD $SRC_DIR/js/common.js --output $OUT_DIR/common.js $OUT_OPT
 </code></pre>
 <p>난독화 옵션 파일 <code>appagakr_conf.json</code>은 Low obfuscation, High performance 옵션에서 디버깅 불가, 콘솔 출력 불가만 <code>true</code>로 하여 사용중이다.</p>
-<pre><code class="language-js">{
+<pre><code class="prettyprint language-js">{
         &quot;compact&quot;: true,
         &quot;controlFlowFlattening&quot;: false,
         &quot;deadCodeInjection&quot;: true,
