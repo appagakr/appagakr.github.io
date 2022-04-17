@@ -1,62 +1,50 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
-
-<html lang="ko" xmlns="http://www.w3.org/1999/xhtml">
+<!doctype html>
+<html lang="ko">
 	<head>
 	    <meta charset="utf-8"/>
 	    <title>APPAGA.KR</title>
 	    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 	    <meta name="description" content="DevOps를 위한 정보 제공"/>
 	    <meta name="author" content="appaga@appaga.kr"/>
-	    <meta name="keywords" content="java, spring framework, spring boot, android, flutter"/>
+	    <meta name="keywords" content="java, spring boot, android"/>
 	    <meta name="generator" content="JBake"/>
-
+		<!-- Custom styles for this template -->
+    	<link href="https://fonts.googleapis.com/css?family=Playfair&#43;Display:700,900&amp;display=swap" rel="stylesheet">
 	    <!-- Le styles -->
-		<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6" crossorigin="anonymous">
-	    <link href="../css/asciidoctor.css" rel="stylesheet"/>
-	    <link href="../css/base.css" rel="stylesheet"/>
-	    <link href="../css/prettify.css" rel="stylesheet"/>
+		<link href="../bootstrap/bootstrap.min.css" rel="stylesheet"/>
+		<link href="../bootstrap/blog.css" rel="stylesheet"/>
+	    <link href="../prettify/prettify.css" rel="stylesheet"/>
 
 	    <!-- Fav and touch icons -->
 		<link rel="apple-touch-icon" sizes="180x180" href="../apple-touch-icon.png"/>
 		<link rel="icon" type="image/png" sizes="32x32" href="../favicon-32x32.png"/>
 		<link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png"/>
 		<link rel="manifest" href="../site.webmanifest"/>
-	    <link rel="shortcut icon" href="../favicon.ico"/>
-
-		<!-- Global site tag (gtag.js) - Google Analytics -->
-		<script async src="https://www.googletagmanager.com/gtag/js?id=G-VB6XQ6972F"></script>
-		<script>
-		  window.dataLayer = window.dataLayer || [];
-		  function gtag(){dataLayer.push(arguments);}
-		  gtag('js', new Date());
-
-		  gtag('config', 'G-VB6XQ6972F');
-		</script>
+	    <link rel="shortcut icon" href="../favicon.ico"/>		
 	</head>
-	<body onload="prettyPrint()">
+	<body>
 	<div id="wrap">
 		<div>
 		<div class="container">
-		  <header class="blog-header py-3">
-		    <div class="row flex-nowrap justify-content-between align-items-center">
-		      <div class="col-4 pt-1">
+			<header class="blog-header py-3">
+				<div class="row flex-nowrap justify-content-between align-items-center">
+					<div class="col-4 pt-1">
 						<a class="link-secondary" href="../feed.xml">Subscribe</a>
-		      </div>
-		      <div class="col-4 text-center">
-		        <a class="blog-header-logo text-dark" href="/">APPAGA</a>
-		      </div>
-		      <div class="col-4 d-flex justify-content-end align-items-center">
-		        <a href="../about.html">About</a>
-		      </div>
-		    </div>
-		  </header>
+					</div>
+					<div class="col-4 text-center">
+						<a class="blog-header-logo text-dark" href="/">APPAGA</a>
+					</div>
+					<div class="col-4 d-flex justify-content-end align-items-center">
+						<a class="btn btn-sm btn-outline-secondary" href="../about.html">About</a>
+					</div>
+				</div>
+			</header>
 
-		  <div class="nav-scroller py-1 mb-2">
-		    <nav class="nav d-flex justify-content-between">
-						<!-- <a class="p-2 link-secondary" th:with="rootpath=(${content.rootpath} ?: '')" th:href="${rootpath}+'tags/mongodb.html'">Mongodb</a> -->
-						<a class="p-2 link-secondary" href='../archive.html'>Archive</a>
-		    </nav>
-		  </div>
+			<div class="nav-scroller py-1 mb-2">
+				<nav class="nav d-flex justify-content-between">
+					<a class="p-2 link-secondary" href='../archive.html'>Archive</a>
+				</nav>
+			</div>
 		</div>
 	</div>
 		<div class="container">
@@ -71,7 +59,7 @@
 
 					<h4>
 						<span class="font-weight-bold">30</span> -
-						<a href="../blog/springboot/springboot002.html">Sprint boot + Mybatis + H2 + Thymeleaf + W3.css 기본 프로젝트</a>
+						<a class="" href="../blog/springboot/springboot002.html">Spring boot + Mybatis + H2 + Thymeleaf + W3.css 기본 프로젝트</a>
 					</h4>
 
 					
@@ -83,7 +71,7 @@
 
 							<h4>
 								<span class="font-weight-bold">20</span> -
-								<a href="../blog/springboot/springboot001.html">Sprint boot + Mybatis + H2 + Thymeleaf + W3.css</a>
+								<a class="" href="../blog/springboot/springboot001.html">Sprint boot + Mybatis + H2 + Thymeleaf + W3.css</a>
 							</h4>
 						
 					
@@ -92,7 +80,7 @@
 
 							<h4>
 								<span class="font-weight-bold">17</span> -
-								<a href="../blog/springboot/thymeleaf003.html">Extending Thymeleaf dialect : processing attribute value</a>
+								<a class="" href="../blog/springboot/thymeleaf003.html">Extending Thymeleaf dialect : processing attribute value</a>
 							</h4>
 						
 					
@@ -101,7 +89,7 @@
 
 							<h4>
 								<span class="font-weight-bold">16</span> -
-								<a href="../blog/springboot/thymeleaf002.html">Creating Thymeleaf Custom Tags</a>
+								<a class="" href="../blog/springboot/thymeleaf002.html">Creating Thymeleaf Custom Tags</a>
 							</h4>
 						
 					
@@ -113,7 +101,7 @@
 
 							<h4>
 								<span class="font-weight-bold">18</span> -
-								<a href="../blog/springboot/thymeleaf001.html">Springboot Thymeleaf Javascript Inlining</a>
+								<a class="" href="../blog/springboot/thymeleaf001.html">Springboot Thymeleaf Javascript Inlining</a>
 							</h4>
 						
 					
@@ -124,19 +112,28 @@
 	</div>
 
 	<div>
-			<div id="push"></div>
-
-		    <footer class="blog-footer">
-		      <div class="container">
-		        <p class="muted credit">&copy; 2022 APPAGA.KR</p>
-		      </div>
+			<footer class="blog-footer">
+		    	<p class="muted credit">&copy; 2022 APPAGA.KR</p>
+		    	<p>
+					<a href="#">Back to top</a>
+				</p>
 		    </footer>
 
 		    <!-- javascript. Placed at the end of the document so the pages load faster -->
-			<script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
-			<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js" integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf" crossorigin="anonymous"></script>
-		    <script src="../js/prettify.js"></script>
+			<script src="../js/jquery-3.6.0.min.js"></script>
+			<script src="../bootstrap/bootstrap.bundle.min.js"></script>
+			<script src="../prettify/prettify.js"></script>
+		    <script src="../js/appaga.js"></script>
+			
+			<!-- Global site tag (gtag.js) - Google Analytics -->
+			<script async src="https://www.googletagmanager.com/gtag/js?id=G-VB6XQ6972F"></script>
+			<script>
+			window.dataLayer = window.dataLayer || [];
+			function gtag(){dataLayer.push(arguments);}
+			gtag('js', new Date());
 
+			gtag('config', 'G-VB6XQ6972F');
+			</script>
     	</div>
     </body>
 </html>

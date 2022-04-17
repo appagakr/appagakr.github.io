@@ -1,1247 +1,390 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<!doctype html>
+<html lang="ko">
 
-<html lang="ko" xmlns="http://www.w3.org/1999/xhtml">
-	<head>
+<head>
 	    <meta charset="utf-8"/>
 	    <title>APPAGA.KR</title>
 	    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 	    <meta name="description" content="DevOps를 위한 정보 제공"/>
 	    <meta name="author" content="appaga@appaga.kr"/>
-	    <meta name="keywords" content="java, spring framework, spring boot, android, flutter"/>
+	    <meta name="keywords" content="java, spring boot, android"/>
 	    <meta name="generator" content="JBake"/>
-
+		<!-- Custom styles for this template -->
+    	<link href="https://fonts.googleapis.com/css?family=Playfair&#43;Display:700,900&amp;display=swap" rel="stylesheet">
 	    <!-- Le styles -->
-		<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6" crossorigin="anonymous">
-	    <link href="css/asciidoctor.css" rel="stylesheet"/>
-	    <link href="css/base.css" rel="stylesheet"/>
-	    <link href="css/prettify.css" rel="stylesheet"/>
+		<link href="bootstrap/bootstrap.min.css" rel="stylesheet"/>
+		<link href="bootstrap/blog.css" rel="stylesheet"/>
+	    <link href="prettify/prettify.css" rel="stylesheet"/>
 
 	    <!-- Fav and touch icons -->
 		<link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png"/>
 		<link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png"/>
 		<link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png"/>
 		<link rel="manifest" href="site.webmanifest"/>
-	    <link rel="shortcut icon" href="favicon.ico"/>
-
-		<!-- Global site tag (gtag.js) - Google Analytics -->
-		<script async src="https://www.googletagmanager.com/gtag/js?id=G-VB6XQ6972F"></script>
-		<script>
-		  window.dataLayer = window.dataLayer || [];
-		  function gtag(){dataLayer.push(arguments);}
-		  gtag('js', new Date());
-
-		  gtag('config', 'G-VB6XQ6972F');
-		</script>
+	    <link rel="shortcut icon" href="favicon.ico"/>		
 	</head>
-	<body onload="prettyPrint()">
+
+<body>
 	<div id="wrap">
 		<div>
 		<div class="container">
-		  <header class="blog-header py-3">
-		    <div class="row flex-nowrap justify-content-between align-items-center">
-		      <div class="col-4 pt-1">
+			<header class="blog-header py-3">
+				<div class="row flex-nowrap justify-content-between align-items-center">
+					<div class="col-4 pt-1">
 						<a class="link-secondary" href="feed.xml">Subscribe</a>
-		      </div>
-		      <div class="col-4 text-center">
-		        <a class="blog-header-logo text-dark" href="/">APPAGA</a>
-		      </div>
-		      <div class="col-4 d-flex justify-content-end align-items-center">
-		        <a href="about.html">About</a>
-		      </div>
-		    </div>
-		  </header>
+					</div>
+					<div class="col-4 text-center">
+						<a class="blog-header-logo text-dark" href="/">APPAGA</a>
+					</div>
+					<div class="col-4 d-flex justify-content-end align-items-center">
+						<a class="btn btn-sm btn-outline-secondary" href="about.html">About</a>
+					</div>
+				</div>
+			</header>
 
-		  <div class="nav-scroller py-1 mb-2">
-		    <nav class="nav d-flex justify-content-between">
-						<!-- <a class="p-2 link-secondary" th:with="rootpath=(${content.rootpath} ?: '')" th:href="${rootpath}+'tags/mongodb.html'">Mongodb</a> -->
-						<a class="p-2 link-secondary" href='archive.html'>Archive</a>
-		    </nav>
-		  </div>
+			<div class="nav-scroller py-1 mb-2">
+				<nav class="nav d-flex justify-content-between">
+					<a class="p-2 link-secondary" href='archive.html'>Archive</a>
+				</nav>
+			</div>
 		</div>
 	</div>
 		<main class="container">
-			<div class="row">
-				<article class="blog-post">
-					<h2 class="blog-post-title"><a href='blog/was/was002.html'>Apache 2.x 보안설정</a></h2>
-					<p class="blog-post-meta">12 April 2022</p>
-					<p><p>apache 2.x에서 보안을 위한 설정을 알아본다.<br />
-응답 header에 서버 정보가 자세히 표시되는 것을 <code>ServerTokens</code>을 이용하여 최소화 할 수 있다.</p>
-<p>사용하지도 않는 메소드를 차단한다. 주로 사용하는 <code>GET</code>, <code>POST</code>만 남겨놓고 나머지는 제거한다.<br />
-<code>curl</code> 명령으로 최종 적용된 상태를 확인할 수 있다.</p>
-<h2>서버정보 숨기기</h2>
-<p><code>ServerTokens</code> 지시자로 응답 header에 표시되는 서버 정보를 최소화 한다.</p>
-<p>설정을 안한 상태에서는 아래와 같이 서버의 정보가 꽤나 자세히 제공된다.</p>
-<p><img src="/img/was/was001.jpg" alt="img01" /></p>
-<p>서버 정보 표시를 최소 정보인 <code>Apache</code>만 표시되도록 설정을 추가 한다.<br />
-<code>/etc/httpd/conf/httpd.conf</code>에 추가 한다.<br />
-하단에 표시되는 아파치 정보를 제거하기 위해서 <code>ServerSignature</code>를 <code>Off</code>로 설정한다.<br />
-디폴트가 <code>Off</code>이기 때문에 설정을 안해줘도 된다.</p>
-<pre><code>ServerTokens Prod
-ServerSignature Off
-</code></pre>
-<p>아파치 서버 재기동 한다.</p>
-<pre><code class="prettyprint language-sh">]# service httpd restart
-</code></pre>
-<p><img src="/img/was/was001_1.jpg" alt="img01" /></p>
-<h2>GET, POST 메소드만 허용하기</h2>
-<p>특별한 설정을 하지 않은 경우에는 아래와 같이 <code>curl</code> 명령으로 테스트 하면<br />
-<code>Allow</code>에 <code>GET</code>, <code>HEAD</code>, <code>POST</code>, <code>PUT</code>, <code>DELETE</code>, <code>TRACE</code>, <code>OPTIONS</code>, <code>PATCH</code> 모든 메소드가 허락된 것을 확인할 수 있다.</p>
-<pre><code class="prettyprint language-sh">]# curl -v -X OPTIONS https://appaga.kr/
-* About to connect() to appaga.kr port 443 (#0)
-*   Trying 127.0.0.1...
-* Connected to appaga.kr (127.0.0.1) port 443 (#0)
-&gt; OPTIONS / HTTP/1.1
-&gt; User-Agent: curl/7.29.0
-&gt; Host: appaga.kr
-&gt; Accept: */*
-&gt;
-&lt; HTTP/1.1 200
-&lt; Date: Tue, 12 Apr 2022 13:44:41 GMT
-&lt; Server: Apache/2.4.6 (CentOS) OpenSSL/1.0.2k-fips
-&lt; Allow: GET, HEAD, POST, PUT, DELETE, TRACE, OPTIONS, PATCH
-&lt; Content-Length: 0
-&lt; Set-Cookie: JSESSIONID=C27E22F18378DE344B761DCFB8DD971C; Path=/; Secure; HttpOnly; SameSite=None
-&lt;
-</code></pre>
-<p>아파치의 <code>vhost.conf</code>나 <code>ssl.conf</code>에 <code>GET</code>, <code>POST</code> 메소드 외에는 제거하는 아래와 같은 설정을 추가한다.<br />
-<code>Directory</code> 지시자를 사용하여도 된다.<br />
-나의 경우에는 <code>Location</code> 지시자를 사용 중에 있어 그대로 이용했다.</p>
-<pre><code class="prettyprint language-xml">&lt;Location /&gt;
-        &lt;LimitExcept GET POST&gt;
-                Order deny,allow
-                Deny from all
-        &lt;/LimitExcept&gt;
-&lt;/Location&gt;
-</code></pre>
-<p>아파치 서버 재기동 후에 동일한 <code>curl</code> 명령을 실행하면 이제는 <code>Forbidden</code> 결과로 응답된다.</p>
-<pre><code>]# curl -v -X OPTIONS https://appaga.kr/
-&gt; OPTIONS / HTTP/1.1
-&gt; User-Agent: curl/7.29.0
-&gt; Host: gcfwc.ggwf.or.kr
-&gt; Accept: */*
-&gt;
-&lt; HTTP/1.1 403 Forbidden
-&lt; Date: Tue, 12 Apr 2022 14:07:16 GMT
-&lt; Server: Apache
-&lt; Content-Length: 202
-&lt; Content-Type: text/html; charset=iso-8859-1
-</code></pre>
-</p>
-				</article>
-				<article class="blog-post">
-					<h2 class="blog-post-title"><a href='blog/was/was001.html'>Apache 2.x + Tomcat 설정</a></h2>
-					<p class="blog-post-meta">01 April 2022</p>
-					<p><p>apache 2.x에서 SSL 설정과 tomcat으로 proxy 하는 아파치 설정이다.</p>
-<p><code>80</code> 포트로 접속을 시도하면 <code>443</code> 포트로 리다이렉트 하도록 설정하여 언제나 <code>https://</code> 프로토콜로 제공되도록 한다.</p>
-<p>tomcat으로 proxy하여 원하는 url을 tomcat에서 제공하도록 설정한다.<br />
-만약 tomcat으로 proxy 하지 않도록 하려면 느낌표 <code>!</code>로 proxy에서 예외처리 한다.</p>
-<h2>80 포트를 443 포트로 리다이렉트</h2>
-<p><code>http://</code>로 접속을 시도하면 <code>https://</code>로 전환되도록 설정한다.</p>
-<h3><code>Redirect</code> 속성으로 하는 방법</h3>
-<pre><code class="prettyprint language-xml">&lt;VirtualHost *:80&gt;
-ServerName appaga.kr
-Redirect permanent / https://appaga.kr/
-&lt;/VirtualHost&gt;
-</code></pre>
-<h3><code>RewriteEngine</code> 으로 하는 방법</h3>
-<pre><code class="prettyprint language-xml">&lt;VirtualHost *:80&gt;
-ServerName appaga.kr
-RewriteEngine On
-RewriteCond %{HTTPS} off
-RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [R,L]
-&lt;/VirtualHost&gt;
-</code></pre>
-<h2>443 포트 SSL 설정</h2>
-<p>발급받은 SSL 인증서 파일들을 <code>/etc/httpd/ssl/2020/</code> 폴더에 저장하여 사용한다.</p>
-<p>tomcat은 8080 포트로 실행 중이며 proxy를 이용하여 모든 요청을 tomcat으로 전달 시킨다.</p>
-<p>만약 tomcat으로 proxy 하지 않도록 하려면 <code>ProxyPass /resources !</code> 처럼 느낌표 <code>!</code>로 proxy에서 예외처리 한다.</p>
-<pre><code class="prettyprint language-xml">Listen 443 https
-SSLPassPhraseDialog exec:/usr/libexec/httpd-ssl-pass-dialog
-SSLSessionCache         shmcb:/run/httpd/sslcache(512000)
-SSLSessionCacheTimeout  300
+			<div class="p-4 p-md-5 mb-4 text-white rounded bg-dark">
+				<div class="col-md-6 px-0">
+					<h1 class="display-4 fst-italic">Spring boot sample project</h1>
+					<p class="lead my-3">Spring boot + Mybatis + H2 + Thymeleaf + W3.css 기본 프로젝트</p>
+					<p class="lead mb-0"><a href="/blog/springboot/springboot002.html"
+							class="text-white fw-bold">Continue reading...</a></p>
+				</div>
+			</div>
 
-SSLRandomSeed startup file:///dev/urandom  256
-SSLRandomSeed connect builtin
+			<div class="row mb-2">
+				<div class="col-md-6">
+					<div
+						class="row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
+						<div class="col p-4 d-flex flex-column position-static">
+							<strong class="d-inline-block mb-2 text-primary">Thymeleaf</strong>
+							<h3 class="mb-0">Thymeleaf dialect 확장</h3>
+							<div class="mb-1 text-muted">Nov 12</div>
+							<p class="card-text mb-auto">thymeleaf dialect 확장하여 태그 속성값을 변환하여 출력하기</p>
+							<a href="/blog/springboot/thymeleaf003.html" class="stretched-link">Continue reading</a>
+						</div>
+						<div class="col-auto d-none d-lg-block">
+							<svg class="bd-placeholder-img" width="200" height="250" xmlns="http://www.w3.org/2000/svg"
+								role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice"
+								focusable="false">
+								<title>Placeholder</title>
+								<rect width="100%" height="100%" fill="#55595c" /><text x="50%" y="50%" fill="#eceeef"
+									dy=".3em">Thymeleaf dialect</text>
+							</svg>
 
-SSLCryptoDevice builtin
+						</div>
+					</div>
+				</div>
+				<div class="col-md-6">
+					<div
+						class="row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
+						<div class="col p-4 d-flex flex-column position-static">
+							<strong class="d-inline-block mb-2 text-success">Springboot</strong>
+							<h3 class="mb-0">Springboot with H2 database</h3>
+							<div class="mb-1 text-muted">Nov 11</div>
+							<p class="mb-auto">H2 DB를 맵퍼 어노테이션을 이용하여 다중 DB 지원되도록 연동하기.</p>
+							<a href="/blog/springboot/db001.html" class="stretched-link">Continue reading</a>
+						</div>
+						<div class="col-auto d-none d-lg-block">
+							<svg class="bd-placeholder-img" width="200" height="250" xmlns="http://www.w3.org/2000/svg"
+								role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice"
+								focusable="false">
+								<title>Placeholder</title>
+								<rect width="100%" height="100%" fill="#55595c" /><text x="50%" y="50%" fill="#eceeef"
+									dy=".3em">H2 database</text>
+							</svg>
 
-&lt;VirtualHost *:443&gt;
-	ServerAdmin webmaster@localhost
-	DocumentRoot /var/www/html
-	ServerName appaga.kr
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="row g-5">
+				<div class="col-md-8">
+					<h3 class="pb-4 mb-4 fst-italic border-bottom">
+						New articles
+					</h3>
+					<article class="blog-post">
+						<h2 class="blog-post-title">Apache 2.x 보안설정</h2>
+						<p class="blog-post-meta">12 April 2022</p>
+						<p>apache 2.x에서 보안을 위한 설정을 알아본다.
+응답 header에 서버 정보가 자세히 표시되는 것을 ServerTokens을 이용하여 최소화 할 수 있다.
 
-	ErrorLog logs/error.log
-	CustomLog logs/access.log combined
+사용하지도 않는 메소드를 차단한다. 주로 사용하는 GET, POST만 남겨놓고 나머지는 제거한다.
+curl 명령으로 최종 적용된 상태를 확인할 수 있다.서버정보 숨기기
 
-	SSLEngine on
-	SSLProtocol all -SSLv2 -SSLv3
-	SSLCipherSuite ECDHE-RSA-AES128-SHA256:AES128-GCM-SHA256:!RC4:HIGH:!MD5:!aNULL:!EDH
+ServerTokens </p>
+						<a href='blog/was/was002.html'>Continue reading</a>
+					</article>
+					<article class="blog-post">
+						<h2 class="blog-post-title">Apache 2.x + Tomcat 설정</h2>
+						<p class="blog-post-meta">01 April 2022</p>
+						<p>apache 2.x에서 SSL 설정과 tomcat으로 proxy 하는 아파치 설정이다.
 
-	SSLCertificateFile      /etc/httpd/ssl/2020/appaga.kr.crt
-	SSLCertificateKeyFile   /etc/httpd/ssl/2020/appaga.kr.key
-	SSLCACertificateFile /etc/httpd/ssl/2020/appaga.kr.crt
+80 포트로 접속을 시도하면 443 포트로 리다이렉트 하도록 설정하여 언제나 https:// 프로토콜로 제공되도록 한다.
 
-	ProxyRequests Off
-	ProxyPreserveHost On
+tomcat으로 proxy하여 원하는 url을 tomcat에서 제공하도록 설정한다.
+만약 tomcat으로 proxy 하지 않도록 하려면 느낌표 !</p>
+						<a href='blog/was/was001.html'>Continue reading</a>
+					</article>
+					<article class="blog-post">
+						<h2 class="blog-post-title">code prettify</h2>
+						<p class="blog-post-meta">01 April 2021</p>
+						<p>code prettify를 이용해서 소스코드를 언어별로 보기 좋게 표시한다.
 
-	&lt;Proxy *&gt;
-		Order deny,allow
-		Allow from all
-	&lt;/Proxy&gt;
-
-	ProxyPass /resources !
-	ProxyPass / http://127.0.0.1:8080/
-	ProxyPassReverse / http://127.0.0.1:8080/
-	&lt;Location /&gt;
-		Order allow,deny
-		Allow from all
-	&lt;/Location&gt;
-
-&lt;/VirtualHost&gt;
-</code></pre>
-</p>
-				</article>
-				<article class="blog-post">
-					<h2 class="blog-post-title"><a href='blog/post/post0001.html'>code prettify</a></h2>
-					<p class="blog-post-meta">01 April 2021</p>
-					<p>
-<p>code prettify</p>
-<p>&lt;pre class="prettyprint"&gt;를 사용한다.</p>
-
-<ul>
-<li><a href="https://github.com/googlearchive/code-prettify">https://github.com/googlearchive/code-prettify</a></li>
-</ul>
-
-<p></p>
-
-<pre class="prettyprint">
-<code>
+https://github.com/googlearchive/code-prettify&lt;pre class=&quot;prettyprint&quot;&gt;
+&lt;code class=&quot;language-java&quot;&gt;
 package org.jbake;
 
 public class Oven {
-	public static void main(String[] args) {
-		System.out.print("Baking!");
-  }
-}
-</code>
-</pre>
-</p>
-				</article>
-				<article class="blog-post">
-					<h2 class="blog-post-title"><a href='blog/js/obfuscator_io.html'>JavaScript Obfuscator Tool: obfuscator.io</a></h2>
-					<p class="blog-post-meta">01 October 2020</p>
-					<p><h1>자바스크립트 난독화</h1>
-<p>자바스크립트 난독화가 필요하여 테스트 하다가 오픈소스 <a href="https://obfuscator.io/">obfuscator.io</a> 툴을 이용하여 실무에 적용하였다.</p>
-<p>온라인으로도 가능하고 설치하여 사용도 가능하다.</p>
-<p>간단한 옵션 설정으로 난독화가 가능하고 브라우저 디버깅 모드를 작동하지 않도록 할 수 있어 유용하게 사용 중이다.</p>
-<h2>로컬 설치</h2>
-<p>설치는  프로젝트의 <a href="https://github.com/javascript-obfuscator/javascript-obfuscator">설치안내</a> 페이지를 따라서 진행하면 간단히 가능하다.</p>
-<h2>로컬 실행</h2>
-<p>설치 후에 실행은 <code>npm</code> 가이드만 나와있는데, <code>npm</code>을 제대로 사용할 지 모르는 상태여서 <code>sh</code>로 실행하고 있다.</p>
-<ul>
-<li><code>CMD</code>: 실행파일 경로이다.</li>
-<li><code>OUT_OPT</code>: 옵션파일 경로이다.</li>
-<li><code>SRC_DIR</code>의 js 파일 <code>common.js</code>를 <code>OUT_DIR</code>에 난독화하여 저장하고 있다.</li>
-</ul>
-<pre><code class="prettyprint language-shell">#!/bin/sh
-CMD=/home/appagakr/js-obfuscator/node_modules/javascript-obfuscator/bin/javascript-obfuscator
-SRC_DIR=/var/www/html/
-OUT_DIR=/home/appagakr/js-encode
-OUT_OPT=&quot;--config /home/appagakr/appagakr_conf.json&quot;
-$CMD $SRC_DIR/js/common.js --output $OUT_DIR/common.js $OUT_OPT
-</code></pre>
-<p>난독화 옵션 파일 <code>appagakr_conf.json</code>은 Low obfuscation, High performance 옵션에서 디버깅 불가, 콘솔 출력 불가만 <code>true</code>로 하여 사용중이다.</p>
-<pre><code class="prettyprint language-js">{
-        &quot;compact&quot;: true,
-        &quot;controlFlowFlattening&quot;: false,
-        &quot;deadCodeInjection&quot;: true,
-        &quot;debugProtection&quot;: true,
-        &quot;debugProtectionInterval&quot;: false,
-        &quot;disableConsoleOutput&quot;: true,
-        &quot;identifierNamesGenerator&quot;: &quot;hexadecimal&quot;,
-        &quot;log&quot;: false,
-        &quot;numbersToExpressions&quot;: false,
-        &quot;renameGlobals&quot;: false,
-        &quot;rotateStringArray&quot;: true,
-        &quot;selfDefending&quot;: false,
-        &quot;shuffleStringArray&quot;: true,
-        &quot;simplify&quot;: true,
-        &quot;splitStrings&quot;: false,
-        &quot;stringArray&quot;: true,
-        &quot;stringArrayEncoding&quot;: [],
-        &quot;stringArrayIndexShift&quot;: true,
-        &quot;stringArrayWrappersCount&quot;: 1,
-        &quot;stringArrayWrappersChainedCalls&quot;: true,
-        &quot;stringArrayWrappersParametersMaxCount&quot;: 2,
-        &quot;stringArrayWrappersType&quot;: &quot;variable&quot;,
-        &quot;stringArrayThreshold&quot;: 0.75,
-        &quot;unicodeEscapeSequence&quot;: false
-}
-</code></pre>
-</p>
-				</article>
-				<article class="blog-post">
-					<h2 class="blog-post-title"><a href='blog/mongodb/mongodb0001.html'>MongoDB free account</a></h2>
-					<p class="blog-post-meta">26 September 2020</p>
-					<p><p><a href="https://www.mongodb.com/">www.mongodb.com</a>에서 512M 용량의 free DB를 만든다.<br />
-회원가입을 하고 cluster를 만든다.<br />
-안내에 따라 진행하면 되니 별도의 사전 지식을 필요로 하지 않는다.</p>
-<p>DB접속 계정은 패스워드 기반으로 생성한다.<br />
-인증서 기반으로 생성할 수도 있다.</p>
-<p>접속가능 IP에 현재 사용중인 IP만 추가한다.<br />
-물론, 모든 IP 접속허용도 가능하다.</p>
-<p>샘플 데이터(약 320M 정도)를 로드해서 테스트에 사용한다.<br />
-버튼 클릭만으로 샘플 데이터는 로드된다.</p>
-<p><a href="https://www.mongodb.com/products/compass">MongoDB Compass</a>를 설치하여 샘플 데이터를 조회해본다.</p>
-<p>연결문자는 <code>mongodb+srv://DB계정:계정암호@cluster0.mongodb.net/test</code> 형식이다.</p>
-<p><img src="/img/mongodb001.jpg" alt="img01" /></p>
-</p>
-				</article>
-				<article class="blog-post">
-					<h2 class="blog-post-title"><a href='blog/springboot/springboot002.html'>Sprint boot + Mybatis + H2 + Thymeleaf + W3.css 기본 프로젝트</a></h2>
-					<p class="blog-post-meta">30 May 2020</p>
-					<p><p><a href="https://docs.spring.io/spring-boot/docs/2.2.6.RELEASE/reference/htmlsingle/#boot-features-developing-web-applications" title="Spring Web 2.2.6">Spring boot 2.2.6</a>을 이용한 웹 어플리케이션 기본 프로젝트로 만든 것이다.<br />
-<a href="https://docs.spring.io/spring-boot/docs/2.2.6.RELEASE/reference/htmlsingle/#boot-features-spring-mvc-template-engines" title="Thymeleaf">Thymeleaf</a> 템플릿엔진을 이용하고 <a href="https://www.w3schools.com/w3css/default.asp" title="W3.CSS">W3.CSS</a>를 사용하여 html/css 퍼블리싱을 한다.</p>
-<h2>html/css, font 등 디자인 자원</h2>
-<p><a href="https://www.w3schools.com/w3css/default.asp" title="W3.CSS">W3.CSS</a>를 이용하여 html 화면 디자인을 처리한다.<br />
-<a href="https://www.w3schools.com/w3css/tryw3css_examples_material.htm">Material Design 템플릿</a>을 기본 레이아웃으로 설정하였다.</p>
-<p>이미지를 만들 때 PNG 파일의 백그라운드를 제거하여 투명하게 만들 때는 <a href="https://www.remove.bg/">removebg</a> 홈페이지를 이용한다.<br />
-백그라운드를 제거하고자 하는 이미지 파일을 드래그앤드롭하여 온라인으로 바로 투명한 백그라운드 갖는 PNG 파일을 얻을 수 있어 유용하다.</p>
-<p>폰트는 네이버에서 제공하는 <a href="https://hangeul.naver.com/2017/nanum" title="네이버 한글한글아름답게">나눔스퀘어라운드</a>를 사용한다.<br />
-TTF 폰트를 다운받아서 <a href="https://www.font-converter.net" title="Online Font Converter / Web Font Generator">Online Font Convenverter</a>에서 <code>EOT</code>, <code>WOFF</code>, <code>WOFF2</code> 등으로 변환하여 사용하였다.</p>
-<pre><code class="prettyprint language-css">@font-face {
-  font-family: &quot;NanumSquareRoundR&quot;;
-  src: url(&quot;./fonts/NanumSquareRoundR.eot&quot;); /* IE9 Compat Modes */
-  src: url(&quot;./fonts/NanumSquareRoundR.eot?#iefix&quot;) format(&quot;embedded-opentype&quot;), /* IE6-IE8 */
-    url(&quot;./fonts/NanumSquareRoundR.otf&quot;) format(&quot;opentype&quot;), /* Open Type Font */
-    url(&quot;./fonts/NanumSquareRoundR.svg&quot;) format(&quot;svg&quot;), /* Legacy iOS */
-    url(&quot;./fonts/NanumSquareRoundR.ttf&quot;) format(&quot;truetype&quot;), /* Safari, Android, iOS */
-    url(&quot;./fonts/NanumSquareRoundR.woff&quot;) format(&quot;woff&quot;), /* Modern Browsers */
-    url(&quot;./fonts/NanumSquareRoundR.woff2&quot;) format(&quot;woff2&quot;); /* Modern Browsers */
-  font-weight: normal;
-  font-style: normal;
-}
-body {font-family: &quot;NanumSquareRoundR&quot;, sans-serif}
-</code></pre>
-<h2>Thymeleaf 템플릿엔진 사용</h2>
-<p><a href="https://docs.spring.io/spring-boot/docs/2.2.6.RELEASE/reference/htmlsingle/#boot-features-spring-mvc-template-engines" title="Thymeleaf">Thymeleaf</a>를 템플릿엔진으로 사용한다.</p>
-<p><a href="https://github.com/ultraq/thymeleaf-layout-dialect" title="Thymeleaf Layout Dialect">Thymeleaf Layout Dialect</a>에서 제공하는 <code>nz.net.ultraq.thymeleaf</code> 라이브러리를 추가하여 레이아웃 설정을 추가하였다.<br />
-다음 디펜던시가 추가되야 한다.</p>
-<pre><code class="prettyprint language-xml">&lt;dependency&gt;
-  &lt;groupId&gt;nz.net.ultraq.thymeleaf&lt;/groupId&gt;
-  &lt;artifactId&gt;thymeleaf-layout-dialect&lt;/artifactId&gt;
-&lt;/dependency&gt;
-</code></pre>
-<p>MVC 설정에 타임리프 템플릿엔진 설정하는 부분에 <code>templateEngine.addDialect(new LayoutDialect());</code>로 layout-dialect를 추가해줘야 한다.</p>
-<pre><code class="prettyprint language-java">@Configuration
-public class WebMvcConfig implements WebMvcConfigurer {
+	public static </p>
+						<a href='blog/post/post0001.html'>Continue reading</a>
+					</article>
+					<article class="blog-post">
+						<h2 class="blog-post-title">JavaScript Obfuscator Tool: obfuscator.io</h2>
+						<p class="blog-post-meta">01 October 2020</p>
+						<p>자바스크립트 난독화
 
-	/**
-	 * 타임리프 속성 생성
-	 */
-	@Bean
-	public SpringResourceTemplateResolver templateResolver() {
-		SpringResourceTemplateResolver templateResolver = new SpringResourceTemplateResolver();
-		templateResolver.setPrefix(&quot;classpath:templates/&quot;);
-		templateResolver.setSuffix(&quot;.html&quot;);
-		templateResolver.setTemplateMode(TemplateMode.HTML);
-		templateResolver.setCharacterEncoding(&quot;UTF-8&quot;);
-		// TODO: Template cache is true by default. Set to false if you want
-		// templates to be automatically updated when modified.
-		templateResolver.setCacheable(false);
-		return templateResolver;
-	}
+자바스크립트 난독화가 필요하여 테스트 하다가 오픈소스 obfuscator.io 툴을 이용하여 실무에 적용하였다.
 
-	/**
-	 * 타임리프 dialect 추가
-	 */
-	@Bean
-	public SpringTemplateEngine templateEngine() {
-		SpringTemplateEngine templateEngine = new SpringTemplateEngine();
-		templateEngine.setEnableSpringELCompiler(true); // Compiled SpringEL should speed up executions
-		templateEngine.setTemplateResolver(templateResolver());
-		templateEngine.addDialect(new LayoutDialect()); // nz.net.ultraq.thymeleaf 레이아웃 관리 추가
-		return templateEngine;
-	}
+온라인으로도 가능하고 설치하여 사용도 가능하다.
 
-	@Bean
-	public ThymeleafViewResolver viewResolver() {
-		ThymeleafViewResolver viewResolver = new ThymeleafViewResolver();
-		viewResolver.setTemplateEngine(templateEngine());
-		viewResolver.setCharacterEncoding(&quot;UTF-8&quot;);
-		viewResolver.setOrder(0);
-		return viewResolver;
-	}
+간단한 옵션 설정으로 난독화가 가능하고 브라우저 디버깅 모드를 작동하지 않도록 할 수 있어 유용하게 사용 중이다.로컬 설치
 
-}
-</code></pre>
-<h2>XSS 공격 방어 필터 적용</h2>
-<p>XSS(Cross-site-scripting) 공격에 대처하기 위하여 get/post 파라미터 및 request body에 필터를 적용한다.</p>
-<h3>GET/POST 파라미터에 XSS 공격 방어 필터 적용</h3>
-<p>많이 사용되는 <a href="https://github.com/naver/lucy-xss-servlet-filter" title="lucy-xss-servlet-filter">네이버 lucy-xss-servlet-filter</a> 라이브러리를 사용한다.<br />
-아래 디펜던시가 추가한다.</p>
-<pre><code class="prettyprint language-xml">&lt;dependency&gt;
-	&lt;groupId&gt;com.navercorp.lucy&lt;/groupId&gt;
-	&lt;artifactId&gt;lucy-xss-servlet&lt;/artifactId&gt;
-	&lt;version&gt;2.0.0&lt;/version&gt;
-&lt;/dependency&gt;
-</code></pre>
-<p>MVC 설정에 필터를 등록한다.</p>
-<pre><code class="prettyprint language-java">@Configuration
-public class WebMvcConfig implements WebMvcConfigurer {
+설치는  프로젝트의 설치안내 페이지를 따라서 진</p>
+						<a href='blog/js/obfuscator_io.html'>Continue reading</a>
+					</article>
+					<article class="blog-post">
+						<h2 class="blog-post-title">MongoDB free account</h2>
+						<p class="blog-post-meta">26 September 2020</p>
+						<p>www.mongodb.com에서 512M 용량의 free DB를 만든다.
+회원가입을 하고 cluster를 만든다.
+안내에 따라 진행하면 되니 별도의 사전 지식을 필요로 하지 않는다.
 
-	/**
-	 * XSS 필터 적용
-	 */
-	@Bean
-	public FilterRegistrationBean&lt;XssEscapeServletFilter&gt; getXssEscapeServletFilterRegistrationBean() {
-		FilterRegistrationBean&lt;XssEscapeServletFilter&gt; registrationBean = new FilterRegistrationBean&lt;XssEscapeServletFilter&gt;();
-		registrationBean.setFilter(new XssEscapeServletFilter());
-		registrationBean.setOrder(1);
-		registrationBean.addUrlPatterns(&quot;/*&quot;); // filter를 거칠 url patterns
-		return registrationBean;
-	}
+DB접속 계정은 패스워드 기반으로 생성한다.
+인증서 기반으로 생성할 수도 있다.
 
-}
-</code></pre>
-<h3>request body에 XSS 공격 방어 필터 적용</h3>
-<p>Ajax나 restful api 시에 사용되는 request body에는 lucy 필터가 적용되지 않는다고 한다.<br />
-request body에 XSS 공격 방어 필터도 같이 적용한다.<br />
-필터링을 담당하는 클래스 <code>HTMLCharacterEscapes</code>를 생성하고:</p>
-<pre><code class="prettyprint language-java">public class HTMLCharacterEscapes extends CharacterEscapes {
-	private final int[] asciiEscapes;
+접속가능 IP에 현재 사용중인 IP만 추가한다.
+물론, 모든 IP 접속허용도 가능하다.
 
-	private final CharSequenceTranslator translator;
+샘</p>
+						<a href='blog/mongodb/mongodb0001.html'>Continue reading</a>
+					</article>
+					<article class="blog-post">
+						<h2 class="blog-post-title">Spring boot + Mybatis + H2 + Thymeleaf + W3.css 기본 프로젝트</h2>
+						<p class="blog-post-meta">30 May 2020</p>
+						<p>Spring boot 2.2.6을 이용한 웹 어플리케이션 기본 프로젝트로 만든 것이다.
+Thymeleaf 템플릿엔진을 이용하고 W3.CSS를 사용하여 html/css 퍼블리싱을 한다.html/css, font 등 디자인 자원
 
-	public HTMLCharacterEscapes() {
+W3.CSS를 이용하여 html 화면 디자인을 처리한다.
+Material Design 템플릿을 기본 레이아웃으로 설정하였다.
 
-		Map&lt;CharSequence, CharSequence&gt; customMap = new HashMap&lt;&gt;();
-		customMap.put(&quot;(&quot;, &quot;&amp;#40;&quot;);
-		Map&lt;CharSequence, CharSequence&gt; CUSTOM_ESCAPE = Collections.unmodifiableMap(customMap);
+이미</p>
+						<a href='blog/springboot/springboot002.html'>Continue reading</a>
+					</article>
+					<article class="blog-post">
+						<h2 class="blog-post-title">구글 애널리틱스 이벤트 추적하기</h2>
+						<p class="blog-post-meta">30 April 2020</p>
+						<p>웹사이트에 방문한 사용자가 웹사이트에서 어떤 요소 또는 항목을 사용했는지 추적하기 위해서 구글 애널리틱스의 이벤트 추적기능을 사용한다.
 
-		// XSS 방지 처리할 특수 문자 지정
-		asciiEscapes = CharacterEscapes.standardAsciiEscapesForJSON();
-		asciiEscapes['&lt;'] = CharacterEscapes.ESCAPE_CUSTOM;
-		asciiEscapes['&gt;'] = CharacterEscapes.ESCAPE_CUSTOM;
-		asciiEscapes['&amp;'] = CharacterEscapes.ESCAPE_CUSTOM;
-		asciiEscapes['('] = CharacterEscapes.ESCAPE_CUSTOM;
+이벤트 추적에는 4개의 항목을 사용한다.
+4개의 항목을 이용하여 사용자가 웹페이지를 어떻게 이용했는지 표현될 수 있도록 정의한다.
 
-		// XSS 방지 처리 특수 문자 인코딩 값 지정
-		translator = new AggregateTranslator(new LookupTranslator(EntityArrays.BASIC_ESCAPE), // &lt;, &gt;, &amp;, &quot; 는 여기에 포함됨
-				new LookupTranslator(EntityArrays.ISO8859_1_ESCAPE),
-				new LookupTranslator(EntityArrays.HTML40_EXTENDED_ESCAPE), new LookupTranslator(CUSTOM_ESCAPE));
+category : 필수. 추적하고자 하는 항목의 그룹.
 
-	}
+action   : 필수. 추</p>
+						<a href='blog/google/gtag002.html'>Continue reading</a>
+					</article>
+					<article class="blog-post">
+						<h2 class="blog-post-title">Sprint boot + Mybatis + H2 + Thymeleaf + W3.css</h2>
+						<p class="blog-post-meta">20 April 2020</p>
+						<p>스프링부트 기반의 샘플 프로젝트를 구현하고자 한다.
 
-	@Override
-	public int[] getEscapeCodesForAscii() {
-		return asciiEscapes;
-	}
+Sprint boot + Mybatis + H2 + Thymeleaf + W3.css 을 사용하여 구현을 시작한다.
 
-	@Override
-	public SerializableString getEscapeSequence(int ch) {
-		return new SerializedString(translator.translate(Character.toString((char) ch)));
-	}
+JSP 파일에서 JSTL을 이용하는데 익숙하지만 타임리프를 맛보기 정도로 습득하여 적용하고 테스트 해보니
+쉽게 개념을 이해할 수 있고 이삼일 정도면 기본적으로 사용하는데 문제가 없어 보이</p>
+						<a href='blog/springboot/springboot001.html'>Continue reading</a>
+					</article>
+					<article class="blog-post">
+						<h2 class="blog-post-title">Extending Thymeleaf dialect : processing attribute value</h2>
+						<p class="blog-post-meta">17 April 2020</p>
+						<p>thymeleaf dialect 확장하여 태그 속성값을 변환하여 출력하기
 
-}
-</code></pre>
-<p>MVC 설정에 <code>Jackson</code> 컨버터에 등록해준다.</p>
-<pre><code class="prettyprint language-java">@Configuration
-public class WebMvcConfig implements WebMvcConfigurer {
+타임리프 속성의 값으로 입력된 값을 처리하여 원하는 출력으로 변환하고자 한다.
 
-	@Override
-	public void configureMessageConverters(List&lt;HttpMessageConverter&lt;?&gt;&gt; converters) {
-		// request body xss 추가
-		converters.add(escapingConverter());
+tlmd dialect를 만들고 ox 속성을 추가한다.
 
-	}
+속성에 입력한 값이 true에 해당하는 값(0이 아닌 숫자, false가 아닌 문자열 등) 이면 ●을 출력하고,
+false에 해당하는 값(숫자 0</p>
+						<a href='blog/springboot/thymeleaf003.html'>Continue reading</a>
+					</article>
+					<article class="blog-post">
+						<h2 class="blog-post-title">Creating Thymeleaf Custom Tags</h2>
+						<p class="blog-post-meta">16 April 2020</p>
+						<p>타임리프 커스텀 태그 만들기
 
-	/**
-	 * request body xss 적용
-	 */
-	@Bean
-	public HttpMessageConverter&lt;?&gt; escapingConverter() {
-		ObjectMapper objectMapper = new ObjectMapper();
-		objectMapper.getFactory().setCharacterEscapes(new HTMLCharacterEscapes());
+타임리프 커스텀 태그는 생성되는 태크에 속성을 부여하고 생성 전/후 처리, 표준 표현식에 대응되는 부분 등으로 구성되는 dialect를 생성하여 구현할 수 있다.
 
-		MappingJackson2HttpMessageConverter escapingConverter = new MappingJackson2HttpMessageConverter();
-		escapingConverter.setObjectMapper(objectMapper);
+참조사이트속성 처리기: 화면 표시 담당
 
-		return escapingConverter;
-	}
+AbstractAttributeTagProcessor 클래스를 확장하여 화면에 태그 표시를 담당하는 처리기를 작성한다.pu</p>
+						<a href='blog/springboot/thymeleaf002.html'>Continue reading</a>
+					</article>
+					<article class="blog-post">
+						<h2 class="blog-post-title">Springboot with H2 database, multi database</h2>
+						<p class="blog-post-meta">11 April 2020</p>
+						<p>springboot에서 H2 데이터베이스 연동
 
-}
-</code></pre>
-<h2>프로젝트 실행 화면</h2>
-<p>기본적으로 설정된 프로젝트를 실행하면 아래와 같이 <a href="https://www.w3schools.com/w3css/default.asp" title="W3.CSS">W3.CSS</a> 템플릿이 적용된 반응형 웹페이지를 확인할 수 있다.<br />
-<img src="/img/springboot/springboot_001.png" alt="PC용 대화면 웹페이지" title="PC용 큰화면" /></p>
-<p>모바일에서는 왼쪽 네비게이션 메뉴가 좌측 상단의 메뉴 버튼으로 숨겨진다.<br />
-<img src="/img/springboot/springboot_002.png" alt="모바일 화면 웹페이지" title="모바일 화면" /></p>
-<h2>github 프로젝트</h2>
-<p>현재 github 프로젝트에는 spring-security 관련 작업 중인 소스도 같이 들어있으나 실행하여 기본 페이지 표시에는 아무 문제가 없는 상태이다.</p>
-<p><a href="https://github.com/appaga/springmvc/tree/master/appagapm" title="github 프로젝트">github 프로젝트</a></p>
-<h2>Reference Documentation</h2>
-<p>For further reference, please consider the following sections:</p>
-<ul>
-<li><a href="https://docs.spring.io/spring-boot/docs/2.2.6.RELEASE/reference/htmlsingle/#boot-features-developing-web-applications" title="Spring Web 2.2.6">Spring Web 2.2.6</a></li>
-<li><a href="https://www.w3schools.com/w3css/default.asp" title="W3.CSS">W3.CSS</a></li>
-<li><a href="https://hangeul.naver.com/2017/nanum" title="네이버 한글한글아름답게">나눔스퀘어라운드</a></li>
-<li><a href="https://docs.spring.io/spring-boot/docs/2.2.6.RELEASE/reference/htmlsingle/#boot-features-spring-mvc-template-engines" title="Thymeleaf">Thymeleaf</a></li>
-<li><a href="https://maven.apache.org/guides/index.html">Official Apache Maven documentation</a></li>
-<li><a href="https://docs.spring.io/spring-boot/docs/2.2.6.RELEASE/maven-plugin/">Spring Boot Maven Plugin Reference Guide</a></li>
-<li><a href="https://docs.spring.io/spring-boot/docs/2.2.6.RELEASE/reference/htmlsingle/#using-boot-devtools">Spring Boot DevTools</a></li>
-<li><a href="https://docs.spring.io/spring-boot/docs/2.2.6.RELEASE/reference/htmlsingle/#configuration-metadata-annotation-processor">Spring Configuration Processor</a></li>
-</ul>
-<h2>Guides</h2>
-<p>The following guides illustrate how to use some features concretely:</p>
-<ul>
-<li><a href="https://spring.io/guides/gs/handling-form-submission/">Handling Form Submission</a></li>
-<li><a href="https://spring.io/guides/gs/rest-service/">Building a RESTful Web Service</a></li>
-<li><a href="https://spring.io/guides/gs/serving-web-content/">Serving Web Content with Spring MVC</a></li>
-<li><a href="https://spring.io/guides/tutorials/bookmarks/">Building REST services with Spring</a></li>
-</ul>
-</p>
-				</article>
-				<article class="blog-post">
-					<h2 class="blog-post-title"><a href='blog/google/gtag002.html'>구글 애널리틱스 이벤트 추적하기</a></h2>
-					<p class="blog-post-meta">30 April 2020</p>
-					<p><p>웹사이트에 방문한 사용자가 웹사이트에서 어떤 요소 또는 항목을 사용했는지 추적하기 위해서 구글 애널리틱스의 이벤트 추적기능을 사용한다.</p>
-<p>이벤트 추적에는 4개의 항목을 사용한다.<br />
-4개의 항목을 이용하여 사용자가 웹페이지를 어떻게 이용했는지 표현될 수 있도록 정의한다.</p>
-<ul>
-<li><strong>category</strong> : 필수. 추적하고자 하는 항목의 그룹.</li>
-<li><strong>action</strong>   : 필수. 추적 행동. <code>링크를 클릭한다</code>와 같은 행위를 표현한다.</li>
-<li><strong>label</strong>    : 선택사항(필수로 사용하길 권장함). 추적 해동에 대한 기술. <code>클릭한 링크의 주소</code> 등의 값을 사용한다.</li>
-<li><strong>value</strong>    : 선택사항. 정수값을 이용한다. <code>동영상을 플레이한 시간</code> 등의 값이 사용된다.</li>
-</ul>
-<p>꼭 위에 기술된 내용에 맞게 정의할 필요는 없고 이벤트 추적에 도움이 되도록 자신만의 규칙으로 설정하면 된다.</p>
-<h2>gtag.js 애널리틱스 자바스크립트를 사이트에 추가하기</h2>
-<p>기존 <code>analytics.js</code>가 아닌 새로운 방식의 <code>gtag.js</code>를 이용하도록 한다.<br />
-<code>analytics.js</code>에서 <code>gtag.js</code>로 변경하는 방법은 아래 링크에 잘 나와있다.</p>
-<p><a href="https://developers.google.com/analytics/devguides/collection/gtagjs/migration">Migrate from analytics.js to gtag.js</a></p>
-<p>구글애널리틱스에 등록한 구글애널리틱스ID(<code>GA_MEASUREMENT_ID</code>) 값을 이용하여 아래 스크립트를 웹사이트 헤더에 추가한다.<br />
-<code>sendGaEvent()</code>는 웹사이트에서 공통으로 호출한 함수를 정의한 것으로 실제로는 <code>gtag()</code> 함수를 호출하는 역할을 할 뿐이다.</p>
-<pre><code class="prettyprint language-javascript">&lt;script async src=&quot;https://www.googletagmanager.com/gtag/js?id=GA_MEASUREMENT_ID&quot;&gt;&lt;/script&gt;
-&lt;script&gt;
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-
-  gtag('config', 'GA_MEASUREMENT_ID');
-  
-  function sendGaEvent(category, action, label, value) {
-	  gtag('event', action||'ACTION', {
-		'event_category': category||'CATEGORY',
-		'event_label': label||'',
-		'value': value||''
-	  });
-  }
-&lt;/script&gt;
-</code></pre>
-<h2>이벤트 등록하기</h2>
-<p>아래 예시와 같이 링크를 클릭하면 <code>sendGaEvent()</code> 함수를 호출하여 구글애널리틱스에 이벤트를 추적하도록 한다.</p>
-<pre><code class="prettyprint language-html">&lt;a href=&quot;/category/event&quot; onclick=&quot;sendGaEvent('메뉴', 'click', '이벤트보기')&quot;&gt;이벤트보기&lt;/a&gt;
-</code></pre>
-</p>
-				</article>
-				<article class="blog-post">
-					<h2 class="blog-post-title"><a href='blog/springboot/springboot001.html'>Sprint boot + Mybatis + H2 + Thymeleaf + W3.css</a></h2>
-					<p class="blog-post-meta">20 April 2020</p>
-					<p><p>스프링부트 기반의 샘플 프로젝트를 구현하고자 한다.</p>
-<p>Sprint boot + Mybatis + H2 + Thymeleaf + W3.css 을 사용하여 구현을 시작한다.</p>
-<p>JSP 파일에서 JSTL을 이용하는데 익숙하지만 타임리프를 맛보기 정도로 습득하여 적용하고 테스트 해보니<br />
-쉽게 개념을 이해할 수 있고 이삼일 정도면 기본적으로 사용하는데 문제가 없어 보이는 반면에<br />
-JSTL 보다는 많은 기능을 제공한다고 생각된다.</p>
-<p>특히, 자바스크립트 지원은 아주 훌륭하고 원하던 기능이다.</p>
-<h2>Thymeleaf Javascript inlining</h2>
-<p>타임리프는 자바스크립트 내에서도 개발에 편리하고 개발시간을 단축할 수 있는 훌륭한 역할을 한다고 판단된다.</p>
-<p>로컬에서 작업하던 소스 파일을 웹브라우저로 직접 오픈하여도 자바스크립트가 실행되는데 문제없도록 타임리프 태그를<br />
-숨길 수 있는 방법을 제공하는 것이 아주 매력적이다.</p>
-<ul>
-<li><a href="/blog/springboot/thymeleaf001.html">타임리프 자바스크립트 사용 샘플</a></li>
-</ul>
-<h2>Extending Thymeleaf dialects</h2>
-<p>타임리프 dialect를 확장하여 커스텀 속성, 태그를 만드는 방법이다.</p>
-<ul>
-<li><a href="/blog/springboot/thymeleaf002.html">dialect 확장하기</a></li>
-<li><a href="/blog/springboot/thymeleaf003.html">dialect 확장 더 많이&hellip; 태그에 class 추가 하기</a></li>
-</ul>
-<h2>H2 디비 연동과 다중 데이터베이스 연결 지원.</h2>
-<p>메모리 디비가 지원되는 H2 데이터베이스를 연동하고 쿼리 실행 결과를 타임리프로 화면에 표시하는 샘플이다.</p>
-<ul>
-<li><a href="/blog/springboot/db001.html">H2 디비 연동 샘플</a></li>
-</ul>
-<h2>관련 링크</h2>
-<ul>
-<li><a href="https://maven.apache.org/guides/index.html">Official Apache Maven documentation</a></li>
-<li><a href="https://docs.spring.io/spring-boot/docs/2.2.4.RELEASE/maven-plugin/">Spring Boot Maven Plugin Reference Guide</a></li>
-<li><a href="https://docs.spring.io/spring-boot/docs/2.2.4.RELEASE/reference/htmlsingle/#using-boot-devtools">Spring Boot DevTools</a></li>
-<li><a href="https://docs.spring.io/spring-boot/docs/2.2.4.RELEASE/reference/htmlsingle/#boot-features-developing-web-applications">Spring Web</a></li>
-<li><a href="https://docs.spring.io/spring-boot/docs/2.2.4.RELEASE/reference/htmlsingle/#boot-features-spring-mvc-template-engines">Spring Thymeleaf</a></li>
-<li><a href="https://www.thymeleaf.org/documentation.html">Thymeleaf Docs.</a></li>
-<li><a href="https://mybatis.org/mybatis-3/">MyBatis homepage</a></li>
-<li><a href="https://mybatis.org/spring/">MyBatis-Spring</a></li>
-<li><a href="https://www.h2database.com/">H2 Database Engine</a></li>
-<li><a href="https://www.w3schools.com/w3css/">W3.CSS homepage</a></li>
-</ul>
-</p>
-				</article>
-				<article class="blog-post">
-					<h2 class="blog-post-title"><a href='blog/springboot/thymeleaf003.html'>Extending Thymeleaf dialect : processing attribute value</a></h2>
-					<p class="blog-post-meta">17 April 2020</p>
-					<p><h1>thymeleaf dialect 확장하여 태그 속성값을 변환하여 출력하기</h1>
-<p>타임리프 속성의 값으로 입력된 값을 처리하여 원하는 출력으로 변환하고자 한다.</p>
-<p><code>tlmd</code> dialect를 만들고 <code>ox</code> 속성을 추가한다.</p>
-<p>속성에 입력한 값이 <code>true</code>에 해당하는 값(<code>0</code>이 아닌 숫자, <code>false</code>가 아닌 문자열 등) 이면 <code>●</code>을 출력하고,<br />
-<code>false</code>에 해당하는 값(숫자 <code>0</code>, <code>false</code>, <code>null</code> 등) 이면 <code>○</code>을 출력한다.</p>
-<pre><code class="prettyprint language-html">&lt;td tlmd:ox=&quot;${item.user.active_yn}&quot;&gt;active_yn&lt;/td&gt;
-</code></pre>
-<p>위와 같이 코딩을 하면 <code>${item.user.active_yn}</code>이 <code>1</code> 문자열을 가지고 있기 때문에 아래와 같이 화면에 출력된다.</p>
-<pre><code class="prettyprint language-html">&lt;td&gt;●&lt;/td&gt;
-</code></pre>
-<p><a href="https://www.thymeleaf.org/doc/articles/sayhelloagainextendingthymeleafevenmore5minutes.html">타임리프 참조사이트</a></p>
-<h2>custom dialect 클래스</h2>
-<p><code>AbstractProcessorDialect</code>을 확장하여 <code>TlmdDialect</code> 클래스를 생성한다.</p>
-<pre><code class="prettyprint language-java">public class TlmdDialect extends AbstractProcessorDialect {
-	private static final String PREFIX = &quot;tlmd&quot;;
-	
-	public TlmdDialect() {
-		super(&quot;Ttallaemideul Dialect&quot; // dialect name
-				, PREFIX	// 접두사. 속성 사용방법: tlmd:*
-				, 1000 		// dialect 우선순위
-				);
-	}
-
-	/**
-	 * dialect 처리기를 초기화 한다.
-	 */
-	@Override
-	public Set&lt;IProcessor&gt; getProcessors(String dialectPrefix) {
-		final Set&lt;IProcessor&gt; processors = new HashSet&lt;&gt;();
-		processors.add(new OxAttrTagProcessor(dialectPrefix));
-		return processors;
-	}
-
-}
-</code></pre>
-<p><a href="https://github.com/ttallaemideul/springboot/blob/master/tlmd_web/src/main/java/io/github/ttallaemideul/thymeleaf/TlmdDialect.java">TlmdDialect.java</a></p>
-<h2>속성태그 처리기 클래스</h2>
-<p><code>AbstractAttributeTagProcessor</code>을 확장하여 <code>OxAttrTagProcessor</code> 클래스를 생성한다.</p>
-<p>오버라이드한 <code>doProcess</code> 함수에서 속성값(<code>attributeValue</code>)을 파싱 처리하여 값을 <code>attrVal</code> 획득한다.</p>
-<p><code>attrVal</code> 값이 <code>true</code>에 해당하면 <code>●</code>을 태그의 바디에 설정하고 아니면 <code>○</code>을 설정한다.</p>
-<pre><code class="prettyprint language-java">@Override
-protected void doProcess(ITemplateContext context, IProcessableElementTag tag, AttributeName attributeName,
-		String attributeValue, IElementTagStructureHandler structureHandler) {
-	// 속성값을 타임리프 표준 표현식으로 파싱한 후 표현식을 처리한다.
-	final IEngineConfiguration configuration = context.getConfiguration();
-	final IStandardExpressionParser parser = StandardExpressions.getExpressionParser(configuration);
-	final IStandardExpression expression = parser.parseExpression(context, attributeValue);
-	final Object attrVal = expression.execute(context);
-	// 문자열이 true에 해당하는지 판단.
-	if (UtilString.isTrue(attrVal)) {
-		structureHandler.setBody(YES, false);
-	} else {
-		structureHandler.setBody(NO, false);
-	}
-}
-</code></pre>
-<p><code>isTrue()</code> 함수는 파라미터의 값이 <code>true</code>에 해당하는 경우 <code>true</code>를 리턴한다.<br />
-<code>true</code>에 해당하는 문자열은 <code>0</code>이 아닌 숫자, <code>false</code>, <code>null</code>, <code>undefined</code> 문자열이 아닌 경우이다.</p>
-<p><a href="https://github.com/ttallaemideul/springboot/blob/master/tlmd_web/src/main/java/io/github/ttallaemideul/thymeleaf/OxAttrTagProcessor.java">OxAttrTagProcessor.java</a></p>
-<h2>dialect 등록</h2>
-<p>MVC 설정시에 등록한 템플릿 엔진에 생성한 dialect 클래스 <code>TlmdDialect</code>를 등록한다.</p>
-<pre><code class="prettyprint language-java">@Bean
-public SpringTemplateEngine templateEngine() {
-	SpringTemplateEngine templateEngine = new SpringTemplateEngine();
-	templateEngine.setEnableSpringELCompiler(true); // Compiled SpringEL should speed up executions
-	templateEngine.setTemplateResolver(templateResolver());
-	templateEngine.addDialect(layoutDialect());	// 레이아웃 관리
-	templateEngine.addDialect(new HelloDialect()); // 샘플 dialect
-	templateEngine.addDialect(new TlmdDialect()); // tlmd dialect
-	return templateEngine;
-}
-</code></pre>
-<p><a href="https://github.com/ttallaemideul/springboot/blob/master/tlmd_web/src/main/java/io/github/ttallaemideul/config/WebMvcConfig.java">WebMvcConfig.java</a></p>
-<h2>dialect 사용</h2>
-<p>웹페이지에 <code>tlmd</code> dialect를 사용함을 명시한다.</p>
-<pre><code class="prettyprint language-xml">&lt;!DOCTYPE html&gt;
-&lt;html xmlns:th=&quot;http://www.thymeleaf.org&quot;
-      xmlns:layout=&quot;http://www.ultraq.net.nz/thymeleaf/layout&quot;
-      xmlns:tlmd=&quot;https://ttallaemideul.github.io&quot;
-      layout:decorator=&quot;~{layouts/layout_base}&quot;&gt;
-</code></pre>
-<p><code>tlmd:ox</code> 태그를 적용한다.</p>
-<pre><code class="prettyprint language-html">&lt;tr th:each=&quot;item : ${userList}&quot;&gt;
-  &lt;td th:text=&quot;${item.user.login_id}&quot;&gt;login_id&lt;/td&gt;
-  &lt;td th:text=&quot;${item.user.user_name}&quot;&gt;user_name&lt;/td&gt;
-  &lt;td tlmd:ox=&quot;${item.user.active_yn}&quot;&gt;active_yn&lt;/td&gt;
-  &lt;td tlmd:ox=&quot;${item.user.expired_yn}&quot;&gt;expired_yn&lt;/td&gt;
-  &lt;td tlmd:ox=&quot;${item.user.locked_yn}&quot;&gt;locked_yn&lt;/td&gt;
-  &lt;td tlmd:ox=&quot;${item.user.pwd_expired_yn}&quot;&gt;pwd_expired_yn&lt;/td&gt;
-  &lt;td th:text=&quot;${item.user.reg_dt}&quot;&gt;reg_dt&lt;/td&gt;
-  &lt;td th:text=&quot;${item.user.upd_dt}&quot;&gt;upd_dt&lt;/td&gt;
-  &lt;td&gt;
-  	&lt;span th:each=&quot;role : ${item.roles}&quot;&gt;
-  		[[${role.roleNm}]]&lt;small th:text=&quot;|(${role.desc})|&quot;&gt;&lt;/small&gt;&lt;br&gt;
-  	&lt;/span&gt;
-  &lt;/td&gt;
-&lt;/tr&gt;
-</code></pre>
-<p><a href="https://github.com/ttallaemideul/springboot/blob/master/tlmd_web/src/main/resources/templates/web/admin/admin_main.html">admin_main.html</a></p>
-<h2>화면 랜더링 결과</h2>
-<p>최종적으로 화면에 나타나는 결과물이다.<br />
-<code>정상</code> 컬럼은 데이터베이스에 값이 <code>1</code>이 저장되어 있기 때문에 <code>true</code>에 해당하여 <code>●</code>로 표시된다.</p>
-<p><img src="/img/tlmd_web/tlmd_web_002.PNG" alt="tlmd:ox 적용 결과" /></p>
-<h2><code>class</code>를 변경하기</h2>
-<p>태그 본문의 문자열을 처리하는 것에 추가적으로 태그 속성 중에 <code>class</code>를 변경하도록 하자.</p>
-<p><code>w3-css</code>를 사용하고 있기 때문에 <code>w3-color</code> 클래스를 이용할 것 이다.</p>
-<p><a href="https://www.w3schools.com/w3css/w3css_colors.asp">W3.CSS Colors</a></p>
-<p><code>●</code>를 표시할 때는 <code>w3-text-blue</code> 클래스를 이용하고 <code>○</code>를 표시할 때는 <code>w3-text-gray</code> 클래스를 이용한다.</p>
-<p><code>OxAttrTagProcessor</code> 클래스의 <code>doProcess()</code> 함수에서 <code>tag</code> 객체로 부터 <code>class</code> 속성을 얻어 그 값을 가져온다.<br />
-이 값에 html 태그의 기존 class 값이 들어있다.</p>
-<pre><code class="prettyprint language-java">final IAttribute cls = tag.getAttribute(CLS);
-String oldCls = null;
-if (cls != null) {
-	oldCls = cls.getValue();
-}
-</code></pre>
-<p>태그의 바디를 설정할 때 <code>structureHandler.setAttribute()</code> 함수로 <code>class</code>를 설정하도록 한다.<br />
-이 때, 기존 클래스 <code>oldCls</code>가 존재하면 뒤에 추가하도록 한다.</p>
-<p>최종적으로 완료된 <code>OxAttrTagProcessor.doProcess()</code> 함수이다.</p>
-<pre><code class="prettyprint language-java">@Override
-protected void doProcess(ITemplateContext context, IProcessableElementTag tag, AttributeName attributeName,
-		String attributeValue, IElementTagStructureHandler structureHandler) {
-	// 속성값을 타임리프 표준 표현식으로 파싱한 후 표현식을 처리한다.
-	final IEngineConfiguration configuration = context.getConfiguration();
-	final IStandardExpressionParser parser = StandardExpressions.getExpressionParser(configuration);
-	final IStandardExpression expression = parser.parseExpression(context, attributeValue);
-	final Object attrVal = expression.execute(context);
-	final IAttribute cls = tag.getAttribute(CLS);
-	String oldCls = null;
-	if (cls != null) {
-		oldCls = cls.getValue(); // 기존 class 값.
-	}
-	// 문자열이 true에 해당하는지 판단.
-	if (UtilString.isTrue(attrVal)) {
-		if (oldCls != null) {
-			// 기존 클래스에 추가
-			structureHandler.setAttribute(CLS, oldCls + &quot; &quot; + CLS_YES);
-		} else {
-			structureHandler.setAttribute(CLS, CLS_YES);
-		}
-		structureHandler.setBody(YES, false);
-	} else {
-		if (oldCls != null) {
-			structureHandler.setAttribute(CLS, oldCls + &quot; &quot; + CLS_NO);
-		} else {
-			structureHandler.setAttribute(CLS, CLS_NO);
-		}
-		structureHandler.setBody(NO, false);
-	}
-}
-</code></pre>
-<p>화면은 이제 아래 이미지와 같이 클래스가 적용되어 표시된다.</p>
-<p><img src="/img/tlmd_web/tlmd_web_003.PNG" alt="class가 적용된 화면" /></p>
-<p>생성된 html 코드를 보면 아래와 같이 경우에 따라 클래스가 추가되었고,<br />
-기존 <code>test</code> 클래스가 태그에 있었던 첫 번째 <code>td</code> 태그에는 <code>test</code> 클래스 뒤에 추가되었다.</p>
-<pre><code class="prettyprint language-html"> &lt;td class=&quot;test w3-text-blue&quot;&gt;●&lt;/td&gt;
-  &lt;td class=&quot;w3-text-gray&quot;&gt;○&lt;/td&gt;
-  &lt;td class=&quot;w3-text-gray&quot;&gt;○&lt;/td&gt;
-  &lt;td class=&quot;w3-text-gray&quot;&gt;○&lt;/td&gt;
-</code></pre>
-<p><a href="https://github.com/thymeleaf/thymeleafexamples-extrathyme">타임리프 참조사이트</a></p>
-<h2>샘플 코드</h2>
-<p>아래 샘플 프로젝트에서 이 문서에서 설명한 소스를 확인할 수 있다.<br />
-프로젝트를 받아서 직접 빌드하여 실행하고 결과를 확인해보면 도움이 될 것이다.</p>
-<p><a href="https://github.com/ttallaemideul/springboot/tree/master/tlmd_web">github 샘플 프로젝트</a></p>
-</p>
-				</article>
-				<article class="blog-post">
-					<h2 class="blog-post-title"><a href='blog/springboot/thymeleaf002.html'>Creating Thymeleaf Custom Tags</a></h2>
-					<p class="blog-post-meta">16 April 2020</p>
-					<p><h1>타임리프 커스텀 태그 만들기</h1>
-<p>타임리프 커스텀 태그는 생성되는 태크에 속성을 부여하고 생성 전/후 처리, 표준 표현식에 대응되는 부분 등으로 구성되는 dialect를 생성하여 구현할 수 있다.</p>
-<p><a href="https://www.thymeleaf.org/doc/articles/sayhelloextendingthymeleaf5minutes.html">참조사이트</a></p>
-<h2>속성 처리기: 화면 표시 담당</h2>
-<p><code>AbstractAttributeTagProcessor</code> 클래스를 확장하여 화면에 태그 표시를 담당하는 처리기를 작성한다.</p>
-<pre><code class="prettyprint language-java">public class SayToAttrTagProcessor extends AbstractAttributeTagProcessor {
-
-	private static final String ATTR_NAME = &quot;sayto&quot;;
-	private static final int PRECEDENCE = 10000;
-	protected SayToAttrTagProcessor(String dialectPrefix) {
-		super(
-				TemplateMode.HTML		// HTML 모드로 설정
-				, dialectPrefix						// 접두사
-				,null										// 태그명 미설정. 적용가능 태그명에 제약이 없다.
-				,false										// 태그명에 접두사를 적용하지 않는다.
-				,ATTR_NAME						// 적용될 속성명
-				,true										// 속성명에 dialect 접두사를 사용한다.
-				,PRECEDENCE					//  dialect 들 내에서 적용 우선권.
-				,true										// 적용한 속성명은 처리 후 삭제한다.
-		);
-	}
-
-	@Override
-	protected void doProcess(ITemplateContext context, IProcessableElementTag tag, AttributeName attributeName,
-			String attributeValue, IElementTagStructureHandler structureHandler) {
-		structureHandler.setBody(&quot;Hello, &quot; + HtmlEscape.escapeHtml5(attributeValue) + &quot;!&quot;, false);
-	}
-}
-</code></pre>
-<p><a href="https://github.com/ttallaemideul/springboot/blob/master/tlmd_web/src/main/java/io/github/ttallaemideul/sample/thymeleaf/SayToAttrTagProcessor.java">SayToAttrTagProcessor</a></p>
-<h2>dialect 클래스 생성</h2>
-<p>dialect 클래스를 생성하여 타임리프에서 새롭게 만든 커스텀 태그를 사용할 수 있도록 해준다.<br />
-사용할 접두사는 <code>hello</code> 이고, 속성명은 <code>sayto</code>가 되어 화면에서 호출시에는 <code>hello:sayto</code>와 같이 사용한다.</p>
-<pre><code class="prettyprint language-java">public class HelloDialect extends AbstractProcessorDialect {
-	private static final String PREFIX = &quot;hello&quot;;
-	
-	public HelloDialect() {
-		super(&quot;Hello Dialect&quot; // dialect name
-				, PREFIX// 접두사. 속성 사용방법: hello:*
-				, 1000 // dialect 우선순위
-				);
-	}
-
-	/**
-	 * dialect 처리기를 초기화 한다.
-	 */
-	@Override
-	public Set&lt;IProcessor&gt; getProcessors(String dialectPrefix) {
-		final Set&lt;IProcessor&gt; processors = new HashSet&lt;&gt;();
-		processors.add(new SayToAttrTagProcessor(dialectPrefix));
-		return processors;
-	}
-
-}
-</code></pre>
-<p><a href="https://github.com/ttallaemideul/springboot/blob/master/tlmd_web/src/main/java/io/github/ttallaemideul/sample/thymeleaf/HelloDialect.java">HelloDialect</a></p>
-<h2>MVC 설정에 신규 dialect 추가</h2>
-<p>어플리케이션이 로드되어 타임리프 설정이 진행될 때 신규 dialect를 추가해준다.</p>
-<pre><code class="prettyprint language-java">@Bean
-public SpringResourceTemplateResolver templateResolver() {
-	SpringResourceTemplateResolver templateResolver = new SpringResourceTemplateResolver();
-	templateResolver.setPrefix(&quot;classpath:templates/&quot;);
-	templateResolver.setSuffix(&quot;.html&quot;);
-	templateResolver.setTemplateMode(TemplateMode.HTML);
-	templateResolver.setCharacterEncoding(&quot;UTF-8&quot;);
-	// TODO: Template cache is true by default. Set to false if you want
-	// templates to be automatically updated when modified.
-	templateResolver.setCacheable(true);
-	return templateResolver;
-}
-
-@Bean
-public SpringTemplateEngine templateEngine() {
-	SpringTemplateEngine templateEngine = new SpringTemplateEngine();
-	templateEngine.setEnableSpringELCompiler(true); // Compiled SpringEL should speed up executions
-	templateEngine.setTemplateResolver(templateResolver());
-	templateEngine.addDialect(new HelloDialect());
-	return templateEngine;
-}
-
-@Bean
-public ThymeleafViewResolver viewResolver() {
-	ThymeleafViewResolver viewResolver = new ThymeleafViewResolver();
-	viewResolver.setTemplateEngine(templateEngine());
-	viewResolver.setCharacterEncoding(&quot;UTF-8&quot;);
-	viewResolver.setOrder(0);
-	return viewResolver;
-}
-</code></pre>
-<p><a href="https://github.com/ttallaemideul/springboot/blob/master/tlmd_web/src/main/java/io/github/ttallaemideul/config/WebMvcConfig.java">WebMvcConfig</a></p>
-<h2>화면에서 신규 dialect 사용</h2>
-<p><code>hello</code> 접두사가 html 편집기에서 작동되도록 추가한다.</p>
-<pre><code class="prettyprint language-html">&lt;html xmlns:th=&quot;http://www.thymeleaf.org&quot;
-      xmlns:layout=&quot;http://www.ultraq.net.nz/thymeleaf/layout&quot;
-      xmlns:hello=&quot;http://hello&quot;
-      layout:decorator=&quot;~{layouts/layout_base}&quot;&gt;
-</code></pre>
-<p>신규 태그는 아래와 같이 사용한다.</p>
-<pre><code class="prettyprint language-html">&lt;p hello:sayto=&quot;커스텀 dialect&quot;&gt;Hi ya!&lt;/p&gt;
-</code></pre>
-<p>생성된 태그 결과는 다음과 같다.</p>
-<pre><code class="prettyprint language-html">&lt;p&gt;Hello, 커스텀 dialect!&lt;/p&gt;
-</code></pre>
-<h2>샘플 코드</h2>
-<p>아래 샘플 프로젝트에서 이 문서에서 설명한 소스를 확인할 수 있다.<br />
-프로젝트를 받아서 직접 빌드하여 실행하고 결과를 확인해보면 도움이 될 것이다.</p>
-<p><a href="https://github.com/ttallaemideul/springboot/tree/master/tlmd_web">github 샘플 프로젝트</a></p>
-</p>
-				</article>
-				<article class="blog-post">
-					<h2 class="blog-post-title"><a href='blog/springboot/db001.html'>Springboot with H2 database, multi database</a></h2>
-					<p class="blog-post-meta">11 April 2020</p>
-					<p><h1>springboot에서 H2 데이터베이스 연동</h1>
-<p>스프링부트에 H2 디비를 연동한다.<br />
-다중 데이터베이스 연결을 지원하기 위해서 맵퍼 어노테이션을 이용한다.</p>
-<h2>의존성 추가 <code>pom.xml</code></h2>
-<pre><code class="prettyprint language-xml">&lt;dependency&gt;
+스프링부트에 H2 디비를 연동한다.
+다중 데이터베이스 연결을 지원하기 위해서 맵퍼 어노테이션을 이용한다.의존성 추가 pom.xml&lt;dependency&gt;
 	&lt;groupId&gt;com.h2database&lt;/groupId&gt;
 	&lt;artifactId&gt;h2&lt;/artifactId&gt;
 	&lt;scope&gt;runtime&lt;/scope&gt;
-&lt;/dependency&gt;
-</code></pre>
-<p><a href="https://github.com/ttallaemideul/springboot/blob/master/tlmd_web/pom.xml">pom.xml</a></p>
-<h2>프로퍼티 설정 <code>application.properties</code></h2>
-<pre><code>spring.datasource.hikari.jdbc-url=jdbc:h2:mem:test;MODE=PostgreSQL;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE
-spring.datasource.hikari.username=sa
-spring.datasource.hikari.password=
-spring.datasource.hikari.driver-class-name=org.h2.Driver
-spring.datasource.hikari.maximum-pool-size=100 
-spring.datasource.hikari.connection-test-query=SELECT 1
-spring.datasource.hikari.minimum-idle=5 
-spring.datasource.hikari.connection-timeout=100000
-</code></pre>
-<p><a href="https://github.com/ttallaemideul/springboot/blob/master/tlmd_web/src/main/resources/config/application-local-db.properties">application-local-db.properties</a></p>
-<h2>H2용 맵퍼 어노테이션 생성</h2>
-<p>다중 데이터베이스 소스에 연결할 수 있도록 맵퍼 어노테이션을 정의하여 맵퍼에서 이용한다.<br />
-나중에 새로운 디비 연결을 추가하기가 용이해진다.</p>
-<pre><code class="prettyprint language-java">@Target({ ElementType.TYPE }) 
-@Retention(RetentionPolicy.RUNTIME) 
-@Documented 
-@Component
-public @interface DbH2ConnMapper {
-	String value() default &quot;&quot;;
-}
-</code></pre>
-<p><a href="https://github.com/ttallaemideul/springboot/blob/master/tlmd_web/src/main/java/io/github/ttallaemideul/config/database/DbH2ConnMapper.java">DbH2ConnMapper.java</a></p>
-<p>H2용 맵퍼 어노테이션과 연동되는 디비 연결을 설정한다.</p>
-<pre><code class="prettyprint language-java">@Configuration
-@MapperScan(basePackages =  &quot;io.github.ttallaemideul.**&quot;
-	, annotationClass = DbH2ConnMapper.class
-	, sqlSessionFactoryRef = &quot;dbH2SessionFactory&quot;)
-@EnableTransactionManagement
-public class DbH2DatabaseConfig {
-...
-}
-</code></pre>
-<p>스프링부트 어플리케이션이 기동될 때 테이블을 생성하고 초기 데이터를 생성하도록 초기화코드를 추가한다.</p>
-<pre><code class="prettyprint language-java">@Bean(name=&quot;dbH2DataSourceInitializer&quot;)
-public DataSourceInitializer dataSourceInitializer(@Qualifier(&quot;dbH2DataSource&quot;) DataSource datasource) {
-	ResourceDatabasePopulator resourceDatabasePopulator = new ResourceDatabasePopulator();
-	resourceDatabasePopulator.addScript(new ClassPathResource(&quot;config/database/h2-schema.sql&quot;));
-	resourceDatabasePopulator.addScript(new ClassPathResource(&quot;config/database/h2-data.sql&quot;));
-
-	DataSourceInitializer dataSourceInitializer = new DataSourceInitializer();
-	dataSourceInitializer.setDataSource(datasource);
-	dataSourceInitializer.setDatabasePopulator(resourceDatabasePopulator);
-	return dataSourceInitializer;
-}
-</code></pre>
-<p><a href="https://github.com/ttallaemideul/springboot/blob/master/tlmd_web/src/main/java/io/github/ttallaemideul/config/database/DbH2DatabaseConfig.java">DbH2DatabaseConfig.java</a></p>
-<h2>맵퍼 생성</h2>
-<p>H2 디비에 쿼리를 실행하는 맵퍼 인터페이스를 생성한다.<br />
-앞에서 정의한 <code>@DbH2ConnMapper</code> 어노테이션을 추가했기 때문에 H2 디비에서 쿼리가 실행된다.</p>
-<pre><code class="prettyprint language-java">@DbH2ConnMapper
-public interface H2MapperH2 {
-
-	public Date getServerNow();
-	public List&lt;Map&lt;String, Object&gt;&gt; getUsers();
-}
-</code></pre>
-<p><a href="https://github.com/ttallaemideul/springboot/blob/master/tlmd_web/src/main/java/io/github/ttallaemideul/sample/h2/H2MapperH2.java">H2MapperH2.java</a></p>
-<h2>thymeleaf th:each로 목록 표시</h2>
-<p>배열 형태의 객체는 타임리프의 <code>th:each</code>로 표시할 수 있다.</p>
-<p>컨트롤러에서 <code>List</code>로 뷰에 <code>users</code> 객체를 전달한다. 이 객체는 사용자 목록을 가지고 있다.</p>
-<pre><code class="prettyprint language-java">@GetMapping
-public String main(Model model) {
-	List&lt;Map&lt;String, Object&gt;&gt; users = h2Service.getUsers();
-	if(log.isDebugEnabled()) {
-		log.debug(&quot;users={}&quot;, users);
-	}
-	model.addAttribute(&quot;serverNow&quot;, h2Service.getServerNow());
-	model.addAttribute(&quot;users&quot;, users);
-	return &quot;sample/h2/main&quot;;
-}
-</code></pre>
-<p><a href="https://github.com/ttallaemideul/springboot/blob/master/tlmd_web/src/main/java/io/github/ttallaemideul/sample/h2/H2Controller.java">H2Controller.java</a></p>
-<p>타임리프 <code>th:each=&quot;user : ${users}&quot;</code> 태그는 <code>${users}</code> 목록의 객체 하나씩을  <code>user</code> 객체로 세팅하여 루프에서 사용하도록 한다.</p>
-<pre><code class="prettyprint language-html">&lt;tr th:each=&quot;user : ${users}&quot;&gt;
-  &lt;td th:text=&quot;${user.USERID}&quot;&gt;USERID&lt;/td&gt;
-  &lt;td th:text=&quot;${user.FIRST_NAME}&quot;&gt;first_name&lt;/td&gt;
-  &lt;td th:text=&quot;${user.LAST_NAME}&quot;&gt;last_name&lt;/td&gt;
-  &lt;td th:text=&quot;${user.EMAIL}&quot;&gt;email&lt;/td&gt;
-  &lt;td th:text=&quot;${user.REG_DT}&quot;&gt;reg_dt&lt;/td&gt;
-&lt;/tr&gt;
-</code></pre>
-<p><a href="https://github.com/ttallaemideul/springboot/blob/master/tlmd_web/src/main/resources/templates/sample/h2/main.html">main.html</a></p>
-<p>최종적으로 아래와 같은 화면이 구현된다.</p>
-<p><img src="/img/tlmd_web/tlmd_web_001.png" alt="html결과" /></p>
-<h2>샘플 프로젝트</h2>
-<p>아래 샘플 소스코드에서 이 문서에서 설명한 소스를 확인할 수 있다.<br />
-프로젝트를 받아서 직접 빌드하여 실행하고 결과를 확인해보면 도움이 될 것이다.</p>
-<p><a href="https://github.com/ttallaemideul/springboot">github 샘플 프로젝트</a></p>
 </p>
-				</article>
-				<article class="blog-post">
-					<h2 class="blog-post-title"><a href='blog/springboot/thymeleaf001.html'>Springboot Thymeleaf Javascript Inlining</a></h2>
-					<p class="blog-post-meta">18 March 2020</p>
-					<p><h1>타임리프 자바스크립트 인라인 이용하기</h1>
-<p>자바스크립트에서 타임리프 태그를 사용하기 위해서는 <code>th:inline=&quot;javascript&quot;</code>를 적용하여 사용한다.</p>
-<pre><code class="prettyprint language-js">&lt;script type=&quot;text/javascript&quot; th:inline=&quot;javascript&quot;&gt;
-</code></pre>
-<p>인라인을 종료하여 타임리프 태그가 작동되지 않도록 하려면 th:inline=&quot;none&quot;을 이용한다.</p>
-<h2>모델 객체를 자동으로 json 객체로 변환</h2>
-<p><code>[[${session}]]</code>로 객체를 호출하면 타임리프가 자동으로 json 객체로 변환하여 준다.</p>
-<p>아래 샘플에서 <code>/*[[${session}]]*/</code>를 이용하는 것과 <code>[[${session}]]</code>를 이용하는 것의 차이는<br />
-<code>session2</code> 선언부는 자바스크립트 문법을 깨트리기 때문에 소스 html 파일을 웹브라우저에서 바로 오픈하면 스크립트가 실행되지 않는다.</p>
-<pre><code class="prettyprint language-js">var session1 = /*[[${session}]]*/ null;
-var session2 = [[${session}]];
-</code></pre>
-<p><code>/*[[${...}]]*/</code> 형식은 자바스크립 문법상 주석에 해당하기 때문에 문제가 없다. 웹브라우저에서 바로 오픈하면 다음과 같은 코드로 해석될 것이다.</p>
-<pre><code class="prettyprint language-js">var session =  null;
-</code></pre>
-<p>웹서버에서 실행되어 타임리프가 <code>${session}</code>을 자동으로 json 객체로 변화하면 다음과 같은 코드가 생성된다.</p>
-<pre><code class="prettyprint language-js">var session = {&quot;\uC601\uC5B4\uC774\uB984&quot;:&quot;TtalLaeMideul&quot;,&quot;name&quot;:&quot;\uB538\uB0B4\uBBF8\uB4E4&quot;,&quot;key_x&quot;:&quot;from session&quot;};
-</code></pre>
-<h2>자바스크립트 내에서 타임리프 태그 이용하기</h2>
-<p><code>[# th:...]</code>로 시작하여 <code>[/]</code>로 닫힌 내부에서 타임리프 태그를 이용할 수 있다.</p>
-<p>아래 소스는 <code>${DEBUG_MODE}</code>의 값이 <code>true</code>이면 로그를 찍는 코드이다.</p>
-<pre><code class="prettyprint language-js">&lt;script type=&quot;text/javascript&quot; th:inline=&quot;javascript&quot;&gt;
+						<a href='blog/springboot/db001.html'>Continue reading</a>
+					</article>
+					<article class="blog-post">
+						<h2 class="blog-post-title">Springboot Thymeleaf Javascript Inlining</h2>
+						<p class="blog-post-meta">18 March 2020</p>
+						<p>타임리프 자바스크립트 인라인 이용하기
 
-var session = /*[[${session}]]*/ null;
-[# th:if=&quot;${DEBUG_MODE}&quot;]
-console.log('session', session);
-[/]
-&lt;/script&gt;
-</code></pre>
-<h2>샘플 코드</h2>
-<p>아래 샘플 소스코드에서 이 문서에서 설명한 소스를 확인할 수 있다.<br />
-프로젝트를 받아서 직접 빌드하여 실행하고 결과를 확인해보면 도움이 될 것이다.</p>
-<p><a href="https://github.com/ttallaemideul/springboot/blob/master/tlmd_web/src/main/resources/templates/sample/thymeleaf/javascript.html">github 샘플 소스</a></p>
-</p>
-				</article>
-				<article class="blog-post">
-					<h2 class="blog-post-title"><a href='blog/eclipse/eclipse001.html'>Eclipse ini 설정</a></h2>
-					<p class="blog-post-meta">05 March 2020</p>
-					<p><h2>java 실행파일 경로 설정하기</h2>
-<pre><code>-vm
+자바스크립트에서 타임리프 태그를 사용하기 위해서는 th:inline=&quot;javascript&quot;를 적용하여 사용한다.&lt;script type=&quot;text/javascript&quot; th:inline=&quot;javascript&quot;&gt;
+
+
+인라인을 종료하여 타임리프 태그가 작동되지 않도록 하려면 th:inline=&quot;none&quot;을 이용한다.모델 객</p>
+						<a href='blog/springboot/thymeleaf001.html'>Continue reading</a>
+					</article>
+					<article class="blog-post">
+						<h2 class="blog-post-title">Eclipse ini 설정</h2>
+						<p class="blog-post-meta">05 March 2020</p>
+						<p>java 실행파일 경로 설정하기-vm
 c:/Java/jdk-12.0.2/bin/javaw.exe
-</code></pre>
-<h2>utf-8을 기본으로 사용하기</h2>
-<pre><code>-Dfile.encoding=utf-8
-</code></pre>
-<h2>클래스 주석 생성시에 @author의 기본값 변경하기.</h2>
-<pre><code>-Duser.name=&quot;TtalLaeMiDeul&quot;
-</code></pre>
-<p>아래와 같이 주석 생성시에 @author값에 삽입된다.</p>
-<pre><code class="prettyprint language-java">/**
- * h2database mybatis 설정
- * @author TtalLaeMiDeul
- *
- */
- public class DbH2DatabaseConfig {
- }
-</code></pre>
-</p>
-				</article>
-				<article class="blog-post">
-					<h2 class="blog-post-title"><a href='blog/google/gtag001.html'>Google 애널리틱스 사용</a></h2>
-					<p class="blog-post-meta">23 February 2020</p>
-					<p><h2>애널리틱스 계정 만들기</h2>
-<p><a href="https://analytics.google.com/">https://analytics.google.com</a> 에서 진행한다.</p>
-<ol>
-<li><code>ttallaemideul</code> 이름으로 계정생성 하였다.</li>
-<li>측정하려는 대상은 <code>웹</code>을 선택하였다.</li>
-<li>내 사이트 <code>https://ttallaemideul.github.io/</code>로 나머지 속성을 설정하였다.</li>
-</ol>
-<p><img src="/img/google/google-001-01.png" alt="구글 애널리틱스 계정 만들기" /></p>
-<p>생성된 계정 정보에서 <code>관리 &gt; 추정 정보 &gt; 추적 코드</code>에서 <code>추척ID</code> 값을 확인할 수 있다.</p>
-<p>또한, 사이트에 추가해야 할 자바스브립트 코드도 확인 가능하다.</p>
-<h2>필터 추가</h2>
-<p><code>관리 &gt; 모든필터 &gt; 필터추가</code>를 이용하여 제외할 요청을 설정할 수 있다.<br />
-자시의 컴퓨터에서 요청은 통계에서 제외할 수 있도록 설정이 가능하다.</p>
-<p><img src="/img/google/google-001-02.png" alt="필터추가" /></p>
-</p>
-				</article>
-				<article class="blog-post">
-					<h2 class="blog-post-title"><a href='blog/linux/ubuntu_002.html'>ubuntu 18.04 dock에 프로그램 등록하기</a></h2>
-					<p class="blog-post-meta">22 February 2020</p>
-					<p><p>새로 설치한 우분투의 데스크탑 독에 프로그램을 등록하고자 한다.<br />
-등록할 것은 스프링 툴 sts-4.5.1 이다.</p>
-<p>스프링 툴 압축 푼 것은 아래처럼 폴더에 위치해 있다.<br />
-SpringToolSuite4가 실행파일이고  icon.xpm이 아이콘 파일이다.</p>
-<pre><code class="prettyprint language-console">kyin@kyin:~/dev/sts-4.5.1.RELEASE$ pwd 
-/home/kyin/dev/sts-4.5.1.RELEASE 
+utf-8을 기본으로 사용하기-Dfile.encoding=utf-8
+클래스 주석 생성시에 @author의 기본값 변경하기.-Duser.name=&quot;TtalLaeMiDeul&quot;
 
-kyin@kyin:~/dev/sts-4.5.1.RELEASE$ ls 
-META-INF 
-...
-SpringToolSuite4 
-icon.xpm
-...
-</code></pre>
-<p>프로그램 실행 아이콘을 만들기 위해 자신의 홈디렉토리 아래 <code>~/.local/share/applications</code> 폴더에<br />
-<code>.desktop</code> 파일을 만든다.</p>
-<p>나의 경우는 <code>sts.desktop</code>으로 만들었다.</p>
-<pre><code>$ cd ~/.local/share/applications/
-$ vi sts.desktop
 
-[Desktop Entry]
-Name=sts-4.5.1.RELEASE
-Exec=/home/kyin/dev/sts-4.5.1.RELEASE/SpringToolSuite4
-Comment=Sprint Tool Suite 4.5.1
-Terminal=false
-Type=Application
-Icon=/home/kyin/dev/sts-4.5.1.RELEASE/icon.xpm
-</code></pre>
-<p><code>sts.desktop</code> 파일을 생성 후에 프로그램 목록을 열어보면 추가한 스프링툴 아이콘이 표시될 것이고<br />
-우클릭하여 <code>즐겨찾기에 추가</code>를 선택해주면 독에 아이콘이 생성된다.</p>
-<p><img src="/img/linux/ubuntu/ubuntu-003-01.png" alt="즐겨찾기에 추가 하기" /></p>
-</p>
-				</article>
-				<article class="blog-post">
-					<h2 class="blog-post-title"><a href='blog/linux/ubuntu_001.html'>우분투 데스크탑 버전 설치 후 서버용 프로그램 설치하기</a></h2>
-					<p class="blog-post-meta">22 February 2020</p>
-					<p><p>우분투 데스크탑 버전(18.04.4 LTS) 설치 후 서버용 프로그램 설치하면서 정리한 내용이다.</p>
-<h2>ssh 설지</h2>
-<p><code>apt-get</code>으로 설치하고 <code>systemctl</code>로 시작한다.</p>
-<pre><code>$ sudo apt-get update
+아래와 같이 주석 생성시에 @author값에 삽입된다./**
+ * h2database </p>
+						<a href='blog/eclipse/eclipse001.html'>Continue reading</a>
+					</article>
+					<article class="blog-post">
+						<h2 class="blog-post-title">Google 애널리틱스 사용</h2>
+						<p class="blog-post-meta">23 February 2020</p>
+						<p>애널리틱스 계정 만들기
+
+https://analytics.google.com 에서 진행한다.
+
+ttallaemideul 이름으로 계정생성 하였다.
+
+측정하려는 대상은 웹을 선택하였다.
+
+내 사이트 https://ttallaemideul.github.io/로 나머지 속성을 설정하였다.
+
+구글 애널리틱스 계정 만들기
+
+생성된 계정 정보에서 관리 &gt; 추정 정보 </p>
+						<a href='blog/google/gtag001.html'>Continue reading</a>
+					</article>
+					<article class="blog-post">
+						<h2 class="blog-post-title">ubuntu 18.04 dock에 프로그램 등록하기</h2>
+						<p class="blog-post-meta">22 February 2020</p>
+						<p>새로 설치한 우분투의 데스크탑 독에 프로그램을 등록하고자 한다.
+등록할 것은 스프링 툴 sts-4.5.1 이다.
+
+스프링 툴 압축 푼 것은 아래처럼 폴더에 위치해 있다.
+SpringToolSuite4가 실행파일이고  icon.xpm이 아이콘 파일이다.kyin@kyin:~/dev/sts-4.5.1.RELEASE$ pwd 
+/home/kyin/dev/sts-4</p>
+						<a href='blog/linux/ubuntu_002.html'>Continue reading</a>
+					</article>
+					<article class="blog-post">
+						<h2 class="blog-post-title">우분투 데스크탑 버전 설치 후 서버용 프로그램 설치하기</h2>
+						<p class="blog-post-meta">22 February 2020</p>
+						<p>우분투 데스크탑 버전(18.04.4 LTS) 설치 후 서버용 프로그램 설치하면서 정리한 내용이다.ssh 설지
+
+apt-get으로 설치하고 systemctl로 시작한다.$ sudo apt-get update
 $ sudo apt-get install openssh-server
 $ sudo systemctl enable ssh
-$ sudo systemctl start ssh
-</code></pre>
-<h2>svn 설치</h2>
-<pre><code>$ sudo apt-get install subversion
-</code></pre>
-<p>어떤 파일들이 설치되었는지 확인하고 싶을 때는 다음 명령으로 가능하다.</p>
-<pre><code>$ sudo dpkg -L subversion
-</code></pre>
-<h3>svn 전용 계정을 생성하여 사용하도록 한다.</h3>
-<p><code>/etc/passwd</code>에서 <code>shell</code>은 <code>nologin</code>으로 하였다.</p>
-<blockquote>
-<p>svn:x:1001:1001::/home/svn:/usr/sbin/nologin</p>
-</blockquote>
-<pre><code class="prettyprint language-console">$ sudo useradd svn
-$ cd /home
-$ sudo mkdir svn
-$ sudo chown svn.svn svn
-$ cd /home/svn
-$ sudo -u svn svnadmin create myrepos
-$ cd myrepos
-$ ll
-drwxr-xr-x 6 svn svn 4096  2월 16 20:40 ./
-drwxr-xr-x 3 svn svn 4096  2월 16 20:40 ../
--rw-r--r-- 1 svn svn  246  2월 16 20:40 README.txt
-drwxr-xr-x 2 svn svn 4096  2월 16 20:40 conf/
-drwxr-sr-x 6 svn svn 4096  2월 16 20:40 db/
--r--r--r-- 1 svn svn    2  2월 16 20:40 format
-drwxr-xr-x 2 svn svn 4096  2월 16 20:40 hooks/
-drwxr-xr-x 2 svn svn 4096  2월 16 20:40 locks/
-</code></pre>
-<p><img src="/img/linux/ubuntu/ubuntu-002-01.png" alt="myrepos" /></p>
-<h3>서비스로 등록</h3>
-<p>서버가 재부팅 되어도 자동으로 svn이 실행되도록 <code>systemctl</code>에 서비스로 등록한다.</p>
-<pre><code class="prettyprint language-console">$ cd /etc/systemd/system
-$ sudo vi svnserve.service
-</code></pre>
-<p><code>svnserve.service</code> 파일의 내용은 아래와 같다.</p>
-<pre><code>[Unit]
-Description=Subversion daemon
-After=syslog.target network.target
-
-[Service]
-Type=forking
-RuntimeDirectory=svnserve
-PIDFile=/run/svnserve/svnserve.pid
-ExecStart=/usr/bin/svnserve --daemon \
-        --pid-file /run/svnserve/svnserve.pid \
-        --log-file /home/svn/log/logs.log \
-        -r /home/svn 
-User=svn
-Group=svn
-KillMode=control-group
-Restart=on-failure
-
-[Install]
-WantedBy=multi-user.target
-</code></pre>
-<p><code>root</code> 권한으로 <code>/run/svnserve</code> 디렉토리를 생성하고,<br />
-<code>svn</code> 권한으로 <code>/home/svn/log</code> 디렉토리를 생성한다.</p>
-<p>svnserve 서비스를 등록한다.</p>
-<pre><code class="prettyprint language-console">$ sudo systemctl enable svnserve
-$ sudo systemctl start svnserve
-$ sudo systemctl status svnserve
-
-kyin@kyin:/home/svn$ sudo systemctl status svnserve
-● svnserve.service - Subversion daemon
-   Loaded: loaded (/etc/systemd/system/svnserve.service; enabled; vendor preset:
-   Active: active (running) since Sun 2020-02-16 21:15:45 KST; 6min ago
-  Process: 12224 ExecStart=/usr/bin/svnserve --daemon --pid-file /run/svnserve/s
- Main PID: 12225 (svnserve)
-    Tasks: 1 (limit: 4560)
-   CGroup: /system.slice/svnserve.service
-           └─12225 /usr/bin/svnserve --daemon --pid-file /run/svnserve/svnserve.
-
- 2월 16 21:15:45 kyin systemd[1]: Starting Subversion daemon...
- 2월 16 21:15:45 kyin svnserve[12224]: DIGEST-MD5 common mech free
- 2월 16 21:15:45 kyin systemd[1]: Started Subversion daemon.
-</code></pre>
-<p><img src="/img/linux/ubuntu/ubuntu-002-02.png" alt="systemctl status svnserve" /></p>
-<h2>java 설치</h2>
-<p>openjdk를 설치한다.</p>
-<pre><code class="prettyprint language-console">$ sudo apt-get install openjdk-8-jdk
-$ java -version
-openjdk version &quot;1.8.0_242&quot;
-OpenJDK Runtime Environment (build 1.8.0_242-8u242-b08-0ubuntu3~18.04-b08)
-OpenJDK 64-Bit Server VM (build 25.242-b08, mixed mode)
-</code></pre>
-</p>
-				</article>
-				<article class="blog-post">
-					<h2 class="blog-post-title"><a href='blog/linux/centos001.html'>CentOS 8 고정 IP 사용</a></h2>
-					<p class="blog-post-meta">22 February 2020</p>
-					<p><p>네트워크 설정 파일(나의 경우는 ifcfg-ens33)을 설정한다.</p>
-<pre><code>[root@chlee chlee]# cat /etc/sysconfig/network-scripts/ifcfg-ens33 
+$ sudo systemctl st</p>
+						<a href='blog/linux/ubuntu_001.html'>Continue reading</a>
+					</article>
+					<article class="blog-post">
+						<h2 class="blog-post-title">CentOS 8 고정 IP 사용</h2>
+						<p class="blog-post-meta">22 February 2020</p>
+						<p>네트워크 설정 파일(나의 경우는 ifcfg-ens33)을 설정한다.[root@chlee chlee]# cat /etc/sysconfig/network-scripts/ifcfg-ens33 
 TYPE=&quot;Ethernet&quot; 
 PROXY_METHOD=&quot;none&quot; 
 BROWSER_ONLY=&quot;no&quot; 
 BOOTPROTO=&quot;none&quot; 
 DEFROUTE=&quot;yes&quot; 
-IPV4_FAILURE_FATAL=&quot;no&quot; 
-IPV6INIT=&quot;yes&quot; 
-IPV6_AUTOCONF=&quot;yes&quot; 
-IPV6_DEFROUTE=&quot;yes&quot; 
-IPV6_FAILURE_FATAL=&quot;no&quot; 
-IPV6_ADDR_GEN_MODE=&quot;stable-privacy&quot; 
-NAME=&quot;ens33&quot; 
-UUID=&quot;76ba719a-8ad7-4ebb-893f-51b5cfba5a3b&quot; 
-DEVICE=&quot;ens33&quot; 
-ONBOOT=&quot;yes&quot; 
-IPADDR=&quot;192.168.137.100&quot; 
-PREFIX=&quot;24&quot; 
-GATEWAY=&quot;192.168.137.1&quot; 
-IPV6_PRIVACY=&quot;no&quot; 
-DNS1=&quot;192.168.137.1&quot;
-</code></pre>
-<p>192.168.137.1 ip가 게이트웨이이고 가상 어댑터에 설정된 ip이다.</p>
-<p>WiFi 어댑터에서 네트워크를 공유하도록 설정하고 가상 어댑터와 공유하도록 선택해준다.</p>
-<p>systemctl 로 네트워크 서비스를 재기동 해준다.</p>
-<pre><code>[root@chlee chlee]# systemctl restart Networkmanager
-</code></pre>
-</p>
-				</article>
+IPV4</p>
+						<a href='blog/linux/centos001.html'>Continue reading</a>
+					</article>
+					<nav class="blog-pagination" aria-label="Pagination">
+						<p>Older posts are available in the <a class="btn btn-outline-primary"
+								href='archive.html'>archive</a></p>
+					</nav>
+				</div>
+				<div class="col-md-4">
+					<div class="position-sticky" style="top: 2rem;">
+						<div class="p-4 mb-3 bg-light rounded">
+							<h4 class="fst-italic">About</h4>
+							<p class="mb-0">100세까지 개발하기 프로젝트 진행 중. <br>개인 취미로 운영하는 사이트입니다.<br>
+								항상 정확한 정보를 전달하고자 최선을 다하고 있지만,
+								간혹 부정확한 정보가 전달될 수 있으니 실무에 적용시에는 항상 본인이 직접 확인하여 사용하시기 바랍니다.</p>
+						</div>
+						<div class="p-4">
+							<h4 class="fst-italic">Tags</h4>							
+							<span class="badge"><a class="badge bg-light text-dark" href='tags/centos.html'>centos</a></span><span class="badge"><a class="badge bg-light text-dark" href='tags/mongodb.html'>mongodb</a></span><span class="badge"><a class="badge bg-light text-dark" href='tags/linux.html'>linux</a></span><span class="badge"><a class="badge bg-light text-dark" href='tags/apache.html'>apache</a></span><span class="badge"><a class="badge bg-light text-dark" href='tags/database.html'>database</a></span><span class="badge"><a class="badge bg-light text-dark" href='tags/analytics.html'>analytics</a></span><span class="badge"><a class="badge bg-light text-dark" href='tags/eclipse.html'>eclipse</a></span><span class="badge"><a class="badge bg-light text-dark" href='tags/javascript.html'>javascript</a></span><span class="badge"><a class="badge bg-light text-dark" href='tags/springboot.html'>springboot</a></span><span class="badge"><a class="badge bg-light text-dark" href='tags/blog.html'>blog</a></span><span class="badge"><a class="badge bg-light text-dark" href='tags/thymeleaf.html'>thymeleaf</a></span><span class="badge"><a class="badge bg-light text-dark" href='tags/google.html'>google</a></span><span class="badge"><a class="badge bg-light text-dark" href='tags/svn.html'>svn</a></span><span class="badge"><a class="badge bg-light text-dark" href='tags/h2.html'>h2</a></span><span class="badge"><a class="badge bg-light text-dark" href='tags/ssh.html'>ssh</a></span><span class="badge"><a class="badge bg-light text-dark" href='tags/ubuntu.html'>ubuntu</a></span><span class="badge"><a class="badge bg-light text-dark" href='tags/tomcat.html'>tomcat</a></span><span class="badge"><a class="badge bg-light text-dark" href='tags/dialect.html'>dialect</a></span>
+						</div>	
+						<div class="p-4">
+							<h4 class="fst-italic">Archives</h4>
+							<ol class="list-unstyled mb-0">
+								<li><a href='archive.html'>April 2022</a></li>
+							</ol>
+						</div>	
+						<div class="p-4">
+							<h4 class="fst-italic">Elsewhere</h4>
+							<ol class="list-unstyled">
+								<li><a href="https://github.com/appagakr">GitHub</a></li>
+							</ol>
+						</div>
+					</div>
+				</div>
 			</div>
-			<hr />
-
-			<p>Older posts are available in the <a href='archive.html'>archive</a>.</p>
 		</main>
 	</div>
 
 	<div>
-			<div id="push"></div>
-
-		    <footer class="blog-footer">
-		      <div class="container">
-		        <p class="muted credit">&copy; 2022 APPAGA.KR</p>
-		      </div>
+			<footer class="blog-footer">
+		    	<p class="muted credit">&copy; 2022 APPAGA.KR</p>
+		    	<p>
+					<a href="#">Back to top</a>
+				</p>
 		    </footer>
 
 		    <!-- javascript. Placed at the end of the document so the pages load faster -->
-			<script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
-			<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js" integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf" crossorigin="anonymous"></script>
-		    <script src="js/prettify.js"></script>
+			<script src="js/jquery-3.6.0.min.js"></script>
+			<script src="bootstrap/bootstrap.bundle.min.js"></script>
+			<script src="prettify/prettify.js"></script>
+		    <script src="js/appaga.js"></script>
+			
+			<!-- Global site tag (gtag.js) - Google Analytics -->
+			<script async src="https://www.googletagmanager.com/gtag/js?id=G-VB6XQ6972F"></script>
+			<script>
+			window.dataLayer = window.dataLayer || [];
+			function gtag(){dataLayer.push(arguments);}
+			gtag('js', new Date());
 
+			gtag('config', 'G-VB6XQ6972F');
+			</script>
     	</div>
-  </body>
+</body>
+
 </html>

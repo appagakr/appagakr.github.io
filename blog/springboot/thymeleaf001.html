@@ -1,94 +1,82 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 
 <html lang="ko" xmlns="http://www.w3.org/1999/xhtml">
-	<head>
+
+<head>
 	    <meta charset="utf-8"/>
 	    <title>Springboot Thymeleaf Javascript Inlining</title>
 	    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 	    <meta name="description" content="DevOps를 위한 정보 제공"/>
 	    <meta name="author" content="appaga@appaga.kr"/>
-	    <meta name="keywords" content="java, spring framework, spring boot, android, flutter"/>
+	    <meta name="keywords" content="java, spring boot, android"/>
 	    <meta name="generator" content="JBake"/>
-
+		<!-- Custom styles for this template -->
+    	<link href="https://fonts.googleapis.com/css?family=Playfair&#43;Display:700,900&amp;display=swap" rel="stylesheet">
 	    <!-- Le styles -->
-		<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6" crossorigin="anonymous">
-	    <link href="../../css/asciidoctor.css" rel="stylesheet"/>
-	    <link href="../../css/base.css" rel="stylesheet"/>
-	    <link href="../../css/prettify.css" rel="stylesheet"/>
+		<link href="../../bootstrap/bootstrap.min.css" rel="stylesheet"/>
+		<link href="../../bootstrap/blog.css" rel="stylesheet"/>
+	    <link href="../../prettify/prettify.css" rel="stylesheet"/>
 
 	    <!-- Fav and touch icons -->
 		<link rel="apple-touch-icon" sizes="180x180" href="../../apple-touch-icon.png"/>
 		<link rel="icon" type="image/png" sizes="32x32" href="../../favicon-32x32.png"/>
 		<link rel="icon" type="image/png" sizes="16x16" href="../../favicon-16x16.png"/>
 		<link rel="manifest" href="../../site.webmanifest"/>
-	    <link rel="shortcut icon" href="../../favicon.ico"/>
-
-		<!-- Global site tag (gtag.js) - Google Analytics -->
-		<script async src="https://www.googletagmanager.com/gtag/js?id=G-VB6XQ6972F"></script>
-		<script>
-		  window.dataLayer = window.dataLayer || [];
-		  function gtag(){dataLayer.push(arguments);}
-		  gtag('js', new Date());
-
-		  gtag('config', 'G-VB6XQ6972F');
-		</script>
+	    <link rel="shortcut icon" href="../../favicon.ico"/>		
 	</head>
-	<body onload="prettyPrint()">
+
+<body>
 	<div id="wrap">
 		<div>
 		<div class="container">
-		  <header class="blog-header py-3">
-		    <div class="row flex-nowrap justify-content-between align-items-center">
-		      <div class="col-4 pt-1">
+			<header class="blog-header py-3">
+				<div class="row flex-nowrap justify-content-between align-items-center">
+					<div class="col-4 pt-1">
 						<a class="link-secondary" href="../../feed.xml">Subscribe</a>
-		      </div>
-		      <div class="col-4 text-center">
-		        <a class="blog-header-logo text-dark" href="/">APPAGA</a>
-		      </div>
-		      <div class="col-4 d-flex justify-content-end align-items-center">
-		        <a href="../../about.html">About</a>
-		      </div>
-		    </div>
-		  </header>
+					</div>
+					<div class="col-4 text-center">
+						<a class="blog-header-logo text-dark" href="/">APPAGA</a>
+					</div>
+					<div class="col-4 d-flex justify-content-end align-items-center">
+						<a class="btn btn-sm btn-outline-secondary" href="../../about.html">About</a>
+					</div>
+				</div>
+			</header>
 
-		  <div class="nav-scroller py-1 mb-2">
-		    <nav class="nav d-flex justify-content-between">
-						<!-- <a class="p-2 link-secondary" th:with="rootpath=(${content.rootpath} ?: '')" th:href="${rootpath}+'tags/mongodb.html'">Mongodb</a> -->
-						<a class="p-2 link-secondary" href='../../archive.html'>Archive</a>
-		    </nav>
-		  </div>
+			<div class="nav-scroller py-1 mb-2">
+				<nav class="nav d-flex justify-content-between">
+					<a class="p-2 link-secondary" href='../../archive.html'>Archive</a>
+				</nav>
+			</div>
 		</div>
 	</div>
 		<main class="container">
-
 			<div class="page-header">
 				<h1>Springboot Thymeleaf Javascript Inlining</h1>
 			</div>
-
 			<p><em>18 March 2020</em></p>
-
 			<p><h1>타임리프 자바스크립트 인라인 이용하기</h1>
 <p>자바스크립트에서 타임리프 태그를 사용하기 위해서는 <code>th:inline=&quot;javascript&quot;</code>를 적용하여 사용한다.</p>
-<pre><code class="prettyprint language-js">&lt;script type=&quot;text/javascript&quot; th:inline=&quot;javascript&quot;&gt;
+<pre><code class="language-js">&lt;script type=&quot;text/javascript&quot; th:inline=&quot;javascript&quot;&gt;
 </code></pre>
 <p>인라인을 종료하여 타임리프 태그가 작동되지 않도록 하려면 th:inline=&quot;none&quot;을 이용한다.</p>
 <h2>모델 객체를 자동으로 json 객체로 변환</h2>
 <p><code>[[${session}]]</code>로 객체를 호출하면 타임리프가 자동으로 json 객체로 변환하여 준다.</p>
 <p>아래 샘플에서 <code>/*[[${session}]]*/</code>를 이용하는 것과 <code>[[${session}]]</code>를 이용하는 것의 차이는<br />
 <code>session2</code> 선언부는 자바스크립트 문법을 깨트리기 때문에 소스 html 파일을 웹브라우저에서 바로 오픈하면 스크립트가 실행되지 않는다.</p>
-<pre><code class="prettyprint language-js">var session1 = /*[[${session}]]*/ null;
+<pre><code class="language-js">var session1 = /*[[${session}]]*/ null;
 var session2 = [[${session}]];
 </code></pre>
 <p><code>/*[[${...}]]*/</code> 형식은 자바스크립 문법상 주석에 해당하기 때문에 문제가 없다. 웹브라우저에서 바로 오픈하면 다음과 같은 코드로 해석될 것이다.</p>
-<pre><code class="prettyprint language-js">var session =  null;
+<pre><code class="language-js">var session =  null;
 </code></pre>
 <p>웹서버에서 실행되어 타임리프가 <code>${session}</code>을 자동으로 json 객체로 변화하면 다음과 같은 코드가 생성된다.</p>
-<pre><code class="prettyprint language-js">var session = {&quot;\uC601\uC5B4\uC774\uB984&quot;:&quot;TtalLaeMideul&quot;,&quot;name&quot;:&quot;\uB538\uB0B4\uBBF8\uB4E4&quot;,&quot;key_x&quot;:&quot;from session&quot;};
+<pre><code class="language-js">var session = {&quot;\uC601\uC5B4\uC774\uB984&quot;:&quot;TtalLaeMideul&quot;,&quot;name&quot;:&quot;\uB538\uB0B4\uBBF8\uB4E4&quot;,&quot;key_x&quot;:&quot;from session&quot;};
 </code></pre>
 <h2>자바스크립트 내에서 타임리프 태그 이용하기</h2>
 <p><code>[# th:...]</code>로 시작하여 <code>[/]</code>로 닫힌 내부에서 타임리프 태그를 이용할 수 있다.</p>
 <p>아래 소스는 <code>${DEBUG_MODE}</code>의 값이 <code>true</code>이면 로그를 찍는 코드이다.</p>
-<pre><code class="prettyprint language-js">&lt;script type=&quot;text/javascript&quot; th:inline=&quot;javascript&quot;&gt;
+<pre><code class="language-js">&lt;script type=&quot;text/javascript&quot; th:inline=&quot;javascript&quot;&gt;
 
 var session = /*[[${session}]]*/ null;
 [# th:if=&quot;${DEBUG_MODE}&quot;]
@@ -101,25 +89,32 @@ console.log('session', session);
 프로젝트를 받아서 직접 빌드하여 실행하고 결과를 확인해보면 도움이 될 것이다.</p>
 <p><a href="https://github.com/ttallaemideul/springboot/blob/master/tlmd_web/src/main/resources/templates/sample/thymeleaf/javascript.html">github 샘플 소스</a></p>
 </p>
-
-			<hr />
-
 		</main>
 	</div>
 	<div>
-			<div id="push"></div>
-
-		    <footer class="blog-footer">
-		      <div class="container">
-		        <p class="muted credit">&copy; 2022 APPAGA.KR</p>
-		      </div>
+			<footer class="blog-footer">
+		    	<p class="muted credit">&copy; 2022 APPAGA.KR</p>
+		    	<p>
+					<a href="#">Back to top</a>
+				</p>
 		    </footer>
 
 		    <!-- javascript. Placed at the end of the document so the pages load faster -->
-			<script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
-			<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js" integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf" crossorigin="anonymous"></script>
-		    <script src="../../js/prettify.js"></script>
+			<script src="../../js/jquery-3.6.0.min.js"></script>
+			<script src="../../bootstrap/bootstrap.bundle.min.js"></script>
+			<script src="../../prettify/prettify.js"></script>
+		    <script src="../../js/appaga.js"></script>
+			
+			<!-- Global site tag (gtag.js) - Google Analytics -->
+			<script async src="https://www.googletagmanager.com/gtag/js?id=G-VB6XQ6972F"></script>
+			<script>
+			window.dataLayer = window.dataLayer || [];
+			function gtag(){dataLayer.push(arguments);}
+			gtag('js', new Date());
 
+			gtag('config', 'G-VB6XQ6972F');
+			</script>
     	</div>
-  </body>
+</body>
+
 </html>

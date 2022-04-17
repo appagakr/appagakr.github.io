@@ -1,72 +1,60 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 
 <html lang="ko" xmlns="http://www.w3.org/1999/xhtml">
-	<head>
+
+<head>
 	    <meta charset="utf-8"/>
 	    <title>우분투 데스크탑 버전 설치 후 서버용 프로그램 설치하기</title>
 	    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 	    <meta name="description" content="DevOps를 위한 정보 제공"/>
 	    <meta name="author" content="appaga@appaga.kr"/>
-	    <meta name="keywords" content="java, spring framework, spring boot, android, flutter"/>
+	    <meta name="keywords" content="java, spring boot, android"/>
 	    <meta name="generator" content="JBake"/>
-
+		<!-- Custom styles for this template -->
+    	<link href="https://fonts.googleapis.com/css?family=Playfair&#43;Display:700,900&amp;display=swap" rel="stylesheet">
 	    <!-- Le styles -->
-		<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6" crossorigin="anonymous">
-	    <link href="../../css/asciidoctor.css" rel="stylesheet"/>
-	    <link href="../../css/base.css" rel="stylesheet"/>
-	    <link href="../../css/prettify.css" rel="stylesheet"/>
+		<link href="../../bootstrap/bootstrap.min.css" rel="stylesheet"/>
+		<link href="../../bootstrap/blog.css" rel="stylesheet"/>
+	    <link href="../../prettify/prettify.css" rel="stylesheet"/>
 
 	    <!-- Fav and touch icons -->
 		<link rel="apple-touch-icon" sizes="180x180" href="../../apple-touch-icon.png"/>
 		<link rel="icon" type="image/png" sizes="32x32" href="../../favicon-32x32.png"/>
 		<link rel="icon" type="image/png" sizes="16x16" href="../../favicon-16x16.png"/>
 		<link rel="manifest" href="../../site.webmanifest"/>
-	    <link rel="shortcut icon" href="../../favicon.ico"/>
-
-		<!-- Global site tag (gtag.js) - Google Analytics -->
-		<script async src="https://www.googletagmanager.com/gtag/js?id=G-VB6XQ6972F"></script>
-		<script>
-		  window.dataLayer = window.dataLayer || [];
-		  function gtag(){dataLayer.push(arguments);}
-		  gtag('js', new Date());
-
-		  gtag('config', 'G-VB6XQ6972F');
-		</script>
+	    <link rel="shortcut icon" href="../../favicon.ico"/>		
 	</head>
-	<body onload="prettyPrint()">
+
+<body>
 	<div id="wrap">
 		<div>
 		<div class="container">
-		  <header class="blog-header py-3">
-		    <div class="row flex-nowrap justify-content-between align-items-center">
-		      <div class="col-4 pt-1">
+			<header class="blog-header py-3">
+				<div class="row flex-nowrap justify-content-between align-items-center">
+					<div class="col-4 pt-1">
 						<a class="link-secondary" href="../../feed.xml">Subscribe</a>
-		      </div>
-		      <div class="col-4 text-center">
-		        <a class="blog-header-logo text-dark" href="/">APPAGA</a>
-		      </div>
-		      <div class="col-4 d-flex justify-content-end align-items-center">
-		        <a href="../../about.html">About</a>
-		      </div>
-		    </div>
-		  </header>
+					</div>
+					<div class="col-4 text-center">
+						<a class="blog-header-logo text-dark" href="/">APPAGA</a>
+					</div>
+					<div class="col-4 d-flex justify-content-end align-items-center">
+						<a class="btn btn-sm btn-outline-secondary" href="../../about.html">About</a>
+					</div>
+				</div>
+			</header>
 
-		  <div class="nav-scroller py-1 mb-2">
-		    <nav class="nav d-flex justify-content-between">
-						<!-- <a class="p-2 link-secondary" th:with="rootpath=(${content.rootpath} ?: '')" th:href="${rootpath}+'tags/mongodb.html'">Mongodb</a> -->
-						<a class="p-2 link-secondary" href='../../archive.html'>Archive</a>
-		    </nav>
-		  </div>
+			<div class="nav-scroller py-1 mb-2">
+				<nav class="nav d-flex justify-content-between">
+					<a class="p-2 link-secondary" href='../../archive.html'>Archive</a>
+				</nav>
+			</div>
 		</div>
 	</div>
 		<main class="container">
-
 			<div class="page-header">
 				<h1>우분투 데스크탑 버전 설치 후 서버용 프로그램 설치하기</h1>
 			</div>
-
 			<p><em>22 February 2020</em></p>
-
 			<p><p>우분투 데스크탑 버전(18.04.4 LTS) 설치 후 서버용 프로그램 설치하면서 정리한 내용이다.</p>
 <h2>ssh 설지</h2>
 <p><code>apt-get</code>으로 설치하고 <code>systemctl</code>로 시작한다.</p>
@@ -86,7 +74,7 @@ $ sudo systemctl start ssh
 <blockquote>
 <p>svn:x:1001:1001::/home/svn:/usr/sbin/nologin</p>
 </blockquote>
-<pre><code class="prettyprint language-console">$ sudo useradd svn
+<pre><code class="language-console">$ sudo useradd svn
 $ cd /home
 $ sudo mkdir svn
 $ sudo chown svn.svn svn
@@ -106,7 +94,7 @@ drwxr-xr-x 2 svn svn 4096  2월 16 20:40 locks/
 <p><img src="/img/linux/ubuntu/ubuntu-002-01.png" alt="myrepos" /></p>
 <h3>서비스로 등록</h3>
 <p>서버가 재부팅 되어도 자동으로 svn이 실행되도록 <code>systemctl</code>에 서비스로 등록한다.</p>
-<pre><code class="prettyprint language-console">$ cd /etc/systemd/system
+<pre><code class="language-console">$ cd /etc/systemd/system
 $ sudo vi svnserve.service
 </code></pre>
 <p><code>svnserve.service</code> 파일의 내용은 아래와 같다.</p>
@@ -133,7 +121,7 @@ WantedBy=multi-user.target
 <p><code>root</code> 권한으로 <code>/run/svnserve</code> 디렉토리를 생성하고,<br />
 <code>svn</code> 권한으로 <code>/home/svn/log</code> 디렉토리를 생성한다.</p>
 <p>svnserve 서비스를 등록한다.</p>
-<pre><code class="prettyprint language-console">$ sudo systemctl enable svnserve
+<pre><code class="language-console">$ sudo systemctl enable svnserve
 $ sudo systemctl start svnserve
 $ sudo systemctl status svnserve
 
@@ -154,32 +142,39 @@ kyin@kyin:/home/svn$ sudo systemctl status svnserve
 <p><img src="/img/linux/ubuntu/ubuntu-002-02.png" alt="systemctl status svnserve" /></p>
 <h2>java 설치</h2>
 <p>openjdk를 설치한다.</p>
-<pre><code class="prettyprint language-console">$ sudo apt-get install openjdk-8-jdk
+<pre><code class="language-console">$ sudo apt-get install openjdk-8-jdk
 $ java -version
 openjdk version &quot;1.8.0_242&quot;
 OpenJDK Runtime Environment (build 1.8.0_242-8u242-b08-0ubuntu3~18.04-b08)
 OpenJDK 64-Bit Server VM (build 25.242-b08, mixed mode)
 </code></pre>
 </p>
-
-			<hr />
-
 		</main>
 	</div>
 	<div>
-			<div id="push"></div>
-
-		    <footer class="blog-footer">
-		      <div class="container">
-		        <p class="muted credit">&copy; 2022 APPAGA.KR</p>
-		      </div>
+			<footer class="blog-footer">
+		    	<p class="muted credit">&copy; 2022 APPAGA.KR</p>
+		    	<p>
+					<a href="#">Back to top</a>
+				</p>
 		    </footer>
 
 		    <!-- javascript. Placed at the end of the document so the pages load faster -->
-			<script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
-			<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js" integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf" crossorigin="anonymous"></script>
-		    <script src="../../js/prettify.js"></script>
+			<script src="../../js/jquery-3.6.0.min.js"></script>
+			<script src="../../bootstrap/bootstrap.bundle.min.js"></script>
+			<script src="../../prettify/prettify.js"></script>
+		    <script src="../../js/appaga.js"></script>
+			
+			<!-- Global site tag (gtag.js) - Google Analytics -->
+			<script async src="https://www.googletagmanager.com/gtag/js?id=G-VB6XQ6972F"></script>
+			<script>
+			window.dataLayer = window.dataLayer || [];
+			function gtag(){dataLayer.push(arguments);}
+			gtag('js', new Date());
 
+			gtag('config', 'G-VB6XQ6972F');
+			</script>
     	</div>
-  </body>
+</body>
+
 </html>
