@@ -6,10 +6,188 @@
     <atom:link href="https://appaga.kr/feed.xml" rel="self" type="application/rss+xml" />
     <description>APPAGA.KR DevOps</description>
     <language>ko-KR</language>
-    <pubDate>Mon, 25 Apr 2022 21:17:06 +0900</pubDate>
-    <lastBuildDate>Mon, 25 Apr 2022 21:17:06 +0900</lastBuildDate>
+    <pubDate>Sat, 30 Apr 2022 23:28:00 +0900</pubDate>
+    <lastBuildDate>Sat, 30 Apr 2022 23:28:00 +0900</lastBuildDate>
 
     <item>
+      <title>Ubuntu 22.04에 postregsql 설치</title>
+      <link>https://appaga.kr/blog/linux/ubuntu_003.html</link>
+      <pubDate>Sat, 30 Apr 2022 00:00:00 +0900</pubDate>
+      <guid isPermaLink="false">blog/linux/ubuntu_003.html</guid>
+      <description>&amp;lt;p&amp;gt;ubuntu 22.04 서버에 postgresql 설치하고자 한다.&amp;lt;br /&amp;gt;
+postgresql-14 버전이 설치된다.&amp;lt;/p&amp;gt;
+&amp;lt;p&amp;gt;신규 패키지 설치전에는 먼저 시스템을 최신으로 업데이트하고 신규 패키지를 설치하도록 한다.&amp;lt;br /&amp;gt;
+postgresql 서버 설치시에 관련 패키키도 모두 설치한다.&amp;lt;br /&amp;gt;
+총 161MB 가량의 공간을 필요로 한다.&amp;lt;/p&amp;gt;
+&amp;lt;p&amp;gt;설치 후 서버 설정을 변경하고 원격에서 접속할 수 있도록 수정하도록 한다.&amp;lt;/p&amp;gt;
+&amp;lt;p&amp;gt;관리자 계정 &amp;lt;code&amp;gt;postgres&amp;lt;/code&amp;gt;의 암호를 변경하여 보안을 강화한다.&amp;lt;/p&amp;gt;
+&amp;lt;h2&amp;gt;시스템 업데이트&amp;lt;/h2&amp;gt;
+&amp;lt;p&amp;gt;신규 패키지 설치전에는 먼저 시스템을 최신으로 업데이트하고 시작한다.&amp;lt;/p&amp;gt;
+&amp;lt;pre&amp;gt;&amp;lt;code class=&amp;quot;language-bsh&amp;quot;&amp;gt;$ sudo apt update
+$ sudo apt -y upgrade
+&amp;lt;/code&amp;gt;&amp;lt;/pre&amp;gt;
+&amp;lt;h2&amp;gt;postgresql 설치&amp;lt;/h2&amp;gt;
+&amp;lt;p&amp;gt;postgresql 서버와 관련 패키지를 모두 설치한다.&amp;lt;/p&amp;gt;
+&amp;lt;pre&amp;gt;&amp;lt;code class=&amp;quot;language-bsh&amp;quot;&amp;gt;appaga@appagakr:~$ sudo apt-get install postgresql postgresql-contrib
+Reading package lists... Done
+Building dependency tree... Done
+Reading state information... Done
+The following additional packages will be installed:
+  libcommon-sense-perl libjson-perl libjson-xs-perl libllvm14 libpq5 libsensors-config libsensors5 libtypes-serialiser-perl postgresql-14 postgresql-client-14 postgresql-client-common
+  postgresql-common ssl-cert sysstat
+Suggested packages:
+  lm-sensors postgresql-doc postgresql-doc-14 isag
+The following NEW packages will be installed:
+  libcommon-sense-perl libjson-perl libjson-xs-perl libllvm14 libpq5 libsensors-config libsensors5 libtypes-serialiser-perl postgresql postgresql-14 postgresql-client-14
+  postgresql-client-common postgresql-common postgresql-contrib ssl-cert sysstat
+0 upgraded, 16 newly installed, 0 to remove and 0 not upgraded.
+Need to get 42.4 MB of archives.
+After this operation, 161 MB of additional disk space will be used.
+Do you want to continue? [Y/n] Y
+&amp;lt;/code&amp;gt;&amp;lt;/pre&amp;gt;
+&amp;lt;p&amp;gt;설치가 완료되면서 표시되는 정보 중에 다음과 같이 &amp;lt;code&amp;gt;postgres&amp;lt;/code&amp;gt; 계정이 생성되고, 데이터베이스 인코딩이 &amp;lt;code&amp;gt;UTF8&amp;lt;/code&amp;gt;로 설정된 것을 알 수 있다.&amp;lt;/p&amp;gt;
+&amp;lt;pre&amp;gt;&amp;lt;code class=&amp;quot;language-bsh&amp;quot;&amp;gt;The files belonging to this database system will be owned by user &amp;amp;quot;postgres&amp;amp;quot;.
+This user must also own the server process.
+
+The database cluster will be initialized with locale &amp;amp;quot;en_US.UTF-8&amp;amp;quot;.
+The default database encoding has accordingly been set to &amp;amp;quot;UTF8&amp;amp;quot;.
+The default text search configuration will be set to &amp;amp;quot;english&amp;amp;quot;.
+&amp;lt;/code&amp;gt;&amp;lt;/pre&amp;gt;
+&amp;lt;h2&amp;gt;postgresql 서버 상태 확인&amp;lt;/h2&amp;gt;
+&amp;lt;p&amp;gt;&amp;lt;code&amp;gt;systemctl&amp;lt;/code&amp;gt; 명령으로 실행 상태를 확인한다.&amp;lt;/p&amp;gt;
+&amp;lt;pre&amp;gt;&amp;lt;code class=&amp;quot;language-bsh&amp;quot;&amp;gt;appaga@appagakr:~$ sudo systemctl status postgresql
+● postgresql.service - PostgreSQL RDBMS
+     Loaded: loaded (/lib/systemd/system/postgresql.service; enabled; vendor preset: enabled)
+     Active: active (exited) since Sat 2022-04-30 09:04:16 UTC; 6min ago
+    Process: 16232 ExecStart=/bin/true (code=exited, status=0/SUCCESS)
+   Main PID: 16232 (code=exited, status=0/SUCCESS)
+        CPU: 2ms
+
+Apr 30 09:04:16 appagakr systemd[1]: Starting PostgreSQL RDBMS...
+Apr 30 09:04:16 appagakr systemd[1]: Finished PostgreSQL RDBMS.
+&amp;lt;/code&amp;gt;&amp;lt;/pre&amp;gt;
+&amp;lt;p&amp;gt;&amp;lt;code&amp;gt;ss -nlt&amp;lt;/code&amp;gt; 명령으로 서버의 소켓 상태를 확인한다.&amp;lt;br /&amp;gt;
+&amp;lt;code&amp;gt;5432&amp;lt;/code&amp;gt; 포트로 로컬 호스트(127.0.0.1)에 대해 오픈된 것을 확인할 수 있다.&amp;lt;/p&amp;gt;
+&amp;lt;pre&amp;gt;&amp;lt;code class=&amp;quot;language-bsh&amp;quot;&amp;gt;appaga@appagakr:~$ ss -nlt
+State                 Recv-Q                Send-Q                                Local Address:Port                                 Peer Address:Port                Process
+LISTEN                0                     4096                                  127.0.0.53%lo:53                                        0.0.0.0:*
+LISTEN                0                     128                                         0.0.0.0:22                                        0.0.0.0:*
+LISTEN                0                     244                                       127.0.0.1:5432                                      0.0.0.0:*
+LISTEN                0                     128                                            [::]:22                                           [::]:*
+&amp;lt;/code&amp;gt;&amp;lt;/pre&amp;gt;
+&amp;lt;h2&amp;gt;원격에서 서버에 접속하도록 허용하기&amp;lt;/h2&amp;gt;
+&amp;lt;p&amp;gt;postgresql은 디폴트로 로컬 호스트(127.0.0.1)에만 접속을 허용하게 설정되어 있다.&amp;lt;br /&amp;gt;
+설정파일 &amp;lt;code&amp;gt;postgresql.conf&amp;lt;/code&amp;gt;을 수정하여 모든 호스트에게 허용하도록 한다.&amp;lt;/p&amp;gt;
+&amp;lt;pre&amp;gt;&amp;lt;code class=&amp;quot;language-bsh&amp;quot;&amp;gt;$ sudo vi /etc/postgresql/14/main/postgresql.conf
+&amp;lt;/code&amp;gt;&amp;lt;/pre&amp;gt;
+&amp;lt;p&amp;gt;설정 파일에서 &amp;lt;code&amp;gt;listen_addresses&amp;lt;/code&amp;gt; 부분을 찾아서 모든 호스트 &amp;lt;code&amp;gt;&amp;#39;*&amp;#39;&amp;lt;/code&amp;gt;로 변경하여 추가해준다.&amp;lt;/p&amp;gt;
+&amp;lt;pre&amp;gt;&amp;lt;code&amp;gt;#------------------------------------------------------------------------------
+# CONNECTIONS AND AUTHENTICATION
+#------------------------------------------------------------------------------
+
+# - Connection Settings -
+
+listen_addresses = &amp;#39;*&amp;#39;                  # all network interfaces;
+#listen_addresses = &amp;#39;localhost&amp;#39;         # what IP address(es) to listen on;
+
+&amp;lt;/code&amp;gt;&amp;lt;/pre&amp;gt;
+&amp;lt;p&amp;gt;설정 파일 수정 후에 서버를 재시작하고 소켓 상태를 확인하면 &amp;lt;code&amp;gt;0.0.0.0:5432&amp;lt;/code&amp;gt;로 모든 네트워크에 오픈된 것을 확인할 수 있다.&amp;lt;/p&amp;gt;
+&amp;lt;pre&amp;gt;&amp;lt;code class=&amp;quot;language-bsh&amp;quot;&amp;gt;appaga@appagakr:~$ sudo systemctl restart postgresql
+appaga@appagakr:~$ ss -nlt
+State                 Recv-Q                Send-Q                                Local Address:Port                                 Peer Address:Port                Process
+LISTEN                0                     4096                                  127.0.0.53%lo:53                                        0.0.0.0:*
+LISTEN                0                     128                                         0.0.0.0:22                                        0.0.0.0:*
+LISTEN                0                     244                                         0.0.0.0:5432                                      0.0.0.0:*
+LISTEN                0                     128                                            [::]:22                                           [::]:*
+LISTEN                0                     244                                            [::]:5432                                         [::]:*
+&amp;lt;/code&amp;gt;&amp;lt;/pre&amp;gt;
+&amp;lt;p&amp;gt;&amp;lt;code&amp;gt;pg_hba.conf&amp;lt;/code&amp;gt; 설정 파일에 원격 접속를 허락하고 암호를 이용하도록 설정을 추가해줘야 한다.&amp;lt;/p&amp;gt;
+&amp;lt;pre&amp;gt;&amp;lt;code class=&amp;quot;language-bsh&amp;quot;&amp;gt;$ sudo vi /etc/postgresql/14/main/pg_hba.conf
+&amp;lt;/code&amp;gt;&amp;lt;/pre&amp;gt;
+&amp;lt;p&amp;gt;파일의 마지막 줄에 다음 한 줄을 추가한다.&amp;lt;/p&amp;gt;
+&amp;lt;pre&amp;gt;&amp;lt;code&amp;gt;host    all          all            0.0.0.0/0  md5
+&amp;lt;/code&amp;gt;&amp;lt;/pre&amp;gt;
+&amp;lt;p&amp;gt;설정 파일 수정 후에 서버를 재시작한다.&amp;lt;/p&amp;gt;
+&amp;lt;pre&amp;gt;&amp;lt;code class=&amp;quot;language-bsh&amp;quot;&amp;gt;appaga@appagakr:~$ sudo systemctl restart postgresql
+&amp;lt;/code&amp;gt;&amp;lt;/pre&amp;gt;
+&amp;lt;h2&amp;gt;postgres 암호 변경&amp;lt;/h2&amp;gt;
+&amp;lt;p&amp;gt;관리자 계정인 &amp;lt;code&amp;gt;postgres&amp;lt;/code&amp;gt;의 암호를 변경하여 보안을 강화한다.&amp;lt;br /&amp;gt;
+&amp;lt;code&amp;gt;psql&amp;lt;/code&amp;gt; 명령을 이용하여 암호를 변경하고 서버를 재기동 한다.&amp;lt;/p&amp;gt;
+&amp;lt;pre&amp;gt;&amp;lt;code class=&amp;quot;language-bsh&amp;quot;&amp;gt;appaga@appagakr:~$ sudo su - postgres
+postgres@appagakr:~$ psql -c &amp;amp;quot;ALTER USER postgres WITH PASSWORD &amp;#39;신규암호&amp;#39;;&amp;amp;quot;
+ALTER ROLE
+postgres@appagakr:~$ exit
+logout
+appaga@appagakr:~$ sudo systemctl restart postgresql
+&amp;lt;/code&amp;gt;&amp;lt;/pre&amp;gt;
+&amp;lt;h2&amp;gt;timezone, locale 변경&amp;lt;/h2&amp;gt;
+&amp;lt;p&amp;gt;타임존을 &amp;lt;code&amp;gt;Asia/Seoul&amp;lt;/code&amp;gt;로 변경한다.&amp;lt;br /&amp;gt;
+로케일을 &amp;lt;code&amp;gt;ko_KR.UTF-8&amp;lt;/code&amp;gt;로 변경한다.&amp;lt;/p&amp;gt;
+&amp;lt;p&amp;gt;설정파일 &amp;lt;code&amp;gt;postgresql.conf&amp;lt;/code&amp;gt;을 수정하여 변경한다.&amp;lt;/p&amp;gt;
+&amp;lt;pre&amp;gt;&amp;lt;code class=&amp;quot;language-bsh&amp;quot;&amp;gt;$ sudo vi /etc/postgresql/14/main/postgresql.conf
+&amp;lt;/code&amp;gt;&amp;lt;/pre&amp;gt;
+&amp;lt;p&amp;gt;다음과 같이 한국 기준으로 설정을 바꾼다.&amp;lt;/p&amp;gt;
+&amp;lt;pre&amp;gt;&amp;lt;code&amp;gt;datestyle = &amp;#39;iso, ymd&amp;#39;
+timezone = &amp;#39;Asia/Seoul&amp;#39;        
+log_timezone = &amp;#39;Asia/Seoul&amp;#39;
+&amp;lt;/code&amp;gt;&amp;lt;/pre&amp;gt;
+&amp;lt;p&amp;gt;설정 변경을 적용하기 위해 서버를 재기동 한다.&amp;lt;/p&amp;gt;
+&amp;lt;pre&amp;gt;&amp;lt;code class=&amp;quot;language-bsh&amp;quot;&amp;gt;$ sudo systemctl restart postgresql
+&amp;lt;/code&amp;gt;&amp;lt;/pre&amp;gt;
+&amp;lt;h2&amp;gt;사용자, 데이터베이스, 스키마 생성&amp;lt;/h2&amp;gt;
+&amp;lt;p&amp;gt;어플리케이션 개발을 위해 해당 업무만을 위해 사용자, 데이터베이스, 스키마를 생성한다.&amp;lt;/p&amp;gt;
+&amp;lt;p&amp;gt;&amp;lt;code&amp;gt;create user&amp;lt;/code&amp;gt;로 사용자를 생성하고, &amp;lt;code&amp;gt;create database&amp;lt;/code&amp;gt;로 데이터베이스를 생성하면서 인코딩과 소유자를 지정한다.&amp;lt;br /&amp;gt;
+&amp;lt;code&amp;gt;create schema&amp;lt;/code&amp;gt;로 스키마를 생성하고 사용자에게 권한을 부여한다.&amp;lt;/p&amp;gt;
+&amp;lt;pre&amp;gt;&amp;lt;code class=&amp;quot;language-bsh&amp;quot;&amp;gt;appaga@appagakr:~$ sudo su - postgres
+postgres@appagakr:~$ psql
+psql (14.2 (Ubuntu 14.2-1ubuntu1))
+Type &amp;amp;quot;help&amp;amp;quot; for help.
+
+postgres=# create user appaga with password &amp;#39;신규암호&amp;#39;;
+CREATE ROLE
+postgres=# create database appaga_web with encoding=&amp;#39;UTF8&amp;#39; owner=appaga;
+CREATE DATABASE
+postgres=# create schema appaga_web authorization appaga;
+CREATE SCHEMA
+postgres=# exit
+
+postgres@appagakr:~$ psql -h localhost -U appaga -d appaga_web
+Password for user appaga:
+psql (14.2 (Ubuntu 14.2-1ubuntu1))
+SSL connection (protocol: TLSv1.3, cipher: TLS_AES_256_GCM_SHA384, bits: 256, compression: off)
+Type &amp;amp;quot;help&amp;amp;quot; for help.
+
+appaga_web=&amp;amp;gt; \conninfo
+You are connected to database &amp;amp;quot;appaga_web&amp;amp;quot; as user &amp;amp;quot;appaga&amp;amp;quot; on host &amp;amp;quot;localhost&amp;amp;quot; (address &amp;amp;quot;127.0.0.1&amp;amp;quot;) at port &amp;amp;quot;5432&amp;amp;quot;.
+SSL connection (protocol: TLSv1.3, cipher: TLS_AES_256_GCM_SHA384, bits: 256, compression: off)
+appaga_web=&amp;amp;gt; exit
+postgres@appagakr:~$
+&amp;lt;/code&amp;gt;&amp;lt;/pre&amp;gt;
+</description>
+    </item><item>
+      <title>Ubuntu 설치 후 기본 세팅</title>
+      <link>https://appaga.kr/blog/linux/linux001.html</link>
+      <pubDate>Sat, 30 Apr 2022 00:00:00 +0900</pubDate>
+      <guid isPermaLink="false">blog/linux/linux001.html</guid>
+      <description>&amp;lt;p&amp;gt;ubuntu 22.04 서버 설치 후 기본 설정한 내용을 정리한다.&amp;lt;/p&amp;gt;
+&amp;lt;p&amp;gt;타임존을 &amp;lt;code&amp;gt;Asia/Seoul&amp;lt;/code&amp;gt;로 변경한다.&amp;lt;/p&amp;gt;
+&amp;lt;h2&amp;gt;시스템 업데이트&amp;lt;/h2&amp;gt;
+&amp;lt;p&amp;gt;신규 패키지 설치전에는 먼저 시스템을 최신으로 업데이트하고 시작한다.&amp;lt;/p&amp;gt;
+&amp;lt;pre&amp;gt;&amp;lt;code class=&amp;quot;language-bsh&amp;quot;&amp;gt;$ sudo apt update
+$ sudo apt -y upgrade
+&amp;lt;/code&amp;gt;&amp;lt;/pre&amp;gt;
+&amp;lt;h2&amp;gt;timezone 설정&amp;lt;/h2&amp;gt;
+&amp;lt;p&amp;gt;&amp;lt;code&amp;gt;date&amp;lt;/code&amp;gt; 명령으로 시간을 확인해보면 &amp;lt;code&amp;gt;UTC&amp;lt;/code&amp;gt;로 타임존이 설정되어 있다.&amp;lt;br /&amp;gt;
+&amp;lt;code&amp;gt;timedatectl&amp;lt;/code&amp;gt; 명령으로 &amp;lt;code&amp;gt;Asia/Seoul&amp;lt;/code&amp;gt;로 변경한다.&amp;lt;/p&amp;gt;
+&amp;lt;pre&amp;gt;&amp;lt;code class=&amp;quot;language-bsh&amp;quot;&amp;gt;appaga@appagakr:~$ date
+Sat Apr 30 01:04:52 PM UTC 2022
+appaga@appagakr:~$ sudo timedatectl set-timezone Asia/Seoul
+[sudo] password for appaga:
+appaga@appagakr:~$ date
+Sat Apr 30 10:06:01 PM KST 2022
+&amp;lt;/code&amp;gt;&amp;lt;/pre&amp;gt;
+</description>
+    </item><item>
       <title>Apache 2.x 보안설정</title>
       <link>https://appaga.kr/blog/was/was002.html</link>
       <pubDate>Tue, 12 Apr 2022 00:00:00 +0900</pubDate>
@@ -1025,7 +1203,7 @@ c:/Java/jdk-12.0.2/bin/javaw.exe
 등록할 것은 스프링 툴 sts-4.5.1 이다.&amp;lt;/p&amp;gt;
 &amp;lt;p&amp;gt;스프링 툴 압축 푼 것은 아래처럼 폴더에 위치해 있다.&amp;lt;br /&amp;gt;
 SpringToolSuite4가 실행파일이고  icon.xpm이 아이콘 파일이다.&amp;lt;/p&amp;gt;
-&amp;lt;pre&amp;gt;&amp;lt;code class=&amp;quot;language-console&amp;quot;&amp;gt;kyin@kyin:~/dev/sts-4.5.1.RELEASE$ pwd 
+&amp;lt;pre&amp;gt;&amp;lt;code class=&amp;quot;language-bsh&amp;quot;&amp;gt;kyin@kyin:~/dev/sts-4.5.1.RELEASE$ pwd 
 /home/kyin/dev/sts-4.5.1.RELEASE 
 
 kyin@kyin:~/dev/sts-4.5.1.RELEASE$ ls 
@@ -1038,7 +1216,7 @@ icon.xpm
 &amp;lt;p&amp;gt;프로그램 실행 아이콘을 만들기 위해 자신의 홈디렉토리 아래 &amp;lt;code&amp;gt;~/.local/share/applications&amp;lt;/code&amp;gt; 폴더에&amp;lt;br /&amp;gt;
 &amp;lt;code&amp;gt;.desktop&amp;lt;/code&amp;gt; 파일을 만든다.&amp;lt;/p&amp;gt;
 &amp;lt;p&amp;gt;나의 경우는 &amp;lt;code&amp;gt;sts.desktop&amp;lt;/code&amp;gt;으로 만들었다.&amp;lt;/p&amp;gt;
-&amp;lt;pre&amp;gt;&amp;lt;code&amp;gt;$ cd ~/.local/share/applications/
+&amp;lt;pre&amp;gt;&amp;lt;code class=&amp;quot;language-bsh&amp;quot;&amp;gt;$ cd ~/.local/share/applications/
 $ vi sts.desktop
 
 [Desktop Entry]

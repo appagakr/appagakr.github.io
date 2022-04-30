@@ -4,7 +4,7 @@
 
 <head>
 	    <meta charset="utf-8"/>
-	    <title>ubuntu 18.04 dock에 프로그램 등록하기</title>
+	    <title>Ubuntu 설치 후 기본 세팅</title>
 	    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 	    <meta name="description" content="DevOps를 위한 정보 제공"/>
 	    <meta name="author" content="appaga@appaga.kr"/>
@@ -96,40 +96,26 @@
 	</div>
 		<main class="container">
 			<div class="page-header">
-				<h1>ubuntu 18.04 dock에 프로그램 등록하기</h1>
+				<h1>Ubuntu 설치 후 기본 세팅</h1>
 			</div>
-			<p><em>22 February 2020</em></p>
-			<p><p>새로 설치한 우분투의 데스크탑 독에 프로그램을 등록하고자 한다.<br />
-등록할 것은 스프링 툴 sts-4.5.1 이다.</p>
-<p>스프링 툴 압축 푼 것은 아래처럼 폴더에 위치해 있다.<br />
-SpringToolSuite4가 실행파일이고  icon.xpm이 아이콘 파일이다.</p>
-<pre><code class="language-bsh">kyin@kyin:~/dev/sts-4.5.1.RELEASE$ pwd 
-/home/kyin/dev/sts-4.5.1.RELEASE 
-
-kyin@kyin:~/dev/sts-4.5.1.RELEASE$ ls 
-META-INF 
-...
-SpringToolSuite4 
-icon.xpm
-...
+			<p><em>30 April 2022</em></p>
+			<p><p>ubuntu 22.04 서버 설치 후 기본 설정한 내용을 정리한다.</p>
+<p>타임존을 <code>Asia/Seoul</code>로 변경한다.</p>
+<h2>시스템 업데이트</h2>
+<p>신규 패키지 설치전에는 먼저 시스템을 최신으로 업데이트하고 시작한다.</p>
+<pre><code class="language-bsh">$ sudo apt update
+$ sudo apt -y upgrade
 </code></pre>
-<p>프로그램 실행 아이콘을 만들기 위해 자신의 홈디렉토리 아래 <code>~/.local/share/applications</code> 폴더에<br />
-<code>.desktop</code> 파일을 만든다.</p>
-<p>나의 경우는 <code>sts.desktop</code>으로 만들었다.</p>
-<pre><code class="language-bsh">$ cd ~/.local/share/applications/
-$ vi sts.desktop
-
-[Desktop Entry]
-Name=sts-4.5.1.RELEASE
-Exec=/home/kyin/dev/sts-4.5.1.RELEASE/SpringToolSuite4
-Comment=Sprint Tool Suite 4.5.1
-Terminal=false
-Type=Application
-Icon=/home/kyin/dev/sts-4.5.1.RELEASE/icon.xpm
+<h2>timezone 설정</h2>
+<p><code>date</code> 명령으로 시간을 확인해보면 <code>UTC</code>로 타임존이 설정되어 있다.<br />
+<code>timedatectl</code> 명령으로 <code>Asia/Seoul</code>로 변경한다.</p>
+<pre><code class="language-bsh">appaga@appagakr:~$ date
+Sat Apr 30 01:04:52 PM UTC 2022
+appaga@appagakr:~$ sudo timedatectl set-timezone Asia/Seoul
+[sudo] password for appaga:
+appaga@appagakr:~$ date
+Sat Apr 30 10:06:01 PM KST 2022
 </code></pre>
-<p><code>sts.desktop</code> 파일을 생성 후에 프로그램 목록을 열어보면 추가한 스프링툴 아이콘이 표시될 것이고<br />
-우클릭하여 <code>즐겨찾기에 추가</code>를 선택해주면 독에 아이콘이 생성된다.</p>
-<p><img src="/img/linux/ubuntu/ubuntu-003-01.png" alt="즐겨찾기에 추가 하기" /></p>
 </p>
 		</main>
 	</div>
