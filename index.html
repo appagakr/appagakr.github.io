@@ -9,10 +9,9 @@
 	    <meta name="author" content="appaga@appaga.kr"/>
 	    <meta name="keywords" content="java, spring boot, android"/>
 	    <meta name="generator" content="JBake"/>
-		<!-- Custom styles for this template -->
-    	<link href="https://fonts.googleapis.com/css?family=Playfair&#43;Display:700,900&amp;display=swap" rel="stylesheet">
-	    <!-- Le styles -->
+	    <!-- styles -->
 		<link href="bootstrap/bootstrap.min.css" rel="stylesheet"/>
+		<link href="font-nanum/font-nanum.css" rel="stylesheet"/>
 		<link href="bootstrap/blog.css" rel="stylesheet"/>
 	    <link href="prettify/prettify.css" rel="stylesheet"/>
 
@@ -54,6 +53,9 @@
 						</li>
 						<li>
 							<a class="dropdown-item text-uppercase" href='tags/mongodb.html'>mongodb</a>
+						</li>
+						<li>
+							<a class="dropdown-item text-uppercase" href='tags/html.html'>html</a>
 						</li>
 						<li>
 							<a class="dropdown-item text-uppercase" href='tags/linux.html'>linux</a>
@@ -155,6 +157,15 @@
 						New articles
 					</h3>
 					<article class="blog-post">
+						<h2 class="blog-post-title">네이버 나눔스퀘어라운드 폰트 적용하기</h2>
+						<p class="blog-post-meta">01 May 2022</p>
+						<p>네이버 hangeul.naver.com에서 제공하는 나눔스퀘어라운드 폰트를 이용해보자.
+TTF 폰트를 다운받아서 Online Font Convenverter에서 EOT, WOFF, WOFF2 등으로 변환하여 사용하였다.
+font-nanum.css 파일에 @font-face로 font-family를 정의한다.+ font-nanum
+  font-nanum.cs ...</p>
+						<a href='blog/web/web0001.html'>Continue reading</a>
+					</article>
+					<article class="blog-post">
 						<h2 class="blog-post-title">Ubuntu 22.04에 postregsql 설치</h2>
 						<p class="blog-post-meta">30 April 2022</p>
 						<p>ubuntu 22.04 서버에 postgresql 설치하고자 한다.
@@ -164,7 +175,7 @@ postgresql-14 버전이 설치된다.
 postgresql 서버 설치시에 관련 패키키도 모두 설치한다.
 총 161MB 가량의 공간을 필요로 한다.
 
-설치 후 서버 설정을 변경하고 원격에서 접속할</p>
+설치 후 서버 설정을 변경하고 원격에서 접속할 ...</p>
 						<a href='blog/linux/ubuntu_003.html'>Continue reading</a>
 					</article>
 					<article class="blog-post">
@@ -178,7 +189,7 @@ postgresql 서버 설치시에 관련 패키키도 모두 설치한다.
 $ sudo apt -y upgrade
 timezone 설정
 
-date 명령으로 시간을 확인해보면 UTC로 타임존이 설정되어 있다.</p>
+date 명령으로 시간을 확인해보면 UTC로 타임존이 설정되어 있다. ...</p>
 						<a href='blog/linux/linux001.html'>Continue reading</a>
 					</article>
 					<article class="blog-post">
@@ -190,7 +201,7 @@ date 명령으로 시간을 확인해보면 UTC로 타임존이 설정되어 있
 사용하지도 않는 메소드를 차단한다. 주로 사용하는 GET, POST만 남겨놓고 나머지는 제거한다.
 curl 명령으로 최종 적용된 상태를 확인할 수 있다.서버정보 숨기기
 
-ServerTokens </p>
+ServerTokens  ...</p>
 						<a href='blog/was/was002.html'>Continue reading</a>
 					</article>
 					<article class="blog-post">
@@ -201,7 +212,7 @@ ServerTokens </p>
 80 포트로 접속을 시도하면 443 포트로 리다이렉트 하도록 설정하여 언제나 https:// 프로토콜로 제공되도록 한다.
 
 tomcat으로 proxy하여 원하는 url을 tomcat에서 제공하도록 설정한다.
-만약 tomcat으로 proxy 하지 않도록 하려면 느낌표 !</p>
+만약 tomcat으로 proxy 하지 않도록 하려면 느낌표 ! ...</p>
 						<a href='blog/was/was001.html'>Continue reading</a>
 					</article>
 					<article class="blog-post">
@@ -214,8 +225,8 @@ https://github.com/googlearchive/code-prettify&lt;pre class=&quot;prettyprint&qu
 package org.jbake;
 
 public class Oven {
-	public static </p>
-						<a href='blog/post/post0001.html'>Continue reading</a>
+	public static  ...</p>
+						<a href='blog/js/post0001.html'>Continue reading</a>
 					</article>
 					<article class="blog-post">
 						<h2 class="blog-post-title">JavaScript Obfuscator Tool: obfuscator.io</h2>
@@ -228,7 +239,7 @@ public class Oven {
 
 간단한 옵션 설정으로 난독화가 가능하고 브라우저 디버깅 모드를 작동하지 않도록 할 수 있어 유용하게 사용 중이다.로컬 설치
 
-설치는  프로젝트의 설치안내 페이지를 따라서 진</p>
+설치는  프로젝트의 설치안내 페이지를 따라서 진 ...</p>
 						<a href='blog/js/obfuscator_io.html'>Continue reading</a>
 					</article>
 					<article class="blog-post">
@@ -244,7 +255,7 @@ DB접속 계정은 패스워드 기반으로 생성한다.
 접속가능 IP에 현재 사용중인 IP만 추가한다.
 물론, 모든 IP 접속허용도 가능하다.
 
-샘</p>
+샘 ...</p>
 						<a href='blog/mongodb/mongodb0001.html'>Continue reading</a>
 					</article>
 					<article class="blog-post">
@@ -256,7 +267,7 @@ Thymeleaf 템플릿엔진을 이용하고 W3.CSS를 사용하여 html/css 퍼블
 W3.CSS를 이용하여 html 화면 디자인을 처리한다.
 Material Design 템플릿을 기본 레이아웃으로 설정하였다.
 
-이미</p>
+이미 ...</p>
 						<a href='blog/springboot/springboot002.html'>Continue reading</a>
 					</article>
 					<article class="blog-post">
@@ -269,7 +280,7 @@ Material Design 템플릿을 기본 레이아웃으로 설정하였다.
 
 category : 필수. 추적하고자 하는 항목의 그룹.
 
-action   : 필수. 추</p>
+action   : 필수. 추 ...</p>
 						<a href='blog/google/gtag002.html'>Continue reading</a>
 					</article>
 					<article class="blog-post">
@@ -280,7 +291,7 @@ action   : 필수. 추</p>
 Sprint boot + Mybatis + H2 + Thymeleaf + W3.css 을 사용하여 구현을 시작한다.
 
 JSP 파일에서 JSTL을 이용하는데 익숙하지만 타임리프를 맛보기 정도로 습득하여 적용하고 테스트 해보니
-쉽게 개념을 이해할 수 있고 이삼일 정도면 기본적으로 사용하는데 문제가 없어 보이</p>
+쉽게 개념을 이해할 수 있고 이삼일 정도면 기본적으로 사용하는데 문제가 없어 보이 ...</p>
 						<a href='blog/springboot/springboot001.html'>Continue reading</a>
 					</article>
 					<article class="blog-post">
@@ -293,7 +304,7 @@ JSP 파일에서 JSTL을 이용하는데 익숙하지만 타임리프를 맛보�
 tlmd dialect를 만들고 ox 속성을 추가한다.
 
 속성에 입력한 값이 true에 해당하는 값(0이 아닌 숫자, false가 아닌 문자열 등) 이면 ●을 출력하고,
-false에 해당하는 값(숫자 0</p>
+false에 해당하는 값(숫자 0 ...</p>
 						<a href='blog/springboot/thymeleaf003.html'>Continue reading</a>
 					</article>
 					<article class="blog-post">
@@ -305,7 +316,7 @@ false에 해당하는 값(숫자 0</p>
 
 참조사이트속성 처리기: 화면 표시 담당
 
-AbstractAttributeTagProcessor 클래스를 확장하여 화면에 태그 표시를 담당하는 처리기를 작성한다.pu</p>
+AbstractAttributeTagProcessor 클래스를 확장하여 화면에 태그 표시를 담당하는 처리기를 작성한다.pu ...</p>
 						<a href='blog/springboot/thymeleaf002.html'>Continue reading</a>
 					</article>
 					<article class="blog-post">
@@ -318,7 +329,7 @@ AbstractAttributeTagProcessor 클래스를 확장하여 화면에 태그 표시�
 	&lt;groupId&gt;com.h2database&lt;/groupId&gt;
 	&lt;artifactId&gt;h2&lt;/artifactId&gt;
 	&lt;scope&gt;runtime&lt;/scope&gt;
-</p>
+ ...</p>
 						<a href='blog/springboot/db001.html'>Continue reading</a>
 					</article>
 					<article class="blog-post">
@@ -329,7 +340,7 @@ AbstractAttributeTagProcessor 클래스를 확장하여 화면에 태그 표시�
 자바스크립트에서 타임리프 태그를 사용하기 위해서는 th:inline=&quot;javascript&quot;를 적용하여 사용한다.&lt;script type=&quot;text/javascript&quot; th:inline=&quot;javascript&quot;&gt;
 
 
-인라인을 종료하여 타임리프 태그가 작동되지 않도록 하려면 th:inline=&quot;none&quot;을 이용한다.모델 객</p>
+인라인을 종료하여 타임리프 태그가 작동되지 않도록 하려면 th:inline=&quot;none&quot;을 이용한다.모델 객 ...</p>
 						<a href='blog/springboot/thymeleaf001.html'>Continue reading</a>
 					</article>
 					<article class="blog-post">
@@ -342,7 +353,7 @@ utf-8을 기본으로 사용하기-Dfile.encoding=utf-8
 
 
 아래와 같이 주석 생성시에 @author값에 삽입된다./**
- * h2database </p>
+ * h2database  ...</p>
 						<a href='blog/eclipse/eclipse001.html'>Continue reading</a>
 					</article>
 					<article class="blog-post">
@@ -360,7 +371,7 @@ ttallaemideul 이름으로 계정생성 하였다.
 
 구글 애널리틱스 계정 만들기
 
-생성된 계정 정보에서 관리 &gt; 추정 정보 </p>
+생성된 계정 정보에서 관리 &gt; 추정 정보  ...</p>
 						<a href='blog/google/gtag001.html'>Continue reading</a>
 					</article>
 					<article class="blog-post">
@@ -371,7 +382,7 @@ ttallaemideul 이름으로 계정생성 하였다.
 
 스프링 툴 압축 푼 것은 아래처럼 폴더에 위치해 있다.
 SpringToolSuite4가 실행파일이고  icon.xpm이 아이콘 파일이다.kyin@kyin:~/dev/sts-4.5.1.RELEASE$ pwd 
-/home/kyin/dev/sts-4</p>
+/home/kyin/dev/sts-4 ...</p>
 						<a href='blog/linux/ubuntu_002.html'>Continue reading</a>
 					</article>
 					<article class="blog-post">
@@ -382,7 +393,7 @@ SpringToolSuite4가 실행파일이고  icon.xpm이 아이콘 파일이다.kyin@
 apt-get으로 설치하고 systemctl로 시작한다.$ sudo apt-get update
 $ sudo apt-get install openssh-server
 $ sudo systemctl enable ssh
-$ sudo systemctl st</p>
+$ sudo systemctl st ...</p>
 						<a href='blog/linux/ubuntu_001.html'>Continue reading</a>
 					</article>
 					<article class="blog-post">
@@ -394,7 +405,7 @@ PROXY_METHOD=&quot;none&quot;
 BROWSER_ONLY=&quot;no&quot; 
 BOOTPROTO=&quot;none&quot; 
 DEFROUTE=&quot;yes&quot; 
-IPV4</p>
+IPV4 ...</p>
 						<a href='blog/linux/centos001.html'>Continue reading</a>
 					</article>
 					<nav class="blog-pagination" aria-label="Pagination">
@@ -416,6 +427,8 @@ IPV4</p>
 								<a class="mb-1 btn btn-light btn-sm" href='tags/centos.html'>centos</a>
 							
 								<a class="mb-1 btn btn-light btn-sm" href='tags/mongodb.html'>mongodb</a>
+							
+								<a class="mb-1 btn btn-light btn-sm" href='tags/html.html'>html</a>
 							
 								<a class="mb-1 btn btn-light btn-sm" href='tags/linux.html'>linux</a>
 							
@@ -443,7 +456,7 @@ IPV4</p>
 						<div class="p-4">
 							<h4 class="fst-italic">Archives</h4>
 							<ol class="list-unstyled mb-0">
-								<li><a href='archive.html'>April 2022</a></li>
+								<li><a href='archive.html'>May 2022</a></li>
 							</ol>
 						</div>	
 						<div class="p-4">

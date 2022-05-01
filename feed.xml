@@ -6,10 +6,92 @@
     <atom:link href="https://appaga.kr/feed.xml" rel="self" type="application/rss+xml" />
     <description>APPAGA.KR DevOps</description>
     <language>ko-KR</language>
-    <pubDate>Sat, 30 Apr 2022 23:28:00 +0900</pubDate>
-    <lastBuildDate>Sat, 30 Apr 2022 23:28:00 +0900</lastBuildDate>
+    <pubDate>Sun, 1 May 2022 14:08:38 +0900</pubDate>
+    <lastBuildDate>Sun, 1 May 2022 14:08:38 +0900</lastBuildDate>
 
     <item>
+      <title>네이버 나눔스퀘어라운드 폰트 적용하기</title>
+      <link>https://appaga.kr/blog/web/web0001.html</link>
+      <pubDate>Sun, 1 May 2022 00:00:00 +0900</pubDate>
+      <guid isPermaLink="false">blog/web/web0001.html</guid>
+      <description>&amp;lt;p&amp;gt;네이버 &amp;lt;a href=&amp;quot;https://hangeul.naver.com&amp;quot;&amp;gt;hangeul.naver.com&amp;lt;/a&amp;gt;에서 제공하는 나눔스퀘어라운드 폰트를 이용해보자.&amp;lt;br /&amp;gt;
+TTF 폰트를 다운받아서 &amp;lt;a href=&amp;quot;https://www.fontconverter.io&amp;quot;&amp;gt;Online Font Convenverter&amp;lt;/a&amp;gt;에서 EOT, WOFF, WOFF2 등으로 변환하여 사용하였다.&amp;lt;br /&amp;gt;
+&amp;lt;code&amp;gt;font-nanum.css&amp;lt;/code&amp;gt; 파일에 &amp;lt;code&amp;gt;@font-face&amp;lt;/code&amp;gt;로 &amp;lt;code&amp;gt;font-family&amp;lt;/code&amp;gt;를 정의한다.&amp;lt;/p&amp;gt;
+&amp;lt;pre&amp;gt;&amp;lt;code&amp;gt;+ font-nanum
+  font-nanum.css
+  + fonts
+     NanumSquareRoundB.eot
+     NanumSquareRoundB.otf
+     NanumSquareRoundB.svg
+     NanumSquareRoundB.ttf
+     NanumSquareRoundB.woff
+     NanumSquareRoundB.woff2
+     NanumSquareRoundL.eot
+     NanumSquareRoundL.otf
+     NanumSquareRoundL.svg
+     NanumSquareRoundL.ttf
+     NanumSquareRoundL.woff
+     NanumSquareRoundL.woff2
+     NanumSquareRoundR.eot
+     NanumSquareRoundR.otf
+     NanumSquareRoundR.svg
+     NanumSquareRoundR.ttf
+     NanumSquareRoundR.woff
+     NanumSquareRoundR.woff2
+&amp;lt;/code&amp;gt;&amp;lt;/pre&amp;gt;
+&amp;lt;p&amp;gt;&amp;lt;code&amp;gt;font-nanum.css&amp;lt;/code&amp;gt; 파일 내용 :&amp;lt;/p&amp;gt;
+&amp;lt;pre&amp;gt;&amp;lt;code class=&amp;quot;language-css&amp;quot;&amp;gt;@font-face {
+  font-family: &amp;amp;quot;NanumSquareRoundR&amp;amp;quot;;
+  src: url(&amp;amp;quot;./fonts/NanumSquareRoundR.eot&amp;amp;quot;); /* IE9 Compat Modes */
+  src: url(&amp;amp;quot;./fonts/NanumSquareRoundR.eot?#iefix&amp;amp;quot;) format(&amp;amp;quot;embedded-opentype&amp;amp;quot;), /* IE6-IE8 */
+    url(&amp;amp;quot;./fonts/NanumSquareRoundR.otf&amp;amp;quot;) format(&amp;amp;quot;opentype&amp;amp;quot;), /* Open Type Font */
+    url(&amp;amp;quot;./fonts/NanumSquareRoundR.svg&amp;amp;quot;) format(&amp;amp;quot;svg&amp;amp;quot;), /* Legacy iOS */
+    url(&amp;amp;quot;./fonts/NanumSquareRoundR.ttf&amp;amp;quot;) format(&amp;amp;quot;truetype&amp;amp;quot;), /* Safari, Android, iOS */
+    url(&amp;amp;quot;./fonts/NanumSquareRoundR.woff&amp;amp;quot;) format(&amp;amp;quot;woff&amp;amp;quot;), /* Modern Browsers */
+    url(&amp;amp;quot;./fonts/NanumSquareRoundR.woff2&amp;amp;quot;) format(&amp;amp;quot;woff2&amp;amp;quot;); /* Modern Browsers */
+  font-weight: normal;
+  font-style: normal;
+}
+@font-face {
+  font-family: &amp;amp;quot;NanumSquareRoundL&amp;amp;quot;;
+  src: url(&amp;amp;quot;./fonts/NanumSquareRoundL.eot&amp;amp;quot;); /* IE9 Compat Modes */
+  src: url(&amp;amp;quot;./fonts/NanumSquareRoundL.eot?#iefix&amp;amp;quot;) format(&amp;amp;quot;embedded-opentype&amp;amp;quot;), /* IE6-IE8 */
+    url(&amp;amp;quot;./fonts/NanumSquareRoundL.otf&amp;amp;quot;) format(&amp;amp;quot;opentype&amp;amp;quot;), /* Open Type Font */
+    url(&amp;amp;quot;./fonts/NanumSquareRoundL.svg&amp;amp;quot;) format(&amp;amp;quot;svg&amp;amp;quot;), /* Legacy iOS */
+    url(&amp;amp;quot;./fonts/NanumSquareRoundL.ttf&amp;amp;quot;) format(&amp;amp;quot;truetype&amp;amp;quot;), /* Safari, Android, iOS */
+    url(&amp;amp;quot;./fonts/NanumSquareRoundL.woff&amp;amp;quot;) format(&amp;amp;quot;woff&amp;amp;quot;), /* Modern Browsers */
+    url(&amp;amp;quot;./fonts/NanumSquareRoundL.woff2&amp;amp;quot;) format(&amp;amp;quot;woff2&amp;amp;quot;); /* Modern Browsers */
+  font-weight: normal;
+  font-style: normal;
+}
+@font-face {
+  font-family: &amp;amp;quot;NanumSquareRoundB&amp;amp;quot;;
+  src: url(&amp;amp;quot;./fonts/NanumSquareRoundB.eot&amp;amp;quot;); /* IE9 Compat Modes */
+  src: url(&amp;amp;quot;./fonts/NanumSquareRoundB.eot?#iefix&amp;amp;quot;) format(&amp;amp;quot;embedded-opentype&amp;amp;quot;), /* IE6-IE8 */
+    url(&amp;amp;quot;./fonts/NanumSquareRoundB.otf&amp;amp;quot;) format(&amp;amp;quot;opentype&amp;amp;quot;), /* Open Type Font */
+    url(&amp;amp;quot;./fonts/NanumSquareRoundB.svg&amp;amp;quot;) format(&amp;amp;quot;svg&amp;amp;quot;), /* Legacy iOS */
+    url(&amp;amp;quot;./fonts/NanumSquareRoundB.ttf&amp;amp;quot;) format(&amp;amp;quot;truetype&amp;amp;quot;), /* Safari, Android, iOS */
+    url(&amp;amp;quot;./fonts/NanumSquareRoundB.woff&amp;amp;quot;) format(&amp;amp;quot;woff&amp;amp;quot;), /* Modern Browsers */
+    url(&amp;amp;quot;./fonts/NanumSquareRoundB.woff2&amp;amp;quot;) format(&amp;amp;quot;woff2&amp;amp;quot;); /* Modern Browsers */
+  font-weight: normal;
+  font-style: normal;
+}
+&amp;lt;/code&amp;gt;&amp;lt;/pre&amp;gt;
+&amp;lt;p&amp;gt;웹페이지 기본 폰트를 &amp;lt;code&amp;gt;NanumSquareRoundR&amp;lt;/code&amp;gt; 로 적용한다.&amp;lt;br /&amp;gt;
+강조가 필요한 요소에는 &amp;lt;code&amp;gt;NanumSquareRoundB&amp;lt;/code&amp;gt;를 적용한다.&amp;lt;/p&amp;gt;
+&amp;lt;pre&amp;gt;&amp;lt;code class=&amp;quot;language-css&amp;quot;&amp;gt;body {font-family: &amp;amp;quot;NanumSquareRoundR&amp;amp;quot;, Georgia, &amp;amp;quot;Times New Roman&amp;amp;quot;, serif}
+
+.blog-header-logo {
+  font-family: &amp;amp;quot;NanumSquareRoundB&amp;amp;quot;, Georgia, &amp;amp;quot;Times New Roman&amp;amp;quot;, serif;
+  font-size: 2.25rem;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: &amp;amp;quot;NanumSquareRoundB&amp;amp;quot;, Georgia, &amp;amp;quot;Times New Roman&amp;amp;quot;, serif;
+}
+&amp;lt;/code&amp;gt;&amp;lt;/pre&amp;gt;
+</description>
+    </item><item>
       <title>Ubuntu 22.04에 postregsql 설치</title>
       <link>https://appaga.kr/blog/linux/ubuntu_003.html</link>
       <pubDate>Sat, 30 Apr 2022 00:00:00 +0900</pubDate>
@@ -331,9 +413,9 @@ SSLCryptoDevice builtin
 </description>
     </item><item>
       <title>code prettify</title>
-      <link>https://appaga.kr/blog/post/post0001.html</link>
+      <link>https://appaga.kr/blog/js/post0001.html</link>
       <pubDate>Thu, 1 Apr 2021 00:00:00 +0900</pubDate>
-      <guid isPermaLink="false">blog/post/post0001.html</guid>
+      <guid isPermaLink="false">blog/js/post0001.html</guid>
       <description>&amp;lt;p&amp;gt;code prettify를 이용해서 소스코드를 언어별로 보기 좋게 표시한다.&amp;lt;/p&amp;gt;
 &amp;lt;p&amp;gt;&amp;lt;a href=&amp;quot;https://github.com/googlearchive/code-prettify&amp;quot;&amp;gt;https://github.com/googlearchive/code-prettify&amp;lt;/a&amp;gt;&amp;lt;/p&amp;gt;
 &amp;lt;pre&amp;gt;&amp;lt;code class=&amp;quot;language-html&amp;quot;&amp;gt;&amp;amp;lt;pre class=&amp;amp;quot;prettyprint&amp;amp;quot;&amp;amp;gt;
