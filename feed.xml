@@ -6,10 +6,68 @@
     <atom:link href="https://appaga.kr/feed.xml" rel="self" type="application/rss+xml" />
     <description>APPAGA.KR DevOps</description>
     <language>ko-KR</language>
-    <pubDate>Sun, 1 May 2022 14:08:38 +0900</pubDate>
-    <lastBuildDate>Sun, 1 May 2022 14:08:38 +0900</lastBuildDate>
+    <pubDate>Wed, 1 Jun 2022 17:47:40 +0900</pubDate>
+    <lastBuildDate>Wed, 1 Jun 2022 17:47:40 +0900</lastBuildDate>
 
     <item>
+      <title>맥북에어 2011 모델에 Ubuntu 및 Android-x86 멀티부팅으로 설치하여 안드로이드 사용하기</title>
+      <link>https://appaga.kr/blog/linux/ubuntu_004.html</link>
+      <pubDate>Wed, 1 Jun 2022 00:00:00 +0900</pubDate>
+      <guid isPermaLink="false">blog/linux/ubuntu_004.html</guid>
+      <description>&amp;lt;p&amp;gt;2011년 경에 구입한 MacBook Air (11-inch, Mid 2011)를 안쓴지 오래이다.&amp;lt;br /&amp;gt;
+4GB 램에 128GB 디스크에 아직도 큰 문제없이 작동한다.&amp;lt;br /&amp;gt;
+묵혀두기에는 아까워서 ubuntu 22.04 설치하여 테스트용으로도 쓰고 Android-x86도 멀티부팅 가능하게 설치하여 안드로이드도 사용하고자 한다.&amp;lt;/p&amp;gt;
+&amp;lt;p&amp;gt;&amp;lt;img src=&amp;quot;/img/linux/ubuntu/ubuntu_004-02.jpg&amp;quot; alt=&amp;quot;안드로이드 실행 화면&amp;quot; /&amp;gt;&amp;lt;/p&amp;gt;
+&amp;lt;h2&amp;gt;우분투 설치용 USB 드라이브 만들기&amp;lt;/h2&amp;gt;
+&amp;lt;p&amp;gt;&amp;lt;a href=&amp;quot;https://ubuntu.com/&amp;quot;&amp;gt;Ubuntu&amp;lt;/a&amp;gt;에서 데스크탑용 ISO 이미지 파일 다운받는다. 최신 버전인 Ubuntu 22.04를 다운한다.&amp;lt;/p&amp;gt;
+&amp;lt;p&amp;gt;다운로드 받은 이미지 파일을 부팅용 usb 드라이브로 만들 때 &amp;lt;a href=&amp;quot;https://rufus.ie/&amp;quot;&amp;gt;rufus&amp;lt;/a&amp;gt;를 이용하여 만든다.&amp;lt;br /&amp;gt;
+USB 드라이브는 최소 8GB 이상 용량이 필요하다.&amp;lt;/p&amp;gt;
+&amp;lt;p&amp;gt;rufus로 드라이브 제작시에 &amp;lt;code&amp;gt;ISO&amp;lt;/code&amp;gt;, &amp;lt;code&amp;gt;dd&amp;lt;/code&amp;gt; 방식으로 만들 것이냐는 질문을 물어보는데 &amp;lt;code&amp;gt;dd&amp;lt;/code&amp;gt; 방식으로 제작하니 정상적으로 부팅된다.&amp;lt;/p&amp;gt;
+&amp;lt;h2&amp;gt;맥북에 우분투 설치하기&amp;lt;/h2&amp;gt;
+&amp;lt;p&amp;gt;usb 부팅드라이브를 꽂은 후 전원을 켠다.&amp;lt;br /&amp;gt;
+화면이 켜지면 바로 &amp;lt;code&amp;gt;option&amp;lt;/code&amp;gt; 키를 계속 누르고 있으면 부팅디스크 선택 화면이 표시된다.&amp;lt;br /&amp;gt;
+usb 드라이브(EFI Boot)를 선택하면 우분투 부팅 화면으로 진입하게 된다.&amp;lt;/p&amp;gt;
+&amp;lt;p&amp;gt;설치 완료 후 아래처럼 패키지를 최신으로 업데이트한다.&amp;lt;/p&amp;gt;
+&amp;lt;pre&amp;gt;&amp;lt;code class=&amp;quot;language-bsh&amp;quot;&amp;gt;$ sudo apt update
+$ sudp apt -y upgrade
+&amp;lt;/code&amp;gt;&amp;lt;/pre&amp;gt;
+&amp;lt;h2&amp;gt;안드로이드 설치&amp;lt;/h2&amp;gt;
+&amp;lt;p&amp;gt;&amp;lt;a href=&amp;quot;https://www.android-x86.org/&amp;quot;&amp;gt;Android-x86&amp;lt;/a&amp;gt;에서 최신 설치 파일을 다운받아서 설치한다.&amp;lt;/p&amp;gt;
+&amp;lt;p&amp;gt;ISO를 받아서 별도의 OS로 설치하는 것이 아니라 &amp;lt;code&amp;gt;rpm&amp;lt;/code&amp;gt; 설치 파일을 받아서 설치하면 된다.&amp;lt;br /&amp;gt;
+리눅스에 안드로이드를 멀티부팅 가능하도록 설치 해준다.&amp;lt;/p&amp;gt;
+&amp;lt;p&amp;gt;현재 최신 안정 버전인 lineage OS &amp;lt;code&amp;gt;cm-x86-14.1-r5.x86_64.rpm&amp;lt;/code&amp;gt; 파일을 다운로드 한다. 다운로드 경로는 &amp;lt;a href=&amp;quot;https://www.android-x86.org/releases/releasenote-cm-x86-14-1-r5.html&amp;quot;&amp;gt;릴리즈노트&amp;lt;/a&amp;gt;를 참고한다.&amp;lt;/p&amp;gt;
+&amp;lt;p&amp;gt;&amp;lt;code&amp;gt;rpm&amp;lt;/code&amp;gt; 패키지를 우분투용 패키지로 바꿔주는 &amp;lt;code&amp;gt;alien&amp;lt;/code&amp;gt; 툴을 먼저 설치 후 &amp;lt;code&amp;gt;alien&amp;lt;/code&amp;gt;으로 다운로드 받은 파일을 설치한다.&amp;lt;/p&amp;gt;
+&amp;lt;pre&amp;gt;&amp;lt;code class=&amp;quot;language-bsh&amp;quot;&amp;gt;$ sudo apt install alien
+$ sudo alien -ci cm-x86-14.1-r5.x86_64.rpm
+&amp;lt;/code&amp;gt;&amp;lt;/pre&amp;gt;
+&amp;lt;p&amp;gt;패키지를 변환하는 작업이 시간이 걸리는지 설치 완료되는데 내 경우에는 10분 이상 소요되었다.&amp;lt;/p&amp;gt;
+&amp;lt;p&amp;gt;설치 완료되면 &amp;lt;code&amp;gt;/cm-x86-14.1-r5&amp;lt;/code&amp;gt; 폴더가 생성되고 모든 파일이 하위에 설치된다.&amp;lt;/p&amp;gt;
+&amp;lt;p&amp;gt;&amp;lt;code&amp;gt;qemu-android&amp;lt;/code&amp;gt; 명령으로 리눅스에서 바로 실행이 가능하다.&amp;lt;br /&amp;gt;
+&amp;lt;code&amp;gt;qemu-system&amp;lt;/code&amp;gt; 패키지를 먼저 설치하고 실행한다.&amp;lt;/p&amp;gt;
+&amp;lt;pre&amp;gt;&amp;lt;code class=&amp;quot;language-bsh&amp;quot;&amp;gt;$ sudo apt install qemu-system
+$ sudo qemu-android
+&amp;lt;/code&amp;gt;&amp;lt;/pre&amp;gt;
+&amp;lt;h2&amp;gt;grub 편집하여 부팅메뉴 표시하기&amp;lt;/h2&amp;gt;
+&amp;lt;p&amp;gt;우분투는 디폴트로 grub 부팅메뉴가 표시되지 않도록 세팅되어 있다.&amp;lt;br /&amp;gt;
+&amp;lt;code&amp;gt;/etc/default/grub&amp;lt;/code&amp;gt; 설정 파일을 수정하여 표시되도록 바꿔준다.&amp;lt;/p&amp;gt;
+&amp;lt;pre&amp;gt;&amp;lt;code class=&amp;quot;language-bsh&amp;quot;&amp;gt;$ sudo vim /etc/default/grub
+&amp;lt;/code&amp;gt;&amp;lt;/pre&amp;gt;
+&amp;lt;p&amp;gt;아래처럼 값을 변경한다. 부팅시 &amp;lt;code&amp;gt;menu&amp;lt;/code&amp;gt; 형태로 &amp;lt;code&amp;gt;10초&amp;lt;/code&amp;gt; 동안 표시하도록 설정한다.&amp;lt;/p&amp;gt;
+&amp;lt;pre&amp;gt;&amp;lt;code&amp;gt;GRUB_TIMEOUT_STYLE=menu
+GRUB_TIMEOUT=10
+&amp;lt;/code&amp;gt;&amp;lt;/pre&amp;gt;
+&amp;lt;p&amp;gt;파일 변경 후에는 아래 명령을 실행해야 변경 사항이 반영된다.&amp;lt;/p&amp;gt;
+&amp;lt;pre&amp;gt;&amp;lt;code class=&amp;quot;language-bsh&amp;quot;&amp;gt;$ sudo update-grub
+&amp;lt;/code&amp;gt;&amp;lt;/pre&amp;gt;
+&amp;lt;p&amp;gt;재부팅하면 &amp;lt;code&amp;gt;grub&amp;lt;/code&amp;gt; 메뉴에서 안드로이드를 선택하여 부팅할 수 있다.&amp;lt;br /&amp;gt;
+&amp;lt;img src=&amp;quot;/img/linux/ubuntu/ubuntu_004-01.jpg&amp;quot; alt=&amp;quot;grub 부팅화면&amp;quot; /&amp;gt;&amp;lt;/p&amp;gt;
+&amp;lt;h2&amp;gt;안드로이드 설치 제거&amp;lt;/h2&amp;gt;
+&amp;lt;p&amp;gt;아래 명령으로 설치 가능하며, 설치 폴더가 완전히 삭제되지 않는 경우가 있으니 깨끗히 지워준다.&amp;lt;/p&amp;gt;
+&amp;lt;pre&amp;gt;&amp;lt;code class=&amp;quot;language-bsh&amp;quot;&amp;gt;$ sudo apt-get remove android-x86
+$ rm -rf /cm-x86-14.1-r5
+&amp;lt;/code&amp;gt;&amp;lt;/pre&amp;gt;
+</description>
+    </item><item>
       <title>네이버 나눔스퀘어라운드 폰트 적용하기</title>
       <link>https://appaga.kr/blog/web/web0001.html</link>
       <pubDate>Sun, 1 May 2022 00:00:00 +0900</pubDate>
