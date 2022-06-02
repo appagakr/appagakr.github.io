@@ -6,8 +6,8 @@
     <atom:link href="https://appaga.kr/feed.xml" rel="self" type="application/rss+xml" />
     <description>APPAGA.KR DevOps</description>
     <language>ko-KR</language>
-    <pubDate>Wed, 1 Jun 2022 17:47:40 +0900</pubDate>
-    <lastBuildDate>Wed, 1 Jun 2022 17:47:40 +0900</lastBuildDate>
+    <pubDate>Thu, 2 Jun 2022 09:07:23 +0900</pubDate>
+    <lastBuildDate>Thu, 2 Jun 2022 09:07:23 +0900</lastBuildDate>
 
     <item>
       <title>맥북에어 2011 모델에 Ubuntu 및 Android-x86 멀티부팅으로 설치하여 안드로이드 사용하기</title>
@@ -17,6 +17,7 @@
       <description>&amp;lt;p&amp;gt;2011년 경에 구입한 MacBook Air (11-inch, Mid 2011)를 안쓴지 오래이다.&amp;lt;br /&amp;gt;
 4GB 램에 128GB 디스크에 아직도 큰 문제없이 작동한다.&amp;lt;br /&amp;gt;
 묵혀두기에는 아까워서 ubuntu 22.04 설치하여 테스트용으로도 쓰고 Android-x86도 멀티부팅 가능하게 설치하여 안드로이드도 사용하고자 한다.&amp;lt;/p&amp;gt;
+&amp;lt;p&amp;gt;별도의 파티션에 두 OS를 설치하는 것이 아닌 우분투에 &amp;lt;code&amp;gt;rpm&amp;lt;/code&amp;gt;으로 안드로이드를 설치하여 멀티부팅으로 선택하여 사용하도록 설치한다.&amp;lt;/p&amp;gt;
 &amp;lt;p&amp;gt;&amp;lt;img src=&amp;quot;/img/linux/ubuntu/ubuntu_004-02.jpg&amp;quot; alt=&amp;quot;안드로이드 실행 화면&amp;quot; /&amp;gt;&amp;lt;/p&amp;gt;
 &amp;lt;h2&amp;gt;우분투 설치용 USB 드라이브 만들기&amp;lt;/h2&amp;gt;
 &amp;lt;p&amp;gt;&amp;lt;a href=&amp;quot;https://ubuntu.com/&amp;quot;&amp;gt;Ubuntu&amp;lt;/a&amp;gt;에서 데스크탑용 ISO 이미지 파일 다운받는다. 최신 버전인 Ubuntu 22.04를 다운한다.&amp;lt;/p&amp;gt;
@@ -61,10 +62,23 @@ GRUB_TIMEOUT=10
 &amp;lt;/code&amp;gt;&amp;lt;/pre&amp;gt;
 &amp;lt;p&amp;gt;재부팅하면 &amp;lt;code&amp;gt;grub&amp;lt;/code&amp;gt; 메뉴에서 안드로이드를 선택하여 부팅할 수 있다.&amp;lt;br /&amp;gt;
 &amp;lt;img src=&amp;quot;/img/linux/ubuntu/ubuntu_004-01.jpg&amp;quot; alt=&amp;quot;grub 부팅화면&amp;quot; /&amp;gt;&amp;lt;/p&amp;gt;
+&amp;lt;h2&amp;gt;grub 편집하여 디폴트로 안드로이드로 부팅하기&amp;lt;/h2&amp;gt;
+&amp;lt;p&amp;gt;grub 설정에서 &amp;lt;code&amp;gt;GRUB_DEFAULT=0&amp;lt;/code&amp;gt; 부분이 디폴트 커널 설정이다.&amp;lt;br /&amp;gt;
+grub 부팅화면에서 안드로이드가 세번째로 표시되고 있으니 순서(인덱스)로 &amp;lt;code&amp;gt;2&amp;lt;/code&amp;gt;가 된다.&amp;lt;br /&amp;gt;
+&amp;lt;code&amp;gt;GRUB_DEFAULT=2&amp;lt;/code&amp;gt;로 설정을 수정하고 재부팅하면 자동으로 안드로이드로 부팅된다.&amp;lt;/p&amp;gt;
+&amp;lt;pre&amp;gt;&amp;lt;code class=&amp;quot;language-bsh&amp;quot;&amp;gt;$ sudo vim /etc/default/grub
+
+GRUB_DEFAULT=2
+GRUB_TIMEOUT_STYLE=menu
+GRUB_TIMEOUT=3
+
+$ sudo update-grub
+$ reboot
+&amp;lt;/code&amp;gt;&amp;lt;/pre&amp;gt;
 &amp;lt;h2&amp;gt;안드로이드 설치 제거&amp;lt;/h2&amp;gt;
 &amp;lt;p&amp;gt;아래 명령으로 설치 가능하며, 설치 폴더가 완전히 삭제되지 않는 경우가 있으니 깨끗히 지워준다.&amp;lt;/p&amp;gt;
 &amp;lt;pre&amp;gt;&amp;lt;code class=&amp;quot;language-bsh&amp;quot;&amp;gt;$ sudo apt-get remove android-x86
-$ rm -rf /cm-x86-14.1-r5
+$ sudo rm -rf /cm-x86-14.1-r5
 &amp;lt;/code&amp;gt;&amp;lt;/pre&amp;gt;
 </description>
     </item><item>
