@@ -2,5 +2,5 @@ $(function() {
      $('code').parent('pre').addClass('prettyprint');
      PR.prettyPrint();
 
-     $('body img').addClass('img-thumbnail');
+     $('main.container img').addClass('img-thumbnail');
 });
