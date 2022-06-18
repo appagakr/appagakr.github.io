@@ -4,7 +4,7 @@
 
 <head>
 	    <meta charset="utf-8"/>
-	    <title>Google 애널리틱스 사용</title>
+	    <title>Ubuntu 22.04에서 Desktop 모드로 부팅 끄고 켜기</title>
 	    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 	    <meta name="description" content="DevOps를 위한 정보 제공"/>
 	    <meta name="author" content="appaga@appaga.kr"/>
@@ -101,23 +101,26 @@
 	</div>
 		<main class="container">
 			<div class="page-header">
-				<h1>Google 애널리틱스 사용</h1>
+				<h1>Ubuntu 22.04에서 Desktop 모드로 부팅 끄고 켜기</h1>
 			</div>
-			<p><em>23 February 2020</em></p>
-			<p><h2>애널리틱스 계정 만들기</h2>
-<p><a href="https://analytics.google.com/">https://analytics.google.com</a> 에서 진행한다.</p>
-<ol>
-<li><code>ttallaemideul</code> 이름으로 계정생성 하였다.</li>
-<li>측정하려는 대상은 <code>웹</code>을 선택하였다.</li>
-<li>내 사이트 <code>https://ttallaemideul.github.io/</code>로 나머지 속성을 설정하였다.</li>
-</ol>
-<p><img src="/img/google/google-001-01.png" alt="구글 애널리틱스 계정 만들기" /></p>
-<p>생성된 계정 정보에서 <code>관리 &gt; 추정 정보 &gt; 추적 코드</code>에서 <code>추척ID</code> 값을 확인할 수 있다.</p>
-<p>또한, 사이트에 추가해야 할 자바스브립트 코드도 확인 가능하다.</p>
-<h2>필터 추가</h2>
-<p><code>관리 &gt; 모든필터 &gt; 필터추가</code>를 이용하여 제외할 요청을 설정할 수 있다.<br />
-자시의 컴퓨터에서 요청은 통계에서 제외할 수 있도록 설정이 가능하다.</p>
-<p><img src="/img/google/google-001-02.png" alt="필터추가" /></p>
+			<p><em>18 June 2022</em></p>
+			<p><p>우분투 22.04 데스트탑 버전을 설치하면 자동으로 데스크탑으로 부팅된다.<br />
+서버 버전을 설치한 것과 같이 데스크탑없이 부팅하여 사용하고자 할 경우에는 <code>systemctl</code> 명령으로 간단히 GUI 모드를 켜고 끌 수 있다.</p>
+<h2>GUI로 부팅 끄기</h2>
+<p><code>systemctl</code> 명령으로 GUI 모드를 끄고 재부팅하면 된다.</p>
+<pre><code class="language-bsh">$ sudo systemctl set-default multi-user
+Created symlink /etc/systemd/system/default.target → /lib/systemd/system/multi-user.target.
+$ reboot
+</code></pre>
+<p>부팅되면 아래 이미지 처럼 터미널이 표시된다.</p>
+<p><img src="/img/linux/ubuntu/ubuntu_005-01.jpg" alt="터미널" /></p>
+<h2>GUI로 부팅 켜기</h2>
+<p><code>systemctl</code> 명령으로 GUI 모드를 켜고 재부팅하면 된다.</p>
+<pre><code class="language-bsh">$ sudo systemctl set-default graphical
+Removed /etc/systemd/system/default.target.
+Created symlink /etc/systemd/system/default.target → /lib/systemd/system/graphical.target.
+$ reboot
+</code></pre>
 </p>
 		</main>
 	</div>
@@ -133,7 +136,7 @@
 			<script src="../../js/jquery-3.6.0.min.js"></script>
 			<script src="../../bootstrap/bootstrap.bundle.min.js"></script>
 			<script src="../../prettify/prettify.js"></script>
-		    <script src="../../js/appaga.js?20220618105620"></script>
+		    <script src="../../js/appaga.js?20220618105619"></script>
 			
 			<!-- Global site tag (gtag.js) - Google Analytics -->
 			<script async src="https://www.googletagmanager.com/gtag/js?id=G-VB6XQ6972F"></script>
