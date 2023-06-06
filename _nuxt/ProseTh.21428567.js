@@ -1,0 +1,1 @@
+/* empty css                    */import{m as t,o as n,e as o,H as r}from"./entry.cc2dbc09.js";const c={};function s(e,_){return n(),o("th",null,[r(e.$slots,"default",{},void 0,!0)])}const l=t(c,[["render",s],["__scopeId","data-v-40ddd69b"]]);export{l as default};
